@@ -42,7 +42,7 @@ namespace MainMenu
 		DrawTexture(background, 0, 0, WHITE);
 
 		int titleFontSize = fontSize * 2;
-		const char* title = "Aliens";
+		const char* title = "Name";
 		int textLength = MeasureText(title, titleFontSize);
 		int textX = static_cast<int> (screenCenterX - textLength / 2);
 		int textY = static_cast<int> (screenHeight / 6 - titleFontSize / 2);
