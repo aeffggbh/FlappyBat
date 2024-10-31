@@ -26,7 +26,7 @@ namespace Player
 			static_cast<float>(player.sprite.texture.height)
 		};
 
-		player.pos.x = static_cast<float>(GetScreenWidth() / 2);
+		player.pos.x = static_cast<float>(GetScreenWidth()) / 10;
 		player.pos.y = static_cast<float>(GetScreenHeight() / 2);
 
 		float destinationWidth = player.sprite.texture.width * player.sprite.scale;
@@ -49,8 +49,8 @@ namespace Player
 		player.collisionShape.radius = 25;
 
 		//Speed
-		player.jumpSpeed = 1000.0f;
-		player.fallSpeed = 200.0f;
+		player.jumpSpeed = 400000.0f;
+		player.fallSpeed = 300.0f;
 		player.speed = { 0,0 };
 	}
 
