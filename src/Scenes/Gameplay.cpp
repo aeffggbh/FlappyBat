@@ -44,13 +44,14 @@ namespace Gameplay
 	static void ResetEnemyPosition();
 
 	//Collisions
-
+	static bool CheckPlayerEnemyCollision();
 
 	void Load()
 	{
 		//pause = Bton::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 
 		PlayerNS::Load();
+		EnemyNS::Load();
 
 		background = LoadTexture("");
 
@@ -63,8 +64,6 @@ namespace Gameplay
 		//Jump
 		if (IsMouseButtonPressed(0) || IsKeyReleased(KEY_SPACE))
 		{
-			cout << "Click pressed" << endl;
-			cout << "Y: " << player.collisionShape.center.y << endl;
 			PlayerJump();
 		}
 
@@ -72,6 +71,12 @@ namespace Gameplay
 
 		MoveEnemy();
 		KeepEnemyOnScreen();
+
+		if (CheckPlayerEnemyCollision())
+		{
+			cout << "Colision" << endl;
+			gameOnGoing = false;
+		}
 
 
 		return gameOnGoing;
@@ -135,7 +140,39 @@ namespace Gameplay
 	void ResetEnemyPosition()
 	{
 		enemy.pos.x = GetScreenWidth() - enemy.collisionShape.width;
-		enemy.pos.y = enemy.collisionShape.y = static_cast<float> (rand() % GetScreenHeight() - enemy.collisionShape.height);
+		enemy.collisionShape.y = static_cast<float> (rand() % GetScreenHeight() - enemy.collisionShape.height);
+		enemy.pos.y = enemy.collisionShape.y;
+	}
+
+	bool CheckPlayerEnemyCollision()
+	{
+		float cx = player.collisionShape.center.x;
+		float cy = player.collisionShape.center.y;
+		float radius = player.collisionShape.radius;
+
+		float rx = enemy.collisionShape.x;
+		float ry = enemy.collisionShape.y; 
+		float rw = enemy.collisionShape.width;
+		float rh = enemy.collisionShape.height;
+
+		float testX = cx;
+		float testY = cy;
+
+		if (cx < rx)        
+			testX = rx;
+		else if (cx > rx + rw) 
+			testX = rx + rw;
+		if (cy < ry)        
+			testY = ry;
+		else if (cy > ry + rh)
+			testY = ry + rh;
+
+
+		float distX = cx - testX;
+		float distY = cy - testY;
+		float distance = std::sqrt((distX * distX) + (distY * distY));
+
+		return (distance <= radius);
 	}
 
 
