@@ -11,6 +11,8 @@ namespace GameOver
 {
 	static Texture2D background;
 
+	static Text::Text gameOver;
+
 	Bton::Button returnToMenu;
 	Bton::Button playAgain;
 
@@ -38,6 +40,9 @@ namespace GameOver
 
 		heightMultiplyer = 1;
 
+		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, GREEN);
+		Text::SetTextLength(gameOver);
+
 		background = LoadTexture("");
 
 		returnToMenu = Bton::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
@@ -49,6 +54,8 @@ namespace GameOver
 		ClearBackground(BLACK);
 
 		DrawTexture(background, 0, 0, WHITE);
+
+		Text::DrawCentered(gameOver);
 
 		Bton::Draw(returnToMenu, buttonFontSize);
 		Bton::Draw(playAgain, buttonFontSize);
