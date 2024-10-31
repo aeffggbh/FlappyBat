@@ -91,6 +91,8 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/Raylib5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,6 +113,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/Raylib5.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,7 +146,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Interface\Button.cpp" />
+    <ClCompile Include="src\Interface\Text.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Objects\Player.cpp" />
+    <ClCompile Include="src\Scenes\Credits.cpp" />
+    <ClCompile Include="src\Scenes\GameOver.cpp" />
+    <ClCompile Include="src\Scenes\Gameplay.cpp" />
+    <ClCompile Include="src\Scenes\MainMenu.cpp" />
+    <ClCompile Include="src\Scenes\Pause.cpp" />
+    <ClCompile Include="src\Scenes\Tutorial.cpp" />
+    <ClCompile Include="src\Utils\SoundManager.cpp" />
+    <ClCompile Include="src\Utils\Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Interface\Button.h" />
+    <ClInclude Include="src\Interface\Text.h" />
+    <ClInclude Include="src\Objects\Circle.h" />
+    <ClInclude Include="src\Objects\Player.h" />
+    <ClInclude Include="src\Objects\Sprite.h" />
+    <ClInclude Include="src\Scenes\Credits.h" />
+    <ClInclude Include="src\Scenes\GameOver.h" />
+    <ClInclude Include="src\Scenes\Gameplay.h" />
+    <ClInclude Include="src\Scenes\MainMenu.h" />
+    <ClInclude Include="src\Scenes\Pause.h" />
+    <ClInclude Include="src\Scenes\Tutorial.h" />
+    <ClInclude Include="src\Utils\SoundManager.h" />
+    <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
