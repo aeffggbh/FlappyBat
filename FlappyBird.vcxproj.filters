@@ -57,6 +57,9 @@
     <ClCompile Include="src\Scenes\Tutorial.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Enemy.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="src\Scenes\Tutorial.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Enemy.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
