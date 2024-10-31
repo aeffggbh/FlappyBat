@@ -45,6 +45,7 @@ namespace Gameplay
 
 	//Collisions
 	static bool CheckPlayerEnemyCollision();
+	static bool CheckPlayerBorderCollision();
 
 	void Load()
 	{
@@ -72,7 +73,7 @@ namespace Gameplay
 		MoveEnemy();
 		KeepEnemyOnScreen();
 
-		if (CheckPlayerEnemyCollision())
+		if (CheckPlayerEnemyCollision() || CheckPlayerBorderCollision())
 		{
 			cout << "Colision" << endl;
 			gameOnGoing = false;
@@ -127,6 +128,7 @@ namespace Gameplay
 	void MoveEnemy()
 	{
 		enemy.pos.x -= enemy.speed * GetFrameTime();
+		enemy.collisionShape.x = enemy.pos.x;
 	}
 
 	void KeepEnemyOnScreen()
@@ -140,8 +142,10 @@ namespace Gameplay
 	void ResetEnemyPosition()
 	{
 		enemy.pos.x = GetScreenWidth() - enemy.collisionShape.width;
-		enemy.collisionShape.y = static_cast<float> (rand() % GetScreenHeight() - enemy.collisionShape.height);
-		enemy.pos.y = enemy.collisionShape.y;
+		enemy.pos.y = static_cast<float> (rand() % static_cast <int>(GetScreenHeight() - enemy.collisionShape.height));
+
+		enemy.collisionShape.x = enemy.pos.x;
+		enemy.collisionShape.y = enemy.pos.y;
 	}
 
 	bool CheckPlayerEnemyCollision()
@@ -173,6 +177,19 @@ namespace Gameplay
 		float distance = std::sqrt((distX * distX) + (distY * distY));
 
 		return (distance <= radius);
+	}
+
+	bool CheckPlayerBorderCollision()
+	{
+		bool isCollision = false;
+		if (player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight() ||
+			player.collisionShape.center.y - player.collisionShape.radius <= 0)
+		{
+			isCollision = true;
+		}
+
+		return isCollision;
+		
 	}
 
 
