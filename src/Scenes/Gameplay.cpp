@@ -91,9 +91,9 @@ namespace Gameplay
 		PlayerNS::Draw();
 		EnemyNS::Draw();
 
-		DrawText((to_string(player.score)).c_str(),
-			GetScreenWidth() / 2,
-			fontSize / 2,
+		DrawText("1.0",
+			GetScreenWidth() / 20 * 19,
+			GetScreenHeight() / 20 * 19,
 			fontSize,
 			MAGENTA);
 
@@ -125,6 +125,8 @@ namespace Gameplay
 		player.pos.y = player.collisionShape.center.y;
 	}
 
+
+	//Enemy
 	void MoveEnemy()
 	{
 		enemy.pos.x -= enemy.speed * GetFrameTime();
@@ -148,6 +150,8 @@ namespace Gameplay
 		enemy.collisionShape.y = enemy.pos.y;
 	}
 
+
+	//Collision
 	bool CheckPlayerEnemyCollision()
 	{
 		float cx = player.collisionShape.center.x;
