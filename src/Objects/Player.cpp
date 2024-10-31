@@ -50,7 +50,7 @@ namespace Player
 
 		//Speed
 		player.jumpSpeed = 400000.0f;
-		player.fallSpeed = 300.0f;
+		player.fallSpeed = 400.0f;
 		player.speed = { 0,0 };
 	}
 
