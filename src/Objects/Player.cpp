@@ -41,7 +41,7 @@ namespace Player
 
 		player.sprite.currentFrame = 0;
 		player.sprite.frameTimer = 0.0f;
-		player.sprite.frameRate = 0.07f;
+		player.sprite.frameRate = 0.09f;
 
 		//Sprite Center
 		float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
@@ -56,7 +56,7 @@ namespace Player
 
 		//Collision
 		player.collisionShape.center = player.pos;
-		player.collisionShape.radius = 25;
+		player.collisionShape.radius = 22;
 
 		//Speed
 		player.jumpSpeed = 500000.0f;
