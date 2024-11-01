@@ -68,7 +68,10 @@ namespace Player
 	{
 		//Collision
 #ifdef _DEBUG
-		DrawCircle(static_cast <int>(player.collisionShape.center.x), static_cast <int>(player.collisionShape.center.y), player.collisionShape.radius, BLUE);
+		DrawCircle(static_cast <int>(player.collisionShape.center.x), 
+			static_cast <int>(player.collisionShape.center.y), 
+			player.collisionShape.radius, 
+			BLUE);
 #endif // _DEBUG
 
 		Vector2 drawingPos =

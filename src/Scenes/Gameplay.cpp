@@ -8,8 +8,6 @@
 
 #include "Objects/Player.h"
 #include "Objects/Enemy.h"
-#include "Utils/SoundManager.h"
-#include "Utils/Utils.h"
 
 
 namespace PlayerNS = Player;
@@ -17,8 +15,6 @@ namespace EnemyNS = Enemy;
 
 using namespace PlayerNS;
 using namespace EnemyNS;
-using namespace SoundManager;
-using namespace Utils;
 
 using namespace std;
 
@@ -40,9 +36,10 @@ namespace Gameplay
 	static void PlayerFall();
 
 	//Enemy
-	static void MoveEnemy();
-	static void KeepEnemyOnScreen();
-	static void ResetEnemyPosition();
+	static void ManageEnemy();
+	static void MoveEnemy(EnemyNS::Enemy& enemyToMove);
+	static void KeepEnemyOnScreen(EnemyNS::Enemy enemyToKeepOnScreen);
+	static void ResetEnemyPosition(EnemyNS::Enemy& enemyToReset);
 
 	//Collisions
 	static bool CheckPlayerEnemyCollision();
@@ -73,15 +70,14 @@ namespace Gameplay
 
 		PlayerFall();
 
-		MoveEnemy();
-		KeepEnemyOnScreen();
+		ManageEnemy();
 
 		if (CheckPlayerEnemyCollision() || CheckPlayerBorderCollision())
 		{
 			gameOnGoing = false;
 		}
 
-
+		//cout << enemy.pos[0].x << " " << enemy.pos[0].y << endl;
 		return gameOnGoing;
 	}
 
@@ -94,6 +90,12 @@ namespace Gameplay
 		EnemyNS::Draw();
 
 		Bton::Draw(pause, fontSize);
+
+		DrawCircle(static_cast <int>(player.pos.x),
+			static_cast <int>(player.pos.y),
+			player.collisionShape.radius,
+			GREEN);
+
 	}
 
 	void Unload()
@@ -137,27 +139,33 @@ namespace Gameplay
 
 
 	//Enemy
-	void MoveEnemy()
+	void ManageEnemy()
 	{
-		enemy.pos.x -= enemy.speed * GetFrameTime();
-		enemy.collisionShape.x = enemy.pos.x;
+		MoveEnemy(enemy);
+		KeepEnemyOnScreen(enemy);
 	}
 
-	void KeepEnemyOnScreen()
+	void MoveEnemy(EnemyNS::Enemy& enemyToMove)
 	{
-		if (enemy.pos.x + enemy.collisionShape.width < 0)
+		for (int i = 0; i < obstacleParts; i++)
 		{
-			ResetEnemyPosition();
+			enemyToMove.pos[i].x -= enemyToMove.speed * GetFrameTime();
+			enemyToMove.collisionShapes[i].x = enemyToMove.pos[i].x;
+
 		}
 	}
 
-	void ResetEnemyPosition()
+	void KeepEnemyOnScreen(EnemyNS::Enemy enemyToKeepOnScreen)
 	{
-		enemy.pos.x = GetScreenWidth() - enemy.collisionShape.width;
-		enemy.pos.y = static_cast<float> (rand() % static_cast <int>(GetScreenHeight() - enemy.collisionShape.height));
+		if (enemyToKeepOnScreen.pos[0].x + enemyToKeepOnScreen.collisionShapes[0].width < 0)
+		{
+			ResetEnemyPosition(enemyToKeepOnScreen);
+		}
+	}
 
-		enemy.collisionShape.x = enemy.pos.x;
-		enemy.collisionShape.y = enemy.pos.y;
+	void ResetEnemyPosition(EnemyNS::Enemy& enemyToReset)
+	{
+		EnemyNS::SetEnemy(enemyToReset);
 	}
 
 
@@ -168,29 +176,38 @@ namespace Gameplay
 		float cy = player.collisionShape.center.y;
 		float radius = player.collisionShape.radius;
 
-		float rx = enemy.collisionShape.x;
-		float ry = enemy.collisionShape.y;
-		float rw = enemy.collisionShape.width;
-		float rh = enemy.collisionShape.height;
+		for (int i = 0; i < obstacleParts; i++)
+		{
+			float rx = enemy.collisionShapes[i].x;
+			float ry = enemy.collisionShapes[i].y;
+			float rw = enemy.collisionShapes[i].width;
+			float rh = enemy.collisionShapes[i].height;
 
-		float testX = cx;
-		float testY = cy;
+			float testX = cx;
+			float testY = cy;
 
-		if (cx < rx)
-			testX = rx;
-		else if (cx > rx + rw)
-			testX = rx + rw;
-		if (cy < ry)
-			testY = ry;
-		else if (cy > ry + rh)
-			testY = ry + rh;
+			if (cx < rx)
+				testX = rx;
+			else if (cx > rx + rw)
+				testX = rx + rw;
+			if (cy < ry)
+				testY = ry;
+			else if (cy > ry + rh)
+				testY = ry + rh;
 
 
-		float distX = cx - testX;
-		float distY = cy - testY;
-		float distance = std::sqrt((distX * distX) + (distY * distY));
+			float distX = cx - testX;
+			float distY = cy - testY;
+			float distance = std::sqrt((distX * distX) + (distY * distY));
 
-		return (distance <= radius);
+			if (distance <= radius)
+			{
+				cout << "Colision player enemy" << endl;
+				return true;
+			}
+		}
+
+		return false;;
 	}
 
 	bool CheckPlayerBorderCollision()
@@ -203,7 +220,6 @@ namespace Gameplay
 		}
 
 		return isCollision;
-
 	}
 
 
