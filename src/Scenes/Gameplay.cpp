@@ -78,7 +78,7 @@ namespace Gameplay
 
 		if (CheckPlayerEnemyCollision() || CheckPlayerBorderCollision())
 		{
-			//gameOnGoing = false;
+			gameOnGoing = false;
 		}
 
 
@@ -113,7 +113,7 @@ namespace Gameplay
 		return player.score;
 	}
 
-
+	//Player
 	void PlayPlayerAnimation()
 	{
 		player.sprite.frameTimer += GetFrameTime();
@@ -129,7 +129,6 @@ namespace Gameplay
 		}
 	}
 
-	//Player
 	void PlayerJump()
 	{
 		player.collisionShape.center.y -= player.jumpSpeed * GetFrameTime();
