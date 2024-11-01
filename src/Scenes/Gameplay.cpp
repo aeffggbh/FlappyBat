@@ -35,6 +35,7 @@ namespace Gameplay
 	static Texture2D background;
 
 	//Player
+	static void PlayPlayerAnimation();
 	static void PlayerJump();
 	static void PlayerFall();
 
@@ -62,6 +63,8 @@ namespace Gameplay
 
 	bool Update()
 	{
+		PlayPlayerAnimation();
+
 		//Jump
 		if (IsMouseButtonPressed(0) || IsKeyReleased(KEY_SPACE))
 		{
@@ -75,8 +78,7 @@ namespace Gameplay
 
 		if (CheckPlayerEnemyCollision() || CheckPlayerBorderCollision())
 		{
-			cout << "Colision" << endl;
-			gameOnGoing = false;
+			//gameOnGoing = false;
 		}
 
 
@@ -111,6 +113,21 @@ namespace Gameplay
 		return player.score;
 	}
 
+
+	void PlayPlayerAnimation()
+	{
+		player.sprite.frameTimer += GetFrameTime();
+		if (player.sprite.frameTimer >= player.sprite.frameRate)
+		{
+			player.sprite.frameTimer = 0.0f;
+			player.sprite.currentFrame++;
+
+			if (player.sprite.currentFrame >= PlayerNS::flyFrames)
+			{
+				player.sprite.currentFrame = 0;
+			}
+		}
+	}
 
 	//Player
 	void PlayerJump()
@@ -159,18 +176,18 @@ namespace Gameplay
 		float radius = player.collisionShape.radius;
 
 		float rx = enemy.collisionShape.x;
-		float ry = enemy.collisionShape.y; 
+		float ry = enemy.collisionShape.y;
 		float rw = enemy.collisionShape.width;
 		float rh = enemy.collisionShape.height;
 
 		float testX = cx;
 		float testY = cy;
 
-		if (cx < rx)        
+		if (cx < rx)
 			testX = rx;
-		else if (cx > rx + rw) 
+		else if (cx > rx + rw)
 			testX = rx + rw;
-		if (cy < ry)        
+		if (cy < ry)
 			testY = ry;
 		else if (cy > ry + rh)
 			testY = ry + rh;
@@ -193,7 +210,7 @@ namespace Gameplay
 		}
 
 		return isCollision;
-		
+
 	}
 
 
