@@ -11,38 +11,42 @@ namespace Player
 	Player player;
 	static Vector2 spriteCenter;
 
+	static float frameWidth;
+	static float frameHeight;
+
 	void Load()
 	{
 		player.score = 0;
 
 		//Sprite
-		player.sprite.texture = LoadTexture("");
-		player.sprite.scale = 1.75f;
-		player.sprite.source =
+		player.sprite.texture = LoadTexture("res/Sprite/bat.png");
+		player.sprite.scale = 3.0f;
+
+		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
+		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
+
+		frameWidth = static_cast <float> (player.sprite.texture.width / flyFrames);
+		frameHeight = static_cast <float> (player.sprite.texture.height);
+
+		//Define fly frames
+		for (int i = 0; i < flyFrames; i++)
 		{
-			0,
-			0,
-			static_cast<float>(player.sprite.texture.width),
-			static_cast<float>(player.sprite.texture.height)
-		};
+			player.flyAnimation[i] = {
+				frameWidth * i,
+				0,
+				frameWidth,
+				frameHeight
+			};
+		}
 
-		player.pos.x = static_cast<float>(GetScreenWidth()) / 10;
-		player.pos.y = static_cast<float>(GetScreenHeight() / 2);
+		player.sprite.currentFrame = 0;
 
-		float destinationWidth = player.sprite.texture.width * player.sprite.scale;
-		float destinationHeight = player.sprite.texture.height * player.sprite.scale;
-
-		player.sprite.destination =
-		{
-			player.pos.x,
-			player.pos.y,
-			destinationWidth,
-			destinationHeight
-		};
-
-		float spriteCenterX = player.sprite.texture.width * player.sprite.scale / 2;
-		float spriteCenterY = player.sprite.texture.height * player.sprite.scale / 2;
+		//Sprite Center
+		float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
+		float spriteCenterY = static_cast <float> (player.sprite.texture.height / 2);
 		spriteCenter = { spriteCenterX, spriteCenterY };
+
+		player.pos = spriteCenter;
 
 		//Collision
 		player.collisionShape.center = player.pos;
@@ -62,12 +66,10 @@ namespace Player
 #endif // _DEBUG
 
 		//Sprite
-		DrawTexturePro(
+		DrawTextureRec(
 			player.sprite.texture,
-			player.sprite.source,
-			player.sprite.destination,
-			spriteCenter,
-			player.sprite.rotation,
+			player.flyAnimation[player.sprite.currentFrame],
+			player.pos,
 			WHITE
 		);
 

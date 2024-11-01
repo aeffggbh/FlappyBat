@@ -2,20 +2,25 @@
 
 #include "raylib.h"
 
-#include "Objects/Sprite.h"
+#include "Objects/AnimatedSprite.h"
 #include "Objects/Circle.h"
 
 
 namespace Player
 {
+	const int flyFrames = 2;
+
 	struct Player
 	{
 		int score;
 
 		//Drawing
 		Vector2 pos;
-		Sprite::Sprite sprite;
-		
+		AnimatedSprite::AnimatedSprite sprite;
+
+		//Animation
+		Rectangle flyAnimation[flyFrames];
+
 		//Collision
 		Circle::Circle collisionShape;
 
