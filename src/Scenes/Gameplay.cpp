@@ -93,12 +93,6 @@ namespace Gameplay
 		PlayerNS::Draw();
 		EnemyNS::Draw();
 
-		DrawText("1.0",
-			GetScreenWidth() / 20 * 19,
-			GetScreenHeight() / 20 * 19,
-			fontSize,
-			MAGENTA);
-
 		Bton::Draw(pause, fontSize);
 	}
 

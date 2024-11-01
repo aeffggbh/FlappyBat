@@ -48,6 +48,13 @@ namespace MainMenu
 		int textY = static_cast<int> (screenHeight / 6 - titleFontSize / 2);
 		DrawText(title, textX, textY, titleFontSize, GREEN);
 
+		//Version text
+		DrawText("2.0",
+			GetScreenWidth() / 20 * 19,
+			GetScreenHeight() / 20 * 19,
+			fontSize,
+			MAGENTA);
+
 		Bton::Draw(play, fontSize);
 		Bton::Draw(tutorial, fontSize);
 		Bton::Draw(credits, fontSize);
