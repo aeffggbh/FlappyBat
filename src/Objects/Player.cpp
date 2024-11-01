@@ -49,7 +49,7 @@ namespace Player
 		player.collisionShape.radius = 25;
 
 		//Speed
-		player.jumpSpeed = 400000.0f;
+		player.jumpSpeed = 500000.0f;
 		player.fallSpeed = 400.0f;
 		player.speed = { 0,0 };
 	}
