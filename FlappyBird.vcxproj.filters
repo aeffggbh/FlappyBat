@@ -107,5 +107,8 @@
     <ClInclude Include="src\Objects\Enemy.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="src\Objects\AnimatedSprite.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

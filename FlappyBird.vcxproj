@@ -165,6 +165,7 @@
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Interface\Button.h" />
     <ClInclude Include="src\Interface\Text.h" />
+    <ClInclude Include="src\Objects\AnimatedSprite.h" />
     <ClInclude Include="src\Objects\Circle.h" />
     <ClInclude Include="src\Objects\Enemy.h" />
     <ClInclude Include="src\Objects\Player.h" />
