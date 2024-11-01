@@ -4,10 +4,12 @@
 
 namespace Enemy
 {
+	const int obstacleParts = 2;
+
 	struct Enemy
 	{
-		Rectangle collisionShape;
-		Vector2 pos;
+		Rectangle collisionShapes[obstacleParts];
+		Vector2 pos[obstacleParts];
 		float speed;
 	};
 
@@ -15,6 +17,7 @@ namespace Enemy
 
 	void Load();
 	void Draw();
+	void SetEnemy(Enemy& enemy);
 	void Unload();
 };
 
