@@ -19,8 +19,8 @@ using namespace SoundManager;
 
 namespace Game
 {
-	static const int screenWidth = 1024;
-	static const int screenHeight = 768;
+	static const int screenWidth = 800;
+	static const int screenHeight = 600;
 
 	enum class CurrentScene
 	{
