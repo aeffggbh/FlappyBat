@@ -44,7 +44,8 @@ namespace Gameplay
 
 	//Collisions
 	static bool CheckPlayerEnemyCollision();
-	static bool CheckPlayerBorderCollision();
+	static bool CheckPlayerBottomCollision();
+	static bool CheckPlayerTopCollision();
 
 	void Load()
 	{
@@ -73,10 +74,19 @@ namespace Gameplay
 		PlayerFall();
 
 		ManageEnemy();
+		CheckPlayerEnemyCollision();
 
-		if (CheckPlayerEnemyCollision() || CheckPlayerBorderCollision())
+		//Collisions
+		if (CheckPlayerEnemyCollision() || CheckPlayerBottomCollision())
 		{
 			gameOnGoing = false;
+		}
+
+		if (CheckPlayerTopCollision())
+		{
+			//Hacer esto funcion
+			player.speed = 0;
+			player.collisionShape.center.y = player.collisionShape.radius + 1;
 		}
 
 		return gameOnGoing;
@@ -216,15 +226,14 @@ namespace Gameplay
 		return false;;
 	}
 
-	bool CheckPlayerBorderCollision()
+	bool CheckPlayerBottomCollision()
 	{
-		if (player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight() ||
-			player.collisionShape.center.y - player.collisionShape.radius <= 0)
-		{
-			return true;
-		}
+		return player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight();
+	}
 
-		return false;
+	bool CheckPlayerTopCollision()
+	{
+		return player.collisionShape.center.y - player.collisionShape.radius <= 0;
 	}
 
 
