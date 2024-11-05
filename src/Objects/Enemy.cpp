@@ -41,7 +41,7 @@ namespace Enemy
 		for (int i = 0; i < obstacleParts; i++)
 		{
 			enemyToSet.collisionShapes[i].width = obstacleWidth;
-			enemyToSet.collisionShapes[i].x = screenWidth - obstacleWidth;
+			enemyToSet.collisionShapes[i].x = screenWidth + 5;
 
 			if (i == 0)
 			{
@@ -58,10 +58,7 @@ namespace Enemy
 			enemyToSet.pos[i].x = enemyToSet.collisionShapes[i].x;
 			enemyToSet.pos[i].y = enemyToSet.collisionShapes[i].y;
 
-			cout << enemyToSet.pos[i].x << " " << enemyToSet.pos[i].y << endl;
 		}
-
-		cout << endl << endl;
 
 		enemyToSet.speed = 500;
 	}

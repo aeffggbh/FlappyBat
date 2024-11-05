@@ -39,7 +39,7 @@ namespace Gameplay
 	//Enemy
 	static void ManageEnemy();
 	static void MoveEnemy(EnemyNS::Enemy& enemyToMove);
-	static void KeepEnemyOnScreen(EnemyNS::Enemy enemyToKeepOnScreen);
+	static void KeepEnemyOnScreen(EnemyNS::Enemy& enemyToKeepOnScreen);
 	static void ResetEnemyPosition(EnemyNS::Enemy& enemyToReset);
 
 	//Collisions
@@ -79,10 +79,6 @@ namespace Gameplay
 			gameOnGoing = false;
 		}
 
-		cout << endl << "Player pos: " <<  player.pos.x << " " << player.pos.y << endl;
-		cout << "Player speed: " << player.speed << endl << endl;
-
-		//cout << enemy.pos[0].x << " " << enemy.pos[0].y << endl;
 		return gameOnGoing;
 	}
 
@@ -166,12 +162,11 @@ namespace Gameplay
 		}
 	}
 
-	void KeepEnemyOnScreen(EnemyNS::Enemy enemyToKeepOnScreen)
+	void KeepEnemyOnScreen(EnemyNS::Enemy& enemyToKeepOnScreen)
 	{
 		if (enemyToKeepOnScreen.pos[0].x + enemyToKeepOnScreen.collisionShapes[0].width < 0)
 		{
 			ResetEnemyPosition(enemyToKeepOnScreen);
-			cout << "Upadted position: " << enemyToKeepOnScreen.pos[0].x << ", " << enemyToKeepOnScreen.pos[1].y << endl;
 		}
 	}
 
@@ -214,7 +209,6 @@ namespace Gameplay
 
 			if (distance <= radius)
 			{
-				cout << "Colision player enemy" << endl;
 				return true;
 			}
 		}
@@ -227,7 +221,6 @@ namespace Gameplay
 		if (player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight() ||
 			player.collisionShape.center.y - player.collisionShape.radius <= 0)
 		{
-			cout << "Colision player border" << endl;
 			return true;
 		}
 
