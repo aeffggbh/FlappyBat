@@ -31,6 +31,7 @@ namespace Gameplay
 	static Texture2D background;
 
 	//Player
+	static void MovePlayer();
 	static void PlayPlayerAnimation();
 	static void PlayerJump();
 	static void PlayerFall();
@@ -60,6 +61,7 @@ namespace Gameplay
 
 	bool Update()
 	{
+		MovePlayer();
 		PlayPlayerAnimation();
 
 		//Jump
@@ -76,6 +78,9 @@ namespace Gameplay
 		{
 			gameOnGoing = false;
 		}
+
+		cout << endl << "Player pos: " <<  player.pos.x << " " << player.pos.y << endl;
+		cout << "Player speed: " << player.speed << endl << endl;
 
 		//cout << enemy.pos[0].x << " " << enemy.pos[0].y << endl;
 		return gameOnGoing;
@@ -109,7 +114,14 @@ namespace Gameplay
 		return player.score;
 	}
 
+
 	//Player
+	void MovePlayer()
+	{
+		player.collisionShape.center.y += player.speed * GetFrameTime();
+		player.pos.y = player.collisionShape.center.y;
+	}
+
 	void PlayPlayerAnimation()
 	{
 		player.sprite.frameTimer += GetFrameTime();
@@ -127,14 +139,13 @@ namespace Gameplay
 
 	void PlayerJump()
 	{
-		player.collisionShape.center.y -= player.jumpSpeed * GetFrameTime();
-		player.pos.y = player.collisionShape.center.y;
+		player.speed = player.jumpSpeed;
+		
 	}
 
 	void PlayerFall()
 	{
-		player.collisionShape.center.y += player.fallSpeed * GetFrameTime();
-		player.pos.y = player.collisionShape.center.y;
+		player.speed += player.fallSpeed;
 	}
 
 
@@ -160,6 +171,7 @@ namespace Gameplay
 		if (enemyToKeepOnScreen.pos[0].x + enemyToKeepOnScreen.collisionShapes[0].width < 0)
 		{
 			ResetEnemyPosition(enemyToKeepOnScreen);
+			cout << "Upadted position: " << enemyToKeepOnScreen.pos[0].x << ", " << enemyToKeepOnScreen.pos[1].y << endl;
 		}
 	}
 
@@ -212,14 +224,14 @@ namespace Gameplay
 
 	bool CheckPlayerBorderCollision()
 	{
-		bool isCollision = false;
 		if (player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight() ||
 			player.collisionShape.center.y - player.collisionShape.radius <= 0)
 		{
-			isCollision = true;
+			cout << "Colision player border" << endl;
+			return true;
 		}
 
-		return isCollision;
+		return false;
 	}
 
 

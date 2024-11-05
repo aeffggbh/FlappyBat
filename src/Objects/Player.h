@@ -25,7 +25,7 @@ namespace Player
 		Circle::Circle collisionShape;
 
 		//Speed
-		Vector2 speed;
+		float speed;
 		float jumpSpeed;
 		float fallSpeed;
 	};

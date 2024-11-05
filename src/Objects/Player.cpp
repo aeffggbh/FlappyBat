@@ -59,9 +59,9 @@ namespace Player
 		player.collisionShape.radius = 22;
 
 		//Speed
-		player.jumpSpeed = 500000.0f;
-		player.fallSpeed = 400.0f;
-		player.speed = { 0,0 };
+		player.jumpSpeed = -300.0f;
+		player.fallSpeed = 0.4f;
+		player.speed = 0;
 	}
 
 	void Draw()
