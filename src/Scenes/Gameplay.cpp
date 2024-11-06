@@ -101,12 +101,6 @@ namespace Gameplay
 		EnemyNS::Draw();
 
 		Bton::Draw(pause, fontSize);
-
-		DrawCircle(static_cast <int>(player.pos.x),
-			static_cast <int>(player.pos.y),
-			player.collisionShape.radius,
-			GREEN);
-
 	}
 
 	void Unload()
