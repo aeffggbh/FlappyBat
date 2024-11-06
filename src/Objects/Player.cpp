@@ -50,7 +50,7 @@ namespace Player
 
 		player.pos =
 		{
-			static_cast<float>(GetScreenWidth() / 10),
+			static_cast<float>(GetScreenWidth() / 4),
 			static_cast<float>(GetScreenHeight() / 2)
 		};
 
