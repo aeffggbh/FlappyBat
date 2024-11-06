@@ -49,9 +49,9 @@ namespace MainMenu
 		DrawText(title, textX, textY, titleFontSize, GREEN);
 
 		//Version text
-		DrawText("2.0",
-			GetScreenWidth() / 20 * 19,
-			GetScreenHeight() / 20 * 19,
+		DrawText("0.2",
+			GetScreenWidth() / 20 * 18,
+			GetScreenHeight() / 20 * 18,
 			fontSize,
 			MAGENTA);
 
