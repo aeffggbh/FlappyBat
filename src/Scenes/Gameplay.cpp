@@ -7,14 +7,14 @@
 #include "raylib.h"
 
 #include "Objects/Player.h"
-#include "Objects/Enemy.h"
+#include "Objects/Obstacle.h"
 
 
 namespace PlayerNS = Player;
-namespace EnemyNS = Enemy;
+namespace ObstacleNS = Obstacle;
 
 using namespace PlayerNS;
-using namespace EnemyNS;
+using namespace ObstacleNS;
 
 using namespace std;
 
@@ -37,13 +37,13 @@ namespace Gameplay
 	static void PlayerFall();
 
 	//Enemy
-	static void ManageEnemy();
-	static void MoveEnemy(EnemyNS::Enemy& enemyToMove);
-	static void KeepEnemyOnScreen(EnemyNS::Enemy& enemyToKeepOnScreen);
-	static void ResetEnemyPosition(EnemyNS::Enemy& enemyToReset);
+	static void ManageObstacle();
+	static void MoveObstacle(ObstacleNS::Obstacle& enemyToMove);
+	static void KeepObstacleOnScreen(ObstacleNS::Obstacle& enemyToKeepOnScreen);
+	static void ResetObstaclePosition(ObstacleNS::Obstacle& enemyToReset);
 
 	//Collisions
-	static bool CheckPlayerEnemyCollision();
+	static bool CheckPlayerObstacleCollision();
 	static bool CheckPlayerBottomCollision();
 	static bool CheckPlayerTopCollision();
 
@@ -52,7 +52,7 @@ namespace Gameplay
 		//pause = Bton::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 
 		PlayerNS::Load();
-		EnemyNS::Load();
+		ObstacleNS::Load();
 
 		background = LoadTexture("");
 
@@ -64,6 +64,7 @@ namespace Gameplay
 	{
 		MovePlayer();
 		PlayPlayerAnimation();
+		PlayerFall();
 
 		//Jump
 		if (IsMouseButtonPressed(0) || IsKeyReleased(KEY_SPACE))
@@ -71,13 +72,11 @@ namespace Gameplay
 			PlayerJump();
 		}
 
-		PlayerFall();
 
-		ManageEnemy();
-		CheckPlayerEnemyCollision();
+		ManageObstacle();
 
 		//Collisions
-		if (CheckPlayerEnemyCollision() || CheckPlayerBottomCollision())
+		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
 		{
 			gameOnGoing = false;
 		}
@@ -98,7 +97,7 @@ namespace Gameplay
 		DrawTexture(background, 0, 0, WHITE);
 
 		PlayerNS::Draw();
-		EnemyNS::Draw();
+		ObstacleNS::Draw();
 
 		Bton::Draw(pause, fontSize);
 	}
@@ -150,13 +149,13 @@ namespace Gameplay
 
 
 	//Enemy
-	void ManageEnemy()
+	void ManageObstacle()
 	{
-		MoveEnemy(enemy);
-		KeepEnemyOnScreen(enemy);
+		MoveObstacle(obstacle);
+		KeepObstacleOnScreen(obstacle);
 	}
 
-	void MoveEnemy(EnemyNS::Enemy& enemyToMove)
+	void MoveObstacle(ObstacleNS::Obstacle& enemyToMove)
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
@@ -166,22 +165,22 @@ namespace Gameplay
 		}
 	}
 
-	void KeepEnemyOnScreen(EnemyNS::Enemy& enemyToKeepOnScreen)
+	void KeepObstacleOnScreen(ObstacleNS::Obstacle& obstacleToKeepOnScreen)
 	{
-		if (enemyToKeepOnScreen.pos[0].x + enemyToKeepOnScreen.collisionShapes[0].width < 0)
+		if (obstacleToKeepOnScreen.pos[0].x + obstacleToKeepOnScreen.collisionShapes[0].width < 0)
 		{
-			ResetEnemyPosition(enemyToKeepOnScreen);
+			ResetObstaclePosition(obstacleToKeepOnScreen);
 		}
 	}
 
-	void ResetEnemyPosition(EnemyNS::Enemy& enemyToReset)
+	void ResetObstaclePosition(ObstacleNS::Obstacle& obstacleToReset)
 	{
-		EnemyNS::SetEnemy(enemyToReset);
+		ObstacleNS::SetObstacle(obstacleToReset);
 	}
 
 
 	//Collision
-	bool CheckPlayerEnemyCollision()
+	bool CheckPlayerObstacleCollision()
 	{
 		float cx = player.collisionShape.center.x;
 		float cy = player.collisionShape.center.y;
@@ -189,10 +188,10 @@ namespace Gameplay
 
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			float rx = enemy.collisionShapes[i].x;
-			float ry = enemy.collisionShapes[i].y;
-			float rw = enemy.collisionShapes[i].width;
-			float rh = enemy.collisionShapes[i].height;
+			float rx = obstacle.collisionShapes[i].x;
+			float ry = obstacle.collisionShapes[i].y;
+			float rw = obstacle.collisionShapes[i].width;
+			float rh = obstacle.collisionShapes[i].height;
 
 			float testX = cx;
 			float testY = cy;

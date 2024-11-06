@@ -2,22 +2,22 @@
 
 #include "raylib.h"
 
-namespace Enemy
+namespace Obstacle
 {
 	const int obstacleParts = 2;
 
-	struct Enemy
+	struct Obstacle
 	{
 		Rectangle collisionShapes[obstacleParts];
 		Vector2 pos[obstacleParts];
 		float speed;
 	};
 
-	extern Enemy enemy;
+	extern Obstacle obstacle;
 
 	void Load();
 	void Draw();
-	void SetEnemy(Enemy& enemy);
+	void SetObstacle(Obstacle& obstacle);
 	void Unload();
 };
 
