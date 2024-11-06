@@ -9,7 +9,7 @@ namespace Enemy
 	Enemy enemy;
 
 	static float obstacleWidth = 50;
-	static float totalObstacleHeight = 350;
+	static float totalObstacleHeight = 450;
 
 	static float screenWidth;
 	static float screenHeight;
