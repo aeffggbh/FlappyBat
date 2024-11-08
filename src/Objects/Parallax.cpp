@@ -34,7 +34,7 @@ namespace Parallax
 
 	void Update()
 	{
-		gameplayBack.pos.x += gameplayBack.speed * GetFrameTime();
+		/*gameplayBack.pos.x += gameplayBack.speed * GetFrameTime();
 		gameplayMiddle.pos.x += gameplayMiddle.speed * GetFrameTime();
 		gameplayFront.pos.x += gameplayFront.speed * GetFrameTime();
 
@@ -46,6 +46,7 @@ namespace Parallax
 
 		if (gameplayFront.pos.x <= -gameplayFront.texture.width * 2)
 			gameplayFront.pos.x = 0;
+		*/
 	}
 
 	void Draw()
@@ -55,7 +56,7 @@ namespace Parallax
 			gameplayBack.texture,
 			gameplayBack.pos,
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 
@@ -63,7 +64,7 @@ namespace Parallax
 			gameplayBack.texture,
 			Vector2{ gameplayBack.texture.width * 2 + gameplayBack.pos.x, gameplayBack.pos.y },
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 
@@ -73,7 +74,7 @@ namespace Parallax
 			gameplayMiddle.texture,
 			gameplayMiddle.pos,
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 
@@ -81,7 +82,7 @@ namespace Parallax
 			gameplayMiddle.texture,
 			Vector2{ gameplayMiddle.texture.width * 2 + gameplayMiddle.pos.x, gameplayMiddle.pos.y },
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 
@@ -91,7 +92,7 @@ namespace Parallax
 			gameplayFront.texture,
 			gameplayFront.pos,
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 
@@ -99,7 +100,7 @@ namespace Parallax
 			gameplayFront.texture,
 			Vector2{ gameplayFront.texture.width * 2 + gameplayFront.pos.x, gameplayFront.pos.y },
 			0.0f,
-			0.0f,
+			1.0f,
 			WHITE
 		);
 

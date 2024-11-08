@@ -1,8 +1,6 @@
 #pragma once
 #include "Interface/Button.h"
 
-namespace Bton = Button;
-
 namespace Credits
 {
 	void Load();
@@ -10,5 +8,5 @@ namespace Credits
 	void Draw();
 	void Unload();
 
-	extern Bton::Button returnToMenu;
+	extern Buttons::Button returnToMenu;
 }

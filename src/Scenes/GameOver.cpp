@@ -13,8 +13,8 @@ namespace GameOver
 
 	static Text::Text gameOver;
 
-	Bton::Button returnToMenu;
-	Bton::Button playAgain;
+	Buttons::Button returnToMenu;
+	Buttons::Button playAgain;
 
 	static int regularFontSize = 40;
 	static int titleFontSize = 70;
@@ -43,10 +43,10 @@ namespace GameOver
 		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, GREEN);
 		Text::SetTextLength(gameOver);
 
-		background = LoadTexture("");
+		//background = LoadTexture("");
 
-		returnToMenu = Bton::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
-		playAgain = Bton::Create("Play Again", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		returnToMenu = Buttons::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		playAgain = Buttons::Create("Play Again", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
 	}
 
 	void Draw()
@@ -57,8 +57,8 @@ namespace GameOver
 
 		Text::DrawCentered(gameOver);
 
-		Bton::Draw(returnToMenu, buttonFontSize);
-		Bton::Draw(playAgain, buttonFontSize);
+		Buttons::Draw(returnToMenu, buttonFontSize);
+		Buttons::Draw(playAgain, buttonFontSize);
 	}
 
 	void Unload()

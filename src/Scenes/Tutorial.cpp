@@ -6,7 +6,7 @@ namespace Tutorial
 {
 	static Texture2D background;
 
-	Bton::Button returnToMenu;
+	Buttons::Button returnToMenu;
 
 	static int buttonFontSize = 40;
 	static int regularFontSize = 30;
@@ -32,7 +32,7 @@ namespace Tutorial
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
 
-		returnToMenu = Bton::Create("Return", buttonCenterX, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		returnToMenu = Buttons::Create("Return", buttonCenterX, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
 	}
 
 
@@ -41,7 +41,7 @@ namespace Tutorial
 		ClearBackground(BLACK);
 		DrawTexture(background, 0, 0, WHITE);
 
-		Bton::Draw(returnToMenu, buttonFontSize);
+		Buttons::Draw(returnToMenu, buttonFontSize);
 	}
 
 	void Unload()
