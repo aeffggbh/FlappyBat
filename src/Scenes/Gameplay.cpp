@@ -71,7 +71,7 @@ namespace Gameplay
 		PlayerFall();
 
 		//Jump
-		if (IsMouseButtonPressed(0) || IsKeyReleased(KEY_SPACE))
+		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
 		{
 			PlayerJump();
 		}
@@ -82,7 +82,7 @@ namespace Gameplay
 		//Collisions
 		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
 		{
-			gameOnGoing = false;
+			//gameOnGoing = false;
 		}
 
 		if (CheckPlayerTopCollision())
@@ -100,16 +100,17 @@ namespace Gameplay
 		ClearBackground(BLACK);
 		Parallax::Draw();
 
-		PlayerNS::Draw();
 		ObstacleNS::Draw();
+		PlayerNS::Draw();
 
-		Buttons::Draw(pause, fontSize);
+		//Buttons::Draw(pause, fontSize);
 	}
 
 	void Unload()
 	{
 		PlayerNS::Unload();
 		UnloadTexture(background);
+		Parallax::Unload();
 	}
 
 	int GetRunScore()
