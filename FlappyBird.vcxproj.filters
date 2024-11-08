@@ -60,6 +60,9 @@
     <ClCompile Include="src\Objects\Obstacle.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Parallax.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -109,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="src\Objects\AnimatedSprite.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Parallax.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interface\MovingBackground.h">
+      <Filter>Interface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

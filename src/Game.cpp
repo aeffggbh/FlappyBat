@@ -14,7 +14,7 @@
 #include "Interface/Button.h"
 #include "Utils/SoundManager.h"
 
-using namespace Button;
+using namespace Buttons;
 using namespace SoundManager;
 
 namespace Game

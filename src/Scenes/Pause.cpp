@@ -2,8 +2,8 @@
 
 namespace Pause
 {
-	Bton::Button returnToMenu;
-	Bton::Button continuePlaying;
+	Buttons::Button returnToMenu;
+	Buttons::Button continuePlaying;
 
 	static int fontSize = 40;
 	static int titleFontSize = fontSize * 2;
@@ -19,8 +19,8 @@ namespace Pause
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
 
-		returnToMenu = Bton::Create("Go to menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
-		continuePlaying = Bton::Create("Continue", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
+		returnToMenu = Buttons::Create("Go to menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
+		continuePlaying = Buttons::Create("Continue", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
 	}
 
 	void Draw()
@@ -31,7 +31,7 @@ namespace Pause
 		int textY = static_cast<int> (screenHeight / 6 - titleFontSize / 2);
 		DrawText(title, textX, textY, titleFontSize, RED);
 
-		Bton::Draw(returnToMenu, fontSize);
-		Bton::Draw(continuePlaying, fontSize);
+		Buttons::Draw(returnToMenu, fontSize);
+		Buttons::Draw(continuePlaying, fontSize);
 	}
 }

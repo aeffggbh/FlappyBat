@@ -7,7 +7,7 @@ using namespace std;
 #endif // _DEBUG
 
 
-namespace Button
+namespace Buttons
 {
 	void DrawButton(Button button, Color color, int fontSize);
 

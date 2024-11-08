@@ -1,7 +1,7 @@
 #pragma once
 #include "raylib.h"
 
-namespace Button
+namespace Buttons
 {
 	struct Button
 	{

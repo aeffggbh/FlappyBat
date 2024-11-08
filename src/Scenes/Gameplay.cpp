@@ -8,6 +8,7 @@
 
 #include "Objects/Player.h"
 #include "Objects/Obstacle.h"
+#include "Objects/Parallax.h"
 
 
 namespace PlayerNS = Player;
@@ -21,7 +22,7 @@ using namespace std;
 
 namespace Gameplay
 {
-	Bton::Button pause;
+	Buttons::Button pause;
 
 	static const int fontSize = 40;
 
@@ -49,12 +50,13 @@ namespace Gameplay
 
 	void Load()
 	{
-		//pause = Bton::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
+		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 
 		PlayerNS::Load();
 		ObstacleNS::Load();
+		Parallax::Load();
 
-		background = LoadTexture("");
+		//background = LoadTexture("");
 
 		gameOnGoing = true;
 		gameStarted = false;
@@ -62,12 +64,14 @@ namespace Gameplay
 
 	bool Update()
 	{
+		Parallax::Update();
+
 		MovePlayer();
 		PlayPlayerAnimation();
 		PlayerFall();
 
 		//Jump
-		if (IsMouseButtonPressed(0) || IsKeyReleased(KEY_SPACE))
+		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
 		{
 			PlayerJump();
 		}
@@ -78,7 +82,7 @@ namespace Gameplay
 		//Collisions
 		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
 		{
-			gameOnGoing = false;
+			//gameOnGoing = false;
 		}
 
 		if (CheckPlayerTopCollision())
@@ -94,18 +98,19 @@ namespace Gameplay
 	void Draw()
 	{
 		ClearBackground(BLACK);
-		DrawTexture(background, 0, 0, WHITE);
+		Parallax::Draw();
 
-		PlayerNS::Draw();
 		ObstacleNS::Draw();
+		PlayerNS::Draw();
 
-		Bton::Draw(pause, fontSize);
+		//Buttons::Draw(pause, fontSize);
 	}
 
 	void Unload()
 	{
 		PlayerNS::Unload();
 		UnloadTexture(background);
+		Parallax::Unload();
 	}
 
 	int GetRunScore()

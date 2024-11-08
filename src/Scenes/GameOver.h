@@ -1,12 +1,10 @@
 #pragma once
 #include "Interface/Button.h"
 
-namespace Bton = Button;
-
 namespace GameOver
 {
-	extern Bton::Button returnToMenu;
-	extern Bton::Button playAgain;
+	extern Buttons::Button returnToMenu;
+	extern Buttons::Button playAgain;
 
 	void Load();
 	void Draw();

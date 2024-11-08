@@ -2,16 +2,14 @@
 
 #include "raylib.h"
 
-namespace Bton = Button;
-
 namespace MainMenu
 {
 	static Texture2D background;
 
-	Bton::Button play;
-	Bton::Button tutorial;
-	Bton::Button credits;
-	Bton::Button exit;
+	Buttons::Button play;
+	Buttons::Button tutorial;
+	Buttons::Button credits;
+	Buttons::Button exit;
 
 	static int fontSize = 40;
 	static float buttonWidth = 250;
@@ -28,10 +26,10 @@ namespace MainMenu
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
 
-		play = Bton::Create("Play", buttonCenterX, static_cast<float>(screenHeight / 6 * 2), buttonWidth, buttonHeight);
-		tutorial = Bton::Create("Tutorial", buttonCenterX, static_cast<float>(screenHeight / 6 * 3), buttonWidth, buttonHeight);
-		credits = Bton::Create("Credits", buttonCenterX, static_cast<float>(screenHeight / 6 * 4), buttonWidth, buttonHeight);
-		exit = Bton::Create("Exit", buttonCenterX, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		play = Buttons::Create("Play", buttonCenterX, static_cast<float>(screenHeight / 6 * 2), buttonWidth, buttonHeight);
+		tutorial = Buttons::Create("Tutorial", buttonCenterX, static_cast<float>(screenHeight / 6 * 3), buttonWidth, buttonHeight);
+		credits = Buttons::Create("Credits", buttonCenterX, static_cast<float>(screenHeight / 6 * 4), buttonWidth, buttonHeight);
+		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
 	}
 
 
@@ -55,10 +53,10 @@ namespace MainMenu
 			fontSize,
 			MAGENTA);
 
-		Bton::Draw(play, fontSize);
-		Bton::Draw(tutorial, fontSize);
-		Bton::Draw(credits, fontSize);
-		Bton::Draw(exit, fontSize);
+		Buttons::Draw(play, fontSize);
+		Buttons::Draw(tutorial, fontSize);
+		Buttons::Draw(credits, fontSize);
+		Buttons::Draw(exit, fontSize);
 	}
 
 	void Unload()

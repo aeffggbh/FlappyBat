@@ -1,11 +1,9 @@
 #pragma once
 #include "Interface/Button.h"
 
-namespace Bton = Button;
-
 namespace Gameplay
 {
-	extern Bton::Button pause;
+	extern Buttons::Button pause;
 
 	void Load();
 	bool Update();

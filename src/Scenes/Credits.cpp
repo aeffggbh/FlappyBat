@@ -21,7 +21,7 @@ namespace Credits
 	static int heightMultiplyer = 1;
 	static int textSeparation = 8;
 
-	Bton::Button returnToMenu;
+	Buttons::Button returnToMenu;
 
 	//Texts
 	static Text::Text developerText;
@@ -30,18 +30,18 @@ namespace Credits
 
 
 	//Invisible button
-	static Bton::Button spritesUrlButton;
+	static Buttons::Button spritesUrlButton;
 
 
 	void Load()
 	{
-		background = LoadTexture("");
+		//background = LoadTexture("");
 
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
 
-		returnToMenu = Bton::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
+		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
 		
 		//Texts
 		{
@@ -65,13 +65,13 @@ namespace Credits
 
 		//Invisible buttons
 		{
-			spritesUrlButton = Bton::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.length), static_cast<float>(regularFontSize));
+			spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.length), static_cast<float>(regularFontSize));
 		}
 	}
 
 	void Update()
 	{
-		if (Bton::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
+		if (Buttons::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
 		
 	}
 
@@ -79,7 +79,7 @@ namespace Credits
 	{
 		ClearBackground(BLACK);
 		DrawTexture(background, 0, 0, WHITE);
-		Bton::Draw(returnToMenu, buttonFontSize);
+		Buttons::Draw(returnToMenu, buttonFontSize);
 
 		Text::DrawCentered(developerText);
 
