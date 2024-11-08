@@ -19,7 +19,7 @@ namespace Player
 		player.score = 0;
 
 		//Sprite
-		player.sprite.texture = LoadTexture("res/Sprite/bat.png");
+		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
 		player.sprite.scale = 3.0f;
 
 		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
