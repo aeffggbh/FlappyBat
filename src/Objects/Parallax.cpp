@@ -32,18 +32,18 @@ namespace Parallax
 
 	void Update()
 	{
-		gameplayBack.pos1.x += gameplayBack.speed * GetFrameTime();
-		gameplayMiddle.pos1.x += gameplayMiddle.speed * GetFrameTime();
-		gameplayFront.pos1.x += gameplayFront.speed * GetFrameTime();
+		gameplayBack.pos.x += gameplayBack.speed * GetFrameTime();
+		gameplayMiddle.pos.x += gameplayMiddle.speed * GetFrameTime();
+		gameplayFront.pos.x += gameplayFront.speed * GetFrameTime();
 
-		if (gameplayBack.pos1.x <= -gameplayBack.texture.width * gameplayBack.scale * 2)
-			gameplayBack.pos1.x = 0;
+		if (gameplayBack.pos.x <= -gameplayBack.texture.width * gameplayBack.scale * 2)
+			gameplayBack.pos.x = 0;
 
-		if (gameplayMiddle.pos1.x <= -gameplayMiddle.texture.width * gameplayMiddle.scale * 2)
-			gameplayMiddle.pos1.x = 0;
+		if (gameplayMiddle.pos.x <= -gameplayMiddle.texture.width * gameplayMiddle.scale * 2)
+			gameplayMiddle.pos.x = 0;
 
-		if (gameplayFront.pos1.x <= -gameplayFront.texture.width * gameplayFront.scale * 2)
-			gameplayFront.pos1.x = 0;
+		if (gameplayFront.pos.x <= -gameplayFront.texture.width * gameplayFront.scale * 2)
+			gameplayFront.pos.x = 0;
 	}
 
 	void Draw()
@@ -53,7 +53,7 @@ namespace Parallax
 		{
 			DrawTextureEx(
 				gameplayBack.texture,
-				Vector2{ gameplayBack.texture.width * static_cast <float> (i) + gameplayBack.pos1.x, gameplayBack.pos1.y },
+				Vector2{ gameplayBack.texture.width * static_cast <float> (i) + gameplayBack.pos.x, gameplayBack.pos.y },
 				0.0f,
 				gameplayBack.scale,
 				WHITE
@@ -65,7 +65,7 @@ namespace Parallax
 		{
 			DrawTextureEx(
 				gameplayMiddle.texture,
-				Vector2{ gameplayMiddle.texture.width * static_cast <float> (i) + gameplayMiddle.pos1.x, gameplayMiddle.pos1.y },
+				Vector2{ gameplayMiddle.texture.width * static_cast <float> (i) + gameplayMiddle.pos.x, gameplayMiddle.pos.y },
 				0.0f,
 				gameplayMiddle.scale,
 				WHITE
@@ -77,7 +77,7 @@ namespace Parallax
 		{
 			DrawTextureEx(
 				gameplayFront.texture,
-				Vector2{ gameplayFront.texture.width * static_cast <float> (i) + gameplayFront.pos1.x, gameplayFront.pos1.y },
+				Vector2{ gameplayFront.texture.width * static_cast <float> (i) + gameplayFront.pos.x, gameplayFront.pos.y },
 				0.0f,
 				gameplayFront.scale,
 				WHITE
@@ -95,9 +95,7 @@ namespace Parallax
 	static void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed)
 	{
 		background.texture = LoadTexture(dir.c_str());
-		background.pos1 = Vector2{ 0, 0 };
-		background.pos2 = background.pos1;
-		background.pos2.x = background.pos1.x + background.texture.width;
+		background.pos = Vector2{ 0, 0 };
 
 		background.speed = speed;
 		background.scale = screenWidth / background.texture.height;
