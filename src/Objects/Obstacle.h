@@ -13,10 +13,10 @@ namespace Obstacle
 		float speed;
 	};
 
-	extern Obstacle obstacle;
 
+	void Init(Obstacle& obstacle);
 	void Load();
-	void Draw();
+	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);
 	void Unload();
 };
