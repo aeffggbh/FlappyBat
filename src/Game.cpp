@@ -55,8 +55,7 @@ namespace Game
 
 	void Load()
 	{
-		srand(static_cast<unsigned int>(time(NULL)));
-
+		
 		gameShouldClose = false;
 		gameplayOnGoing = false;
 

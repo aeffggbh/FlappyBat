@@ -8,16 +8,20 @@ namespace Obstacle
 {
 	Obstacle obstacle;
 
-	static float obstacleWidth = 50;
-	static float totalObstacleHeight = 450;
-
 	static float screenWidth;
 	static float screenHeight;
+
+	static float obstacleWidth = 50;
+	static float maxObstacleHeight;
+	static float minObstacleHeight;
 
 	void Load()
 	{
 		screenWidth = static_cast<float>(GetScreenWidth());
 		screenHeight = static_cast<float>(GetScreenHeight());
+
+		maxObstacleHeight = screenHeight / 2;
+		minObstacleHeight = obstacleWidth;
 
 		SetObstacle(obstacle);
 	}
@@ -36,12 +40,14 @@ namespace Obstacle
 
 	void SetObstacle(Obstacle& obstacleToSet)
 	{
-		float dividedObstacleHeight = static_cast<float>(rand() % static_cast <int>(totalObstacleHeight));
+		float dividedObstacleHeight = static_cast<float>(GetRandomValue(static_cast<int>(minObstacleHeight), static_cast<int>(maxObstacleHeight)));
+
+		float obstacleSpace = 150.0f;
 
 		for (int i = 0; i < obstacleParts; i++)
 		{
 			obstacleToSet.collisionShapes[i].width = obstacleWidth;
-			obstacleToSet.collisionShapes[i].x = screenWidth + 5;
+			obstacleToSet.collisionShapes[i].x = screenWidth + obstacleWidth;
 
 			if (i == 0)
 			{
@@ -50,10 +56,9 @@ namespace Obstacle
 			}
 			else
 			{
-				dividedObstacleHeight = totalObstacleHeight - dividedObstacleHeight;
+				obstacleToSet.collisionShapes[i].y = obstacleToSet.collisionShapes[i-1].y + obstacleToSet.collisionShapes[i - 1].height + obstacleSpace;
 
-				obstacleToSet.collisionShapes[i].height = dividedObstacleHeight;
-				obstacleToSet.collisionShapes[i].y = screenHeight - obstacleToSet.collisionShapes[i].height;
+				obstacleToSet.collisionShapes[i].height = screenHeight - obstacleToSet.collisionShapes[i].y;
 			}
 			obstacleToSet.pos[i].x = obstacleToSet.collisionShapes[i].x;
 			obstacleToSet.pos[i].y = obstacleToSet.collisionShapes[i].y;
