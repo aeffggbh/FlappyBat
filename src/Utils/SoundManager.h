@@ -5,5 +5,4 @@ namespace SoundManager
 {
 	void Load();
 	void Unload();
-
 }

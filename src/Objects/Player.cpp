@@ -43,9 +43,8 @@ namespace Player
 		player.sprite.frameRate = 0.09f;
 
 		//Sprite Center
-		float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
-		float spriteCenterY = static_cast <float> (player.sprite.texture.height / 2);
-		spriteCenter = { spriteCenterX, spriteCenterY };
+		/*float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
+		float spriteCenterY = static_cast <float> (player.sprite.texture.height / 2);*/
 
 		player.pos =
 		{
@@ -89,7 +88,7 @@ namespace Player
 
 		//Center
 #ifdef _DEBUG
-		DrawCircle(static_cast <int>(player.pos.x), static_cast <int>(player.pos.y), 5, YELLOW);
+		//DrawCircle(static_cast <int>(player.pos.x), static_cast <int>(player.pos.y), 5, YELLOW);
 #endif // _DEBUG
 	}
 
