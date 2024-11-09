@@ -9,7 +9,6 @@ using namespace Utils;
 namespace Player
 {
 	Player player;
-	static Vector2 spriteCenter;
 
 	static float frameWidth;
 	static float frameHeight;
@@ -20,7 +19,7 @@ namespace Player
 
 		//Sprite
 		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
-		player.sprite.scale = 3.0f;
+		player.sprite.scale = 2.0f;
 
 		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
 		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
