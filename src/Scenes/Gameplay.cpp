@@ -22,6 +22,8 @@ using namespace std;
 
 namespace Gameplay
 {
+	ObstacleNS::Obstacle obstacle;
+
 	Buttons::Button pause;
 
 	static const int fontSize = 40;
@@ -36,6 +38,7 @@ namespace Gameplay
 	static void PlayPlayerAnimation();
 	static void PlayerJump();
 	static void PlayerFall();
+	static void ResetPlayer();
 
 	//Enemy
 	static void ManageObstacle();
@@ -48,6 +51,13 @@ namespace Gameplay
 	static bool CheckPlayerBottomCollision();
 	static bool CheckPlayerTopCollision();
 
+	void Init()
+	{
+		ObstacleNS::Init(obstacle);
+		gameOnGoing = true;
+		gameStarted = false;
+	}
+
 	void Load()
 	{
 		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
@@ -58,8 +68,7 @@ namespace Gameplay
 
 		//background = LoadTexture("");
 
-		gameOnGoing = true;
-		gameStarted = false;
+		
 	}
 
 	bool Update()
@@ -70,11 +79,7 @@ namespace Gameplay
 		PlayPlayerAnimation();
 		PlayerFall();
 
-		//Jump
-		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
-		{
-			PlayerJump();
-		}
+		PlayerJump();
 
 
 		ManageObstacle();
@@ -82,14 +87,13 @@ namespace Gameplay
 		//Collisions
 		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
 		{
-			//gameOnGoing = false;
+			gameOnGoing = false;
 		}
 
 		if (CheckPlayerTopCollision())
 		{
 			//Hacer esto funcion
-			player.speed = 0;
-			player.collisionShape.center.y = player.collisionShape.radius + 1;
+			player.collisionShape.center.y = player.collisionShape.radius;
 		}
 
 		return gameOnGoing;
@@ -100,7 +104,7 @@ namespace Gameplay
 		ClearBackground(BLACK);
 		Parallax::Draw();
 
-		ObstacleNS::Draw();
+		ObstacleNS::Draw(obstacle);
 		PlayerNS::Draw();
 
 		//Buttons::Draw(pause, fontSize);
@@ -111,6 +115,12 @@ namespace Gameplay
 		PlayerNS::Unload();
 		UnloadTexture(background);
 		Parallax::Unload();
+	}
+
+	void Reset()
+	{
+		ResetObstaclePosition(obstacle);
+		ResetPlayer();
 	}
 
 	int GetRunScore()
@@ -143,13 +153,21 @@ namespace Gameplay
 
 	void PlayerJump()
 	{
-		player.speed = player.jumpSpeed;
-		
+		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
+			player.speed = player.jumpSpeed;
+
 	}
 
 	void PlayerFall()
 	{
 		player.speed += player.fallSpeed;
+	}
+
+	void ResetPlayer()
+	{
+		player.collisionShape.center.x = static_cast<float>(GetScreenWidth()) / 4.0f;
+		player.collisionShape.center.y = static_cast<float>(GetScreenHeight()) / 2.0f;
+		player.speed = 0;
 	}
 
 

@@ -36,12 +36,15 @@ namespace Game
 	static void Update();
 	static void Draw();
 	static void Unload();
+	static void Init();
 
 	static void ResetGame();
 
 	void Run()
 	{
 		Load();
+		Init();
+
 		do
 		{
 			Update();
@@ -261,11 +264,15 @@ namespace Game
 		CloseWindow();
 	}
 
+	void Init()
+	{
+		Gameplay::Init();
+	}
 
 	void ResetGame()
 	{
-		currentScene = CurrentScene::MainMenu;
 
-		Gameplay::Load();
+		Gameplay::Reset();
+		Gameplay::Init();
 	}
 }

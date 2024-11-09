@@ -6,7 +6,6 @@ using namespace std;
 
 namespace Obstacle
 {
-	Obstacle obstacle;
 
 	static float screenWidth;
 	static float screenHeight;
@@ -15,7 +14,7 @@ namespace Obstacle
 	static float maxObstacleHeight;
 	static float minObstacleHeight;
 
-	void Load()
+	void Init(Obstacle& obstacle)
 	{
 		screenWidth = static_cast<float>(GetScreenWidth());
 		screenHeight = static_cast<float>(GetScreenHeight());
@@ -26,7 +25,12 @@ namespace Obstacle
 		SetObstacle(obstacle);
 	}
 
-	void Draw()
+	void Load()
+	{
+		
+	}
+
+	void Draw(Obstacle obstacle)
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
