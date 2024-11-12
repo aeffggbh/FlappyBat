@@ -1,9 +1,14 @@
 #pragma once
 #include "Interface/Button.h"
+#include "Objects/Player.h"
 
 namespace Gameplay
 {
+	namespace PlayerNS = Player;
+
 	extern Buttons::Button pause;
+	extern PlayerNS::Player player1;
+	extern PlayerNS::Player player2;
 
 	void Init();
 	void Load();
@@ -12,5 +17,8 @@ namespace Gameplay
 	void Unload();
 
 	void Reset();
-	int GetRunScore();
+	void UpdatePlayer(PlayerNS::Player& player);
+	int GetRunScore(PlayerNS::Player& player);
+
+	
 }

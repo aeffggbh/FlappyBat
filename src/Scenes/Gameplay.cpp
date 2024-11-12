@@ -10,11 +10,8 @@
 #include "Objects/Obstacle.h"
 #include "Objects/Parallax.h"
 
-
-namespace PlayerNS = Player;
 namespace ObstacleNS = Obstacle;
 
-using namespace PlayerNS;
 using namespace ObstacleNS;
 
 using namespace std;
@@ -24,21 +21,25 @@ namespace Gameplay
 {
 	ObstacleNS::Obstacle obstacle;
 
+	PlayerNS::Player player1;
+	PlayerNS::Player player2;
+
 	Buttons::Button pause;
 
 	static const int fontSize = 40;
 
 	static bool gameOnGoing = true;
 	static bool gameStarted = false;
+	static bool isMultiplayer = false;;
 
 	static Texture2D background;
 
 	//Player
-	static void MovePlayer();
-	static void PlayPlayerAnimation();
-	static void PlayerJump();
-	static void PlayerFall();
-	static void ResetPlayer();
+	static void MovePlayer(PlayerNS::Player& player);
+	static void PlayPlayerAnimation(PlayerNS::Player& player);
+	static void PlayerJump(PlayerNS::Player& player);
+	static void PlayerFall(PlayerNS::Player& player);
+	static void ResetPlayer(PlayerNS::Player& player);
 
 	//Enemy
 	static void ManageObstacle();
@@ -47,9 +48,9 @@ namespace Gameplay
 	static void ResetObstaclePosition(ObstacleNS::Obstacle& enemyToReset);
 
 	//Collisions
-	static bool CheckPlayerObstacleCollision();
-	static bool CheckPlayerBottomCollision();
-	static bool CheckPlayerTopCollision();
+	static bool CheckPlayerObstacleCollision(PlayerNS::Player player);
+	static bool CheckPlayerBottomCollision(PlayerNS::Player player);
+	static bool CheckPlayerTopCollision(PlayerNS::Player player);
 
 	void Init()
 	{
@@ -62,27 +63,63 @@ namespace Gameplay
 	{
 		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 
-		PlayerNS::Load();
+		PlayerNS::Load(player1);
+		PlayerNS::Load(player2);
 		ObstacleNS::Load();
 		Parallax::Load();
 
 		//background = LoadTexture("");
 
-		
+
 	}
 
 	bool Update()
 	{
 		Parallax::Update();
 
-		MovePlayer();
-		PlayPlayerAnimation();
-		PlayerFall();
-
-		PlayerJump();
-
-
 		ManageObstacle();
+
+		UpdatePlayer(player1);
+
+		if (isMultiplayer)
+			UpdatePlayer(player2);
+
+		return gameOnGoing;
+	}
+
+	void Draw()
+	{
+		ClearBackground(BLACK);
+		Parallax::Draw();
+
+		ObstacleNS::Draw(obstacle);
+		PlayerNS::Draw(player1);
+		if (isMultiplayer)
+			Draw(player2);
+
+		//Buttons::Draw(pause, fontSize);
+	}
+
+	void Unload()
+	{
+		PlayerNS::Unload(player1);
+		PlayerNS::Unload(player2);
+		UnloadTexture(background);
+		Parallax::Unload();
+	}
+
+	void Reset()
+	{
+		ResetObstaclePosition(obstacle);
+		ResetPlayer(player1);
+	}
+
+	void UpdatePlayer(PlayerNS::Player& player)
+	{
+		MovePlayer(player);
+		PlayPlayerAnimation(player);
+		PlayerFall(player);
+		PlayerJump(player);
 
 		//Collisions
 		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
@@ -95,48 +132,22 @@ namespace Gameplay
 			//Hacer esto funcion
 			player.collisionShape.center.y = player.collisionShape.radius;
 		}
-
-		return gameOnGoing;
 	}
 
-	void Draw()
-	{
-		ClearBackground(BLACK);
-		Parallax::Draw();
-
-		ObstacleNS::Draw(obstacle);
-		PlayerNS::Draw();
-
-		//Buttons::Draw(pause, fontSize);
-	}
-
-	void Unload()
-	{
-		PlayerNS::Unload();
-		UnloadTexture(background);
-		Parallax::Unload();
-	}
-
-	void Reset()
-	{
-		ResetObstaclePosition(obstacle);
-		ResetPlayer();
-	}
-
-	int GetRunScore()
+	int GetRunScore(PlayerNS::Player& player)
 	{
 		return player.score;
 	}
 
 
 	//Player
-	void MovePlayer()
+	void MovePlayer(PlayerNS::Player& player)
 	{
 		player.collisionShape.center.y += player.speed * GetFrameTime();
 		player.pos.y = player.collisionShape.center.y;
 	}
 
-	void PlayPlayerAnimation()
+	void PlayPlayerAnimation(PlayerNS::Player& player)
 	{
 		player.sprite.frameTimer += GetFrameTime();
 		if (player.sprite.frameTimer >= player.sprite.frameRate)
@@ -151,19 +162,19 @@ namespace Gameplay
 		}
 	}
 
-	void PlayerJump()
+	void PlayerJump(PlayerNS::Player& player)
 	{
 		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
 			player.speed = player.jumpSpeed;
 
 	}
 
-	void PlayerFall()
+	void PlayerFall(PlayerNS::Player& player)
 	{
 		player.speed += player.fallSpeed;
 	}
 
-	void ResetPlayer()
+	void ResetPlayer(PlayerNS::Player& player)
 	{
 		player.collisionShape.center.x = static_cast<float>(GetScreenWidth()) / 4.0f;
 		player.collisionShape.center.y = static_cast<float>(GetScreenHeight()) / 2.0f;
@@ -203,7 +214,7 @@ namespace Gameplay
 
 
 	//Collision
-	bool CheckPlayerObstacleCollision()
+	bool CheckPlayerObstacleCollision(PlayerNS::Player player)
 	{
 		float cx = player.collisionShape.center.x;
 		float cy = player.collisionShape.center.y;
@@ -242,12 +253,12 @@ namespace Gameplay
 		return false;;
 	}
 
-	bool CheckPlayerBottomCollision()
+	bool CheckPlayerBottomCollision(PlayerNS::Player player)
 	{
 		return player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight();
 	}
 
-	bool CheckPlayerTopCollision()
+	bool CheckPlayerTopCollision(PlayerNS::Player player)
 	{
 		return player.collisionShape.center.y - player.collisionShape.radius <= 0;
 	}

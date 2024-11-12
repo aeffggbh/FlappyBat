@@ -8,12 +8,10 @@ using namespace Utils;
 
 namespace Player
 {
-	Player player;
-
 	static float frameWidth;
 	static float frameHeight;
 
-	void Load()
+	void Load(Player& player)
 	{
 		player.score = 0;
 
@@ -62,7 +60,7 @@ namespace Player
 		player.speed = 0;
 	}
 
-	void Draw()
+	void Draw(Player player)
 	{
 		//Collision
 #ifdef _DEBUG
@@ -92,7 +90,7 @@ namespace Player
 #endif // _DEBUG
 	}
 
-	void Unload()
+	void Unload(Player& player)
 	{
 		UnloadTexture(player.sprite.texture);
 	}

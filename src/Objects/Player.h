@@ -30,9 +30,7 @@ namespace Player
 		float fallSpeed;
 	};
 
-	extern Player player;
-
-	void Load();
-	void Draw();
-	void Unload();
+	void Load(Player& player);
+	void Draw(Player player);
+	void Unload(Player& player);
 }
