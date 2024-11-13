@@ -49,7 +49,7 @@ namespace MainMenu
 		DrawText(title, textX, textY, titleFontSize, GREEN);
 
 		//Version text
-		DrawText("0.3",
+		DrawText("0.4",
 			GetScreenWidth() / 20 * 18,
 			GetScreenHeight() / 20 * 18,
 			fontSize,
