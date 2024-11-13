@@ -10,6 +10,7 @@
 #include "Scenes/Credits.h"
 #include "Scenes/Pause.h"
 #include "Scenes/GameOver.h"
+#include "Scenes/HowToPlay.h"
 
 #include "Interface/Button.h"
 #include "Utils/SoundManager.h"
@@ -24,7 +25,7 @@ namespace Game
 
 	enum class CurrentScene
 	{
-		MainMenu, Gameplay, Tutorial, Credits, Pause, GameOver
+		MainMenu, Gameplay, Tutorial, Credits, Pause, GameOver, HowToPlay
 	};
 
 	static CurrentScene currentScene;
@@ -75,6 +76,7 @@ namespace Game
 		Credits::Load();
 		Pause::Load();
 		GameOver::Load();
+		HowToPlay::Load();
 	}
 
 
@@ -90,6 +92,12 @@ namespace Game
 			{
 				gameplayOnGoing = true;
 				currentScene = CurrentScene::Gameplay;
+				Gameplay::SetMultiplayer(false);
+			}
+			else if (IsButtonPressed(MainMenu::play2))
+			{
+				currentScene = CurrentScene::HowToPlay;
+				
 			}
 			else if (IsButtonPressed(MainMenu::tutorial))
 			{
@@ -184,7 +192,18 @@ namespace Game
 			}
 			break;
 		}
-
+		case Game::CurrentScene::HowToPlay:
+		{
+			if (IsButtonPressed(HowToPlay::continuePlaying))
+			{
+				gameplayOnGoing = true;
+				currentScene = CurrentScene::Gameplay;
+				Gameplay::SetMultiplayer(true);
+			}
+			else if (IsButtonPressed(HowToPlay::returnToMenu))
+				currentScene = CurrentScene::MainMenu;
+			break;
+		}
 
 		default:
 		{
@@ -239,7 +258,11 @@ namespace Game
 			GameOver::Draw();
 			break;
 		}
-
+		case Game::CurrentScene::HowToPlay:
+		{
+			HowToPlay::Draw();
+			break;
+		}
 
 		default:
 		{

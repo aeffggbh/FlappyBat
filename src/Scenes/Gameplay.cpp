@@ -63,8 +63,8 @@ namespace Gameplay
 	{
 		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 
-		PlayerNS::Load(player1);
-		PlayerNS::Load(player2);
+		PlayerNS::Load(player1, WHITE, KEY_SPACE);
+		PlayerNS::Load(player2, RED, KEY_UP);
 		ObstacleNS::Load();
 		Parallax::Load();
 
@@ -112,6 +112,7 @@ namespace Gameplay
 	{
 		ResetObstaclePosition(obstacle);
 		ResetPlayer(player1);
+		ResetPlayer(player2);
 	}
 
 	void UpdatePlayer(PlayerNS::Player& player)
@@ -122,12 +123,12 @@ namespace Gameplay
 		PlayerJump(player);
 
 		//Collisions
-		if (CheckPlayerObstacleCollision() || CheckPlayerBottomCollision())
+		if (CheckPlayerObstacleCollision(player) || CheckPlayerBottomCollision(player))
 		{
 			gameOnGoing = false;
 		}
 
-		if (CheckPlayerTopCollision())
+		if (CheckPlayerTopCollision(player))
 		{
 			//Hacer esto funcion
 			player.collisionShape.center.y = player.collisionShape.radius;
@@ -139,6 +140,10 @@ namespace Gameplay
 		return player.score;
 	}
 
+	void SetMultiplayer(bool multiplayerMode)
+	{
+		isMultiplayer = multiplayerMode;
+	}
 
 	//Player
 	void MovePlayer(PlayerNS::Player& player)
@@ -164,7 +169,7 @@ namespace Gameplay
 
 	void PlayerJump(PlayerNS::Player& player)
 	{
-		if (IsMouseButtonPressed(0) || IsKeyPressed(KEY_SPACE))
+		if (IsKeyPressed(player.jumpKey))
 			player.speed = player.jumpSpeed;
 
 	}

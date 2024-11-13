@@ -11,7 +11,7 @@ namespace Player
 	static float frameWidth;
 	static float frameHeight;
 
-	void Load(Player& player)
+	void Load(Player& player, Color color, KeyboardKey jumpKey)
 	{
 		player.score = 0;
 
@@ -58,16 +58,19 @@ namespace Player
 		player.jumpSpeed = -600.0f;
 		player.fallSpeed = 0.25f;
 		player.speed = 0;
+
+		player.color = color;
+		player.jumpKey = jumpKey;
 	}
 
 	void Draw(Player player)
 	{
 		//Collision
 #ifdef _DEBUG
-		DrawCircle(static_cast <int>(player.collisionShape.center.x), 
+		/*DrawCircle(static_cast <int>(player.collisionShape.center.x), 
 			static_cast <int>(player.collisionShape.center.y), 
 			player.collisionShape.radius, 
-			BLUE);
+			BLUE);*/
 #endif // _DEBUG
 
 		Vector2 drawingPos =
@@ -81,7 +84,7 @@ namespace Player
 				player.sprite.texture,
 				player.flyAnimation[player.sprite.currentFrame],
 				drawingPos,
-				WHITE
+				player.color
 			);
 
 		//Center

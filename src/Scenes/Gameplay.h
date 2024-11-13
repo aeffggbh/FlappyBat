@@ -19,6 +19,7 @@ namespace Gameplay
 	void Reset();
 	void UpdatePlayer(PlayerNS::Player& player);
 	int GetRunScore(PlayerNS::Player& player);
+	void SetMultiplayer(bool isMultiplayer);
 
 	
 }

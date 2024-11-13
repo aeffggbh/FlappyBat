@@ -24,6 +24,7 @@ namespace Credits
 
 	//Texts
 	static Text::Text developerText;
+	static Text::Text developer2Text;
 
 	static Text::Text spritesText;
 	static Text::Text spritesUrlText;
@@ -50,16 +51,23 @@ namespace Credits
 		//Texts
 		{
 
-			developerText = Text::CreateText("Developed by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN);
+			developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN);
 			Text::SetTextLength(developerText);
 
 			textPadding += 2;
+
+			developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
+			Text::SetTextLength(developer2Text);
+
+			textPadding += 3;
+
 
 			spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
 			Text::SetTextLength(spritesText);
 
 			spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
 			Text::SetTextLength(spritesUrlText);
+
 
 			textPadding += 2;
 
@@ -95,6 +103,7 @@ namespace Credits
 		Buttons::Draw(returnToMenu, buttonFontSize);
 
 		Text::DrawCentered(developerText);
+		Text::DrawCentered(developer2Text);
 
 		Text::DrawCentered(spritesText, spritesUrlText);
 		Text::DrawCentered(parallaxText, parallaxUrlText);

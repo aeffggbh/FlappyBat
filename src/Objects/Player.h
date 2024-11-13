@@ -28,9 +28,12 @@ namespace Player
 		float speed;
 		float jumpSpeed;
 		float fallSpeed;
+
+		Color color;
+		KeyboardKey jumpKey;
 	};
 
-	void Load(Player& player);
+	void Load(Player& player, Color color, KeyboardKey jumpKey);
 	void Draw(Player player);
 	void Unload(Player& player);
 }

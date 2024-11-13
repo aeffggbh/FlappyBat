@@ -162,6 +162,7 @@
     <ClCompile Include="src\Scenes\Credits.cpp" />
     <ClCompile Include="src\Scenes\GameOver.cpp" />
     <ClCompile Include="src\Scenes\Gameplay.cpp" />
+    <ClCompile Include="src\Scenes\HowToPlay.cpp" />
     <ClCompile Include="src\Scenes\MainMenu.cpp" />
     <ClCompile Include="src\Scenes\Pause.cpp" />
     <ClCompile Include="src\Scenes\Tutorial.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\Scenes\Credits.h" />
     <ClInclude Include="src\Scenes\GameOver.h" />
     <ClInclude Include="src\Scenes\Gameplay.h" />
+    <ClInclude Include="src\Scenes\HowToPlay.h" />
     <ClInclude Include="src\Scenes\MainMenu.h" />
     <ClInclude Include="src\Scenes\Pause.h" />
     <ClInclude Include="src\Scenes\Tutorial.h" />
