@@ -13,11 +13,12 @@ namespace Parallax
 	static MovingBackground::MovingBackground gameplayMiddle;
 	static MovingBackground::MovingBackground gameplayFront;
 
-
 	static float screenHeight;
 	static float screenWidth;
 
 	static void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed);
+	static void UpdateMovingBackground(MovingBackground::MovingBackground& background);
+	static void DrawMovingBackground(MovingBackground::MovingBackground& background);
 
 	void Load()
 	{
@@ -32,57 +33,19 @@ namespace Parallax
 
 	void Update()
 	{
-		gameplayBack.pos.x += gameplayBack.speed * GetFrameTime();
-		gameplayMiddle.pos.x += gameplayMiddle.speed * GetFrameTime();
-		gameplayFront.pos.x += gameplayFront.speed * GetFrameTime();
-
-		if (gameplayBack.pos.x <= -gameplayBack.texture.width * gameplayBack.scale * 2)
-			gameplayBack.pos.x = 0;
-
-		if (gameplayMiddle.pos.x <= -gameplayMiddle.texture.width * gameplayMiddle.scale * 2)
-			gameplayMiddle.pos.x = 0;
-
-		if (gameplayFront.pos.x <= -gameplayFront.texture.width * gameplayFront.scale * 2)
-			gameplayFront.pos.x = 0;
+		UpdateMovingBackground(gameplayBack);
+		UpdateMovingBackground(gameplayMiddle);
+		UpdateMovingBackground(gameplayFront);
+		
 	}
 
 	void Draw()
 	{
 		//Back
-		for (int i = 0; i < gameplayBack.repetitionCount; i++)
-		{
-			DrawTextureEx(
-				gameplayBack.texture,
-				Vector2{ gameplayBack.texture.width * static_cast <float> (i) + gameplayBack.pos.x, gameplayBack.pos.y },
-				0.0f,
-				gameplayBack.scale,
-				WHITE
-			);
-		}
+		DrawMovingBackground(gameplayBack);
+		DrawMovingBackground(gameplayMiddle);
+		DrawMovingBackground(gameplayFront);
 
-		//Middle
-		for (int i = 0; i < gameplayMiddle.repetitionCount; i++)
-		{
-			DrawTextureEx(
-				gameplayMiddle.texture,
-				Vector2{ gameplayMiddle.texture.width * static_cast <float> (i) + gameplayMiddle.pos.x, gameplayMiddle.pos.y },
-				0.0f,
-				gameplayMiddle.scale,
-				WHITE
-			);
-		}
-
-		//Front
-		for (int i = 0; i < gameplayFront.repetitionCount; i++)
-		{
-			DrawTextureEx(
-				gameplayFront.texture,
-				Vector2{ gameplayFront.texture.width * static_cast <float> (i) + gameplayFront.pos.x, gameplayFront.pos.y },
-				0.0f,
-				gameplayFront.scale,
-				WHITE
-			);
-		}
 	}
 
 	void Unload()
@@ -92,7 +55,7 @@ namespace Parallax
 		UnloadTexture(gameplayFront.texture);
 	}
 
-	static void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed)
+	void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed)
 	{
 		background.texture = LoadTexture(dir.c_str());
 		background.pos = Vector2{ 0, 0 };
@@ -100,5 +63,26 @@ namespace Parallax
 		background.speed = speed;
 		background.scale = screenWidth / background.texture.height;
 		background.repetitionCount = static_cast <int>(screenWidth / background.texture.width * background.scale);
+	}
+
+	void UpdateMovingBackground(MovingBackground::MovingBackground& background)
+	{
+		background.pos.x += background.speed * GetFrameTime();
+		if (background.pos.x <= -background.texture.width * background.scale * 2)
+			background.pos.x = 0;
+	}
+
+	void DrawMovingBackground(MovingBackground::MovingBackground& background)
+	{
+		for (int i = 0; i < background.repetitionCount; i++)
+		{
+			DrawTextureEx(
+				background.texture,
+				Vector2{ background.texture.width * static_cast <float> (i) + background.pos.x, background.pos.y },
+				0.0f,
+				background.scale,
+				WHITE
+			);
+		}
 	}
 };

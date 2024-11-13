@@ -14,7 +14,7 @@ namespace Obstacle
 	static float maxObstacleHeight;
 	static float minObstacleHeight;
 
-	void Init(Obstacle& obstacle)
+	void Load(Obstacle& obstacle)
 	{
 		screenWidth = static_cast<float>(GetScreenWidth());
 		screenHeight = static_cast<float>(GetScreenHeight());
@@ -23,11 +23,6 @@ namespace Obstacle
 		minObstacleHeight = obstacleWidth;
 
 		SetObstacle(obstacle);
-	}
-
-	void Load()
-	{
-		
 	}
 
 	void Draw(Obstacle obstacle)

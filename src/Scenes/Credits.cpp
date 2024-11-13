@@ -37,63 +37,22 @@ namespace Credits
 	static Buttons::Button spritesUrlButton;
 	static Buttons::Button parallaxUrlButton;
 
+	static void InitTexts();
+	static void InitButtons();
+	static void UpdateButtons();
 
 	void Load()
 	{
-		//background = LoadTexture("");
-
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
-
-		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
-
-		//Texts
-		{
-
-			developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN);
-			Text::SetTextLength(developerText);
-
-			textPadding += 2;
-
-			developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-			Text::SetTextLength(developer2Text);
-
-			textPadding += 3;
-
-
-			spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-			Text::SetTextLength(spritesText);
-
-			spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
-			Text::SetTextLength(spritesUrlText);
-
-
-			textPadding += 2;
-
-			parallaxText = Text::CreateText("Parallax by Ansimuz", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-			Text::SetTextLength(parallaxText);
-
-			parallaxUrlText = Text::CreateText("(https://ansimuz.itch.io/gothicvania-patreon-collection)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
-			Text::SetTextLength(parallaxUrlText);
-
-			textPadding += 2;
-
-
-		}
-
-		//Invisible buttons
-		{
-			spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.length), static_cast<float>(regularFontSize));
-			parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.length), static_cast<float>(regularFontSize));
-		}
+		InitTexts();
+		InitButtons();
 	}
 
 	void Update()
 	{
-		if (Buttons::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
-		if (Buttons::IsButtonPressed(parallaxUrlButton)) OpenURL("https://ansimuz.itch.io/gothicvania-patreon-collection");
-
+		UpdateButtons();
 	}
 
 	void Draw()
@@ -113,5 +72,52 @@ namespace Credits
 	void Unload()
 	{
 		UnloadTexture(background);
+	}
+
+	void InitButtons()
+	{
+		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
+
+		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.length), static_cast<float>(regularFontSize));
+		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.length), static_cast<float>(regularFontSize));
+	}
+
+	void InitTexts()
+	{
+		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN);
+		Text::SetTextLength(developerText);
+
+		textPadding += 2;
+
+		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
+		Text::SetTextLength(developer2Text);
+
+		textPadding += 3;
+
+
+		spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
+		Text::SetTextLength(spritesText);
+
+		spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
+		Text::SetTextLength(spritesUrlText);
+
+
+		textPadding += 2;
+
+		parallaxText = Text::CreateText("Parallax by Ansimuz", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
+		Text::SetTextLength(parallaxText);
+
+		parallaxUrlText = Text::CreateText("(https://ansimuz.itch.io/gothicvania-patreon-collection)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
+		Text::SetTextLength(parallaxUrlText);
+
+		textPadding += 2;
+
+	}
+
+	void UpdateButtons()
+	{
+		if (Buttons::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
+		if (Buttons::IsButtonPressed(parallaxUrlButton)) OpenURL("https://ansimuz.itch.io/gothicvania-patreon-collection");
+
 	}
 }

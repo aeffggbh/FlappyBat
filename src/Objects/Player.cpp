@@ -11,34 +11,19 @@ namespace Player
 	static float frameWidth;
 	static float frameHeight;
 
+	static void InitSprite(Player& player);
+
+	static void InitAnimation(Player& player);
+
 	void Load(Player& player, Color color, KeyboardKey jumpKey)
 	{
 		player.score = 0;
 
 		//Sprite
-		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
-		player.sprite.scale = 2.0f;
-
-		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
-		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
-
-		frameWidth = static_cast <float> (player.sprite.texture.width / flyFrames);
-		frameHeight = static_cast <float> (player.sprite.texture.height);
+		InitSprite(player);
 
 		//Define fly frames
-		for (int i = 0; i < flyFrames; i++)
-		{
-			player.flyAnimation[i] = {
-				frameWidth * i,
-				0,
-				frameWidth,
-				frameHeight
-			};
-		}
-
-		player.sprite.currentFrame = 0;
-		player.sprite.frameTimer = 0.0f;
-		player.sprite.frameRate = 0.09f;
+		InitAnimation(player);
 
 		//Sprite Center
 		/*float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
@@ -59,6 +44,7 @@ namespace Player
 		player.fallSpeed = 0.25f;
 		player.speed = 0;
 
+		//Distinctive values (when in multiplayer)
 		player.color = color;
 		player.jumpKey = jumpKey;
 	}
@@ -96,6 +82,35 @@ namespace Player
 	void Unload(Player& player)
 	{
 		UnloadTexture(player.sprite.texture);
+	}
+
+	void InitSprite(Player& player)
+	{
+		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
+		player.sprite.scale = 2.0f;
+
+		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
+		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
+
+		frameWidth = static_cast <float> (player.sprite.texture.width / flyFrames);
+		frameHeight = static_cast <float> (player.sprite.texture.height);
+	}
+
+	void InitAnimation(Player& player)
+	{
+		for (int i = 0; i < flyFrames; i++)
+		{
+			player.flyAnimation[i] = {
+				frameWidth * i,
+				0,
+				frameWidth,
+				frameHeight
+			};
+		}
+
+		player.sprite.currentFrame = 0;
+		player.sprite.frameTimer = 0.0f;
+		player.sprite.frameRate = 0.09f;
 	}
 }
 

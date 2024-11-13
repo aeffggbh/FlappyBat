@@ -14,8 +14,7 @@ namespace Obstacle
 	};
 
 
-	void Init(Obstacle& obstacle);
-	void Load();
+	void Load(Obstacle& obstacle);
 	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);
 	void Unload();

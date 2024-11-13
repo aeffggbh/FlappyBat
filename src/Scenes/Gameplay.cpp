@@ -35,6 +35,7 @@ namespace Gameplay
 	static Texture2D background;
 
 	//Player
+	static void UpdatePlayer(PlayerNS::Player& player);
 	static void MovePlayer(PlayerNS::Player& player);
 	static void PlayPlayerAnimation(PlayerNS::Player& player);
 	static void PlayerJump(PlayerNS::Player& player);
@@ -54,7 +55,7 @@ namespace Gameplay
 
 	void Init()
 	{
-		ObstacleNS::Init(obstacle);
+		ObstacleNS::Load(obstacle);
 		gameOnGoing = true;
 		gameStarted = false;
 	}
@@ -65,7 +66,7 @@ namespace Gameplay
 
 		PlayerNS::Load(player1, WHITE, KEY_SPACE);
 		PlayerNS::Load(player2, RED, KEY_UP);
-		ObstacleNS::Load();
+		ObstacleNS::Load(obstacle);
 		Parallax::Load();
 
 		//background = LoadTexture("");

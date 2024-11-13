@@ -31,6 +31,8 @@ namespace GameOver
 	static int heightMultiplyer = 1;
 	static int textSeparation = 8;
 
+	static void InitTexts();
+
 	void Load()
 	{
 
@@ -40,13 +42,7 @@ namespace GameOver
 
 		heightMultiplyer = 1;
 
-		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, GREEN);
-		Text::SetTextLength(gameOver);
-
-		//background = LoadTexture("");
-
-		returnToMenu = Buttons::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
-		playAgain = Buttons::Create("Play Again", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		InitTexts();
 	}
 
 	void Draw()
@@ -70,5 +66,17 @@ namespace GameOver
 	{
 		string bestScoreString = "Best score: " + to_string(maxScore);
 		string currentScoreString = "Score: " + to_string(runScore);
+	}
+
+	void InitTexts()
+	{
+		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, GREEN);
+		Text::SetTextLength(gameOver);
+
+		//background = LoadTexture("");
+
+		returnToMenu = Buttons::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+		playAgain = Buttons::Create("Play Again", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);
+
 	}
 }
