@@ -30,9 +30,6 @@
     <ClCompile Include="src\Interface\Text.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\SoundManager.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils\Utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
     <ClCompile Include="src\Scenes\HowToPlay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\SoundManager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -76,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="src\Interface\Text.h">
       <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utils\SoundManager.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils\Utils.h">
       <Filter>Utils</Filter>
@@ -124,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="src\Scenes\HowToPlay.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\SoundManager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,18 +1,30 @@
 #pragma once
 
+#include "Objects//Sprite.h"
+
 #include "raylib.h"
 
 namespace Obstacle
 {
 	const int obstacleParts = 2;
+	const int frames = 3;
+
+	struct ObstaclePart
+	{
+		Rectangle collisionShape;
+		Sprite::Sprite spriteParts[frames];
+		Vector2 pos;
+		int trunkRepetitions;
+	};
 
 	struct Obstacle
 	{
-		Rectangle collisionShapes[obstacleParts];
-		Vector2 pos[obstacleParts];
+		ObstaclePart parts[obstacleParts];
 		float speed;
 	};
 
+
+	void Load();
 
 	void Init(Obstacle& obstacle);
 	void Update(Obstacle& obstacle);

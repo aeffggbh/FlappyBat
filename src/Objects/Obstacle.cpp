@@ -6,6 +6,17 @@ using namespace std;
 
 namespace Obstacle
 {
+	enum TreeParts
+	{
+		Trunk,
+		TopLeaves,
+		BottomLeaves
+	};
+
+	Texture2D tree;
+	Sprite::Sprite trunk;
+	Sprite::Sprite topLeaves;
+	Sprite::Sprite bottomLeaves;
 
 	static float screenWidth;
 	static float screenHeight;
@@ -17,9 +28,17 @@ namespace Obstacle
 	static void ManageObstacle(Obstacle& obstacle);
 	static void MoveObstacle(Obstacle& enemyToMove);
 	static void KeepObstacleOnScreen(Obstacle& enemyToKeepOnScreen);
+	static void InitTextures();
+
+	void Load()
+	{
+		tree = LoadTexture("res/sprites/tree.png");
+	}
 
 	void Init(Obstacle& obstacle)
 	{
+		InitTextures();
+
 		screenWidth = static_cast<float>(GetScreenWidth());
 		screenHeight = static_cast<float>(GetScreenHeight());
 
@@ -38,11 +57,29 @@ namespace Obstacle
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			DrawRectangle(static_cast<int>(obstacle.pos[i].x),
-				static_cast<int>(obstacle.pos[i].y),
-				static_cast<int>(obstacle.collisionShapes[i].width),
-				static_cast<int>(obstacle.collisionShapes[i].height),
+			DrawRectangle(static_cast<int>(obstacle.parts[i].pos.x),
+				static_cast<int>(obstacle.parts[i].pos.y),
+				static_cast<int>(obstacle.parts[i].collisionShape.width),
+				static_cast<int>(obstacle.parts[i].collisionShape.height),
 				RED);
+
+			float trunkYStart = obstacle.parts[i].collisionShape.y;
+
+			for (int j = 0; j < frames; j++)
+			{
+				if (j == Trunk)
+				{
+					Rectangle dest = obstacle.parts[i].spriteParts[j].destination;
+					for (int k = 0; k < obstacle.parts[i].trunkRepetitions; k++)
+					{
+						dest.y = trunkYStart;
+						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, dest, { 0,0 }, 0, WHITE);
+						dest.y += dest.height;
+					}
+				}
+				else
+					DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, obstacle.parts[i].spriteParts[j].destination, { 0,0 }, 0, WHITE);
+			}
 		}
 	}
 
@@ -59,32 +96,46 @@ namespace Obstacle
 
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			obstacleToSet.collisionShapes[i].width = obstacleWidth;
-			obstacleToSet.collisionShapes[i].x = screenWidth + obstacleWidth;
+			obstacleToSet.parts[i].spriteParts[Trunk] = trunk;
+			obstacleToSet.parts[i].spriteParts[TopLeaves] = topLeaves;
+			obstacleToSet.parts[i].spriteParts[BottomLeaves] = bottomLeaves;
+
+			obstacleToSet.parts[i].collisionShape.width = obstacleWidth;
+			obstacleToSet.parts[i].collisionShape.x = screenWidth + obstacleWidth;
+
+			for (int j = 0; j < frames; j++)
+			{
+				obstacleToSet.parts[i].spriteParts[j].destination.width = obstacleWidth;
+				obstacleToSet.parts[i].spriteParts[j].destination.x = obstacleToSet.parts[i].collisionShape.x;
+			}
 
 			if (i == 0)
 			{
-				obstacleToSet.collisionShapes[i].height = dividedObstacleHeight;
-				obstacleToSet.collisionShapes[i].y = 0;
+				//top
+				obstacleToSet.parts[i].collisionShape.height = dividedObstacleHeight;
+				obstacleToSet.parts[i].collisionShape.y = 0;
+
+				obstacleToSet.parts[i].spriteParts[TopLeaves].destination.y = obstacleToSet.parts[i].collisionShape.height;
+
 			}
 			else
 			{
-				obstacleToSet.collisionShapes[i].y = obstacleToSet.collisionShapes[i-1].y + obstacleToSet.collisionShapes[i - 1].height + obstacleSpace;
+				//bottom
+				obstacleToSet.parts[i].collisionShape.y = obstacleToSet.parts[i - 1].collisionShape.y + obstacleToSet.parts[i - 1].collisionShape.height + obstacleSpace;
 
-				obstacleToSet.collisionShapes[i].height = screenHeight - obstacleToSet.collisionShapes[i].y;
+				obstacleToSet.parts[i].collisionShape.height = screenHeight - obstacleToSet.parts[i].collisionShape.y;
+
+				obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.y = obstacleToSet.parts[i].collisionShape.y + obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.height;
 			}
-			obstacleToSet.pos[i].x = obstacleToSet.collisionShapes[i].x;
-			obstacleToSet.pos[i].y = obstacleToSet.collisionShapes[i].y;
+			obstacleToSet.parts[i].pos.x = obstacleToSet.parts[i].collisionShape.x;
+			obstacleToSet.parts[i].pos.y = obstacleToSet.parts[i].collisionShape.y;
 
+			obstacleToSet.parts[i].trunkRepetitions = static_cast<int>(obstacleToSet.parts[i].collisionShape.height) / trunk.texture.height;
 		}
 
 		obstacleToSet.speed = 500;
 	}
 
-	void Unload()
-	{
-		//Unload texture
-	}
 
 	void ManageObstacle(Obstacle& obstacle)
 	{
@@ -96,19 +147,50 @@ namespace Obstacle
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			enemyToMove.pos[i].x -= enemyToMove.speed * GetFrameTime();
-			enemyToMove.collisionShapes[i].x = enemyToMove.pos[i].x;
+			enemyToMove.parts[i].pos.x -= enemyToMove.speed * GetFrameTime();
+			enemyToMove.parts[i].collisionShape.x = enemyToMove.parts[i].pos.x;
 
 		}
 	}
 
 	void KeepObstacleOnScreen(Obstacle& obstacleToKeepOnScreen)
 	{
-		if (obstacleToKeepOnScreen.pos[0].x + obstacleToKeepOnScreen.collisionShapes[0].width < 0)
+		if (obstacleToKeepOnScreen.parts[0].pos.x + obstacleToKeepOnScreen.parts[0].collisionShape.width < 0)
 		{
 			ResetObstacle(obstacleToKeepOnScreen);
 		}
 	}
 
-	
+	void InitTextures()
+	{
+		float treeFrames = 3.0f;
+
+		trunk.texture = tree;
+		bottomLeaves.texture = tree;
+		topLeaves.texture = tree;
+
+		trunk.source.x = 0;
+		trunk.source.y = 0;
+
+		bottomLeaves.source.x = trunk.source.x + static_cast<float>(trunk.texture.width) / treeFrames;
+		bottomLeaves.source.y = 0;
+
+		topLeaves.source.x = bottomLeaves.source.x + static_cast<float>(bottomLeaves.texture.width) / treeFrames;
+		topLeaves.source.y = 0;
+
+		trunk.source.width = static_cast<float>(trunk.texture.width) / treeFrames;
+		bottomLeaves.source.width = static_cast<float>(bottomLeaves.texture.width) / treeFrames;
+		topLeaves.source.width = static_cast<float>(topLeaves.texture.width) / treeFrames;
+
+		trunk.source.height = trunk.source.width;
+		bottomLeaves.source.height = bottomLeaves.source.width;
+		topLeaves.source.height = topLeaves.source.width;
+
+	}
+
+	void Unload()
+	{
+		UnloadTexture(tree);
+	}
+
 }

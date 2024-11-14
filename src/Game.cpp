@@ -68,7 +68,6 @@ namespace Game
 
 		SetExitKey(0);
 
-		SoundManager::Init();
 		MainMenu::Init();
 		Gameplay::Init();
 		Tutorial::Init();
@@ -87,24 +86,32 @@ namespace Game
 		{
 		case Game::CurrentScene::MainMenu:
 		{
+			if (SoundManager::IsPlaying(SoundManager::Song::gameplay))
+				SoundManager::Stop(SoundManager::Song::gameplay);
+			MainMenu::Update();
+
 			if (IsButtonPressed(MainMenu::play))
 			{
 				gameplayOnGoing = true;
 				currentScene = CurrentScene::Gameplay;
 				Gameplay::SetMultiplayer(false);
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::play2))
 			{
 				currentScene = CurrentScene::HowToPlay;
+				SoundManager::Play(GetRandomSfx());
 
 			}
 			else if (IsButtonPressed(MainMenu::tutorial))
 			{
 				currentScene = CurrentScene::Tutorial;
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::credits))
 			{
 				currentScene = CurrentScene::Credits;
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::exit))
 			{
@@ -117,11 +124,15 @@ namespace Game
 
 		case Game::CurrentScene::Gameplay:
 		{
+			if (SoundManager::IsPlaying(SoundManager::Song::menu))
+				SoundManager::Stop(SoundManager::Song::menu);
+
 			gameplayOnGoing = Gameplay::Update();
 
 			if (IsButtonPressed(Gameplay::pause) || IsKeyReleased(KEY_ESCAPE))
 			{
 				currentScene = CurrentScene::Pause;
+				SoundManager::Play(GetRandomSfx());
 			}
 
 			if (!gameplayOnGoing)
@@ -144,8 +155,13 @@ namespace Game
 
 		case Game::CurrentScene::Tutorial:
 		{
+			MainMenu::KeepMusic();
+
 			if (IsButtonPressed(Tutorial::returnToMenu) || IsKeyReleased(KEY_ESCAPE))
+			{
 				currentScene = CurrentScene::MainMenu;
+				SoundManager::Play(GetRandomSfx());
+			}
 
 			break;
 		}
@@ -153,10 +169,14 @@ namespace Game
 
 		case Game::CurrentScene::Credits:
 		{
+			MainMenu::KeepMusic();
 			Credits::Update();
 
 			if (IsButtonPressed(Credits::returnToMenu) || IsKeyReleased(KEY_ESCAPE))
+			{
 				currentScene = CurrentScene::MainMenu;
+				SoundManager::Play(GetRandomSfx());
+			}
 
 			break;
 		}
@@ -168,10 +188,12 @@ namespace Game
 			{
 				ResetGame();
 				currentScene = CurrentScene::MainMenu;
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(Pause::continuePlaying) || IsKeyReleased(KEY_ESCAPE))
 			{
 				currentScene = CurrentScene::Gameplay;
+				SoundManager::Play(GetRandomSfx());
 			}
 			break;
 		}
@@ -183,24 +205,31 @@ namespace Game
 			{
 				ResetGame();
 				currentScene = CurrentScene::MainMenu;
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(GameOver::playAgain))
 			{
 				ResetGame();
 				currentScene = CurrentScene::Gameplay;
+				SoundManager::Play(GetRandomSfx());
 			}
 			break;
 		}
 		case Game::CurrentScene::HowToPlay:
 		{
+			MainMenu::KeepMusic();
 			if (IsButtonPressed(HowToPlay::continuePlaying))
 			{
 				gameplayOnGoing = true;
 				currentScene = CurrentScene::Gameplay;
 				Gameplay::SetMultiplayer(true);
+				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(HowToPlay::returnToMenu))
+			{
 				currentScene = CurrentScene::MainMenu;
+				SoundManager::Play(GetRandomSfx());
+			}
 			break;
 		}
 
@@ -275,6 +304,7 @@ namespace Game
 
 	void Load()
 	{
+		SoundManager::Load();
 		Gameplay::Load();
 	}
 

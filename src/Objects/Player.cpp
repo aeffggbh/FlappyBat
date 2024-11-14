@@ -49,7 +49,7 @@ namespace Player
 
 		//Collision
 		player.collisionShape.center = player.pos;
-		player.collisionShape.radius = 22;
+		player.collisionShape.radius = static_cast<float>(player.sprite.texture.height)/4.0f;
 
 		//Speed
 		player.jumpSpeed = -600.0f;
@@ -83,12 +83,11 @@ namespace Player
 
 	void Draw(Player player)
 	{
-		//Collision
 #ifdef _DEBUG
-		/*DrawCircle(static_cast <int>(player.collisionShape.center.x), 
+		DrawCircle(static_cast <int>(player.collisionShape.center.x), 
 			static_cast <int>(player.collisionShape.center.y), 
 			player.collisionShape.radius, 
-			BLUE);*/
+			BLUE);
 #endif // _DEBUG
 
 		Vector2 drawingPos =
@@ -105,6 +104,7 @@ namespace Player
 				player.color
 			);
 
+		//Collision
 		//Center
 #ifdef _DEBUG
 		//DrawCircle(static_cast <int>(player.pos.x), static_cast <int>(player.pos.y), 5, YELLOW);

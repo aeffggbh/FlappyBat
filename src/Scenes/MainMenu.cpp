@@ -1,5 +1,7 @@
 #include "MainMenu.h"
 
+#include "Utils/SoundManager.h"
+
 #include "raylib.h"
 
 namespace MainMenu
@@ -29,6 +31,19 @@ namespace MainMenu
 		tutorial = Buttons::Create("Tutorial", buttonCenterX, static_cast<float>(screenHeight * 5 / 8), buttonWidth, buttonHeight);
 		credits = Buttons::Create("Credits", buttonCenterX, static_cast<float>(screenHeight * 6 / 8), buttonWidth, buttonHeight);
 		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight * 7/8), buttonWidth, buttonHeight);
+	}
+
+	void Update()
+	{
+		if (!SoundManager::IsPlaying(SoundManager::Song::menu))
+			SoundManager::Play(SoundManager::Song::menu);
+		else
+			SoundManager::Update(SoundManager::Song::menu);
+	}
+
+	void KeepMusic()
+	{
+		SoundManager::Update(SoundManager::Song::menu);
 	}
 
 

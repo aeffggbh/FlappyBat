@@ -4,6 +4,8 @@
 namespace MainMenu
 {
 	void Init();
+	void Update();
+	void KeepMusic();
 	void Draw();
 	void Unload();
 

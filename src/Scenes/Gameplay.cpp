@@ -9,6 +9,8 @@
 #include "Objects/Player.h"
 #include "Objects/Obstacle.h"
 #include "Objects/Parallax.h"
+#include "Utils/SoundManager.h"
+
 
 namespace ObstacleNS = Obstacle;
 
@@ -54,10 +56,16 @@ namespace Gameplay
 		Parallax::Load();
 		PlayerNS::Load(player1);
 		PlayerNS::Load(player2);
+		ObstacleNS::Load();
 	}
 
 	bool Update()
 	{
+		if (!SoundManager::IsPlaying(SoundManager::Song::gameplay))
+			SoundManager::Play(SoundManager::Song::gameplay);
+		else
+			SoundManager::Update(SoundManager::Song::gameplay);
+
 		Parallax::Update();
 
 		ObstacleNS::Update(obstacle);
@@ -91,6 +99,7 @@ namespace Gameplay
 		PlayerNS::Unload(player2);
 		UnloadTexture(background);
 		Parallax::Unload();
+		ObstacleNS::Unload();
 	}
 
 	void Reset()
@@ -114,10 +123,10 @@ namespace Gameplay
 
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			float rx = obstacle.collisionShapes[i].x;
-			float ry = obstacle.collisionShapes[i].y;
-			float rw = obstacle.collisionShapes[i].width;
-			float rh = obstacle.collisionShapes[i].height;
+			float rx = obstacle.parts[i].collisionShape.x;
+			float ry = obstacle.parts[i].collisionShape.y;
+			float rw = obstacle.parts[i].collisionShape.width;
+			float rh = obstacle.parts[i].collisionShape.height;
 
 			float testX = cx;
 			float testY = cy;
