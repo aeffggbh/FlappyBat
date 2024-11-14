@@ -18,7 +18,7 @@ namespace Obstacle
 	static void MoveObstacle(Obstacle& enemyToMove);
 	static void KeepObstacleOnScreen(Obstacle& enemyToKeepOnScreen);
 
-	void Load(Obstacle& obstacle)
+	void Init(Obstacle& obstacle)
 	{
 		screenWidth = static_cast<float>(GetScreenWidth());
 		screenHeight = static_cast<float>(GetScreenHeight());

@@ -3,6 +3,6 @@
 
 namespace SoundManager
 {
-	void Load();
+	void Init();
 	void Unload();
 }

@@ -33,7 +33,9 @@ namespace Player
 		KeyboardKey jumpKey;
 	};
 
-	void Load(Player& player, Color color, KeyboardKey jumpKey);
+	void Load(Player& player);
+
+	void Init(Player& player, Color color, KeyboardKey jumpKey);
 	void Update(Player& player, bool& gameOnGoing);
 	void Draw(Player player);
 	void Unload(Player& player);

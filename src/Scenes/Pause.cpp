@@ -13,7 +13,7 @@ namespace Pause
 	static float screenCenterX;
 	static float buttonCenterX;
 
-	void Load()
+	void Init()
 	{
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);

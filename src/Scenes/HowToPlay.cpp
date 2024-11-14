@@ -20,7 +20,7 @@ namespace HowToPlay
 
 	static void InitTexts();
 
-	void Load()
+	void Init()
 	{
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);

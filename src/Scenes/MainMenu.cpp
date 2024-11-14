@@ -4,8 +4,6 @@
 
 namespace MainMenu
 {
-	static Texture2D background;
-
 	Buttons::Button play;
 	Buttons::Button play2;
 	Buttons::Button tutorial;
@@ -19,10 +17,9 @@ namespace MainMenu
 	static float screenCenterX;
 	static float buttonCenterX;
 
-	void Load()
-	{
-		background = LoadTexture("res/Backgrounds/MenuBackground.png");
 
+	void Init()
+	{
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
@@ -38,8 +35,6 @@ namespace MainMenu
 	void Draw()
 	{
 		ClearBackground(BLACK);
-
-		DrawTexture(background, 0, 0, WHITE);
 
 		int titleFontSize = fontSize * 2;
 		const char* title = "Name";
@@ -64,7 +59,6 @@ namespace MainMenu
 
 	void Unload()
 	{
-		UnloadTexture(background);
 	}
 
 }

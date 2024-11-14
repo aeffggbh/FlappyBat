@@ -5,6 +5,6 @@ namespace HowToPlay
 {
 	extern Buttons::Button returnToMenu;
 	extern Buttons::Button continuePlaying;
-	void Load();
+	void Init();
 	void Draw();
 }

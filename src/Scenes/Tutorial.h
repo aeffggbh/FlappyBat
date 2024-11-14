@@ -3,7 +3,7 @@
 
 namespace Tutorial
 {
-	void Load();
+	void Init();
 	void Draw();
 	void Unload();
 

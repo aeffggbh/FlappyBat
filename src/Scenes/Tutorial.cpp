@@ -4,8 +4,6 @@
 
 namespace Tutorial
 {
-	static Texture2D background;
-
 	Buttons::Button returnToMenu;
 
 	static int buttonFontSize = 40;
@@ -22,9 +20,8 @@ namespace Tutorial
 	static int screenDivision = 12;
 	static int heightMultiplier = 1;
 
-	void Load()
+	void Init()
 	{
-		background = LoadTexture("res/Backgrounds/MenuBackground.png");
 
 		heightMultiplier = 1;
 
@@ -39,13 +36,11 @@ namespace Tutorial
 	void Draw()
 	{
 		ClearBackground(BLACK);
-		DrawTexture(background, 0, 0, WHITE);
 
 		Buttons::Draw(returnToMenu, buttonFontSize);
 	}
 
 	void Unload()
 	{
-		UnloadTexture(background);
 	}
 }

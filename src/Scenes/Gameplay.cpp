@@ -34,28 +34,26 @@ namespace Gameplay
 
 	static Texture2D background;
 
-	//Enemy
-	
-
 	//Collisions
 	static bool CheckPlayerObstacleCollision(PlayerNS::Player player);
 
 	void Init()
 	{
-		ObstacleNS::Load(obstacle);
+		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
+		ObstacleNS::Init(obstacle);
 		gameOnGoing = true;
 		gameStarted = false;
+		PlayerNS::Init(player1, WHITE, KEY_SPACE);
+		PlayerNS::Init(player2, RED, KEY_UP);
+		ObstacleNS::Init(obstacle);
+		Parallax::Init();
 	}
 
 	void Load()
 	{
-		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
-
-		PlayerNS::Load(player1, WHITE, KEY_SPACE);
-		PlayerNS::Load(player2, RED, KEY_UP);
-		ObstacleNS::Load(obstacle);
 		Parallax::Load();
-
+		PlayerNS::Load(player1);
+		PlayerNS::Load(player2);
 	}
 
 	bool Update()
@@ -100,6 +98,7 @@ namespace Gameplay
 		ObstacleNS::ResetObstacle(obstacle);
 		PlayerNS::ResetPlayer(player1);
 		PlayerNS::ResetPlayer(player2);
+		gameOnGoing = true;
 	}
 
 	void SetMultiplayer(bool multiplayerMode)

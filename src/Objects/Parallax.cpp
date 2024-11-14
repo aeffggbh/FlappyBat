@@ -16,18 +16,27 @@ namespace Parallax
 	static float screenHeight;
 	static float screenWidth;
 
-	static void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed);
+	static void LoadBackground(MovingBackground::MovingBackground& background, string dir);
+	static void InitMovingBackground(MovingBackground::MovingBackground& background, float speed);
 	static void UpdateMovingBackground(MovingBackground::MovingBackground& background);
 	static void DrawMovingBackground(MovingBackground::MovingBackground& background);
 
 	void Load()
 	{
+		LoadBackground(gameplayBack, "res/Backgrounds/Gameplay_Back.png");
+		LoadBackground(gameplayMiddle, "res/Backgrounds/Gameplay_Middle.png");
+		LoadBackground(gameplayFront, "res/Backgrounds/Gameplay_Front.png");
+	}
+
+	void Init()
+	{
+		
 		screenHeight = static_cast <float>(GetScreenHeight());
 		screenWidth = static_cast <float>(GetScreenWidth());
 
-		InitMovingBackground(gameplayBack, "res/Backgrounds/Gameplay_Back.png", -100.0f);
-		InitMovingBackground(gameplayMiddle, "res/Backgrounds/Gameplay_Middle.png", -150.0f);
-		InitMovingBackground(gameplayFront, "res/Backgrounds/Gameplay_Front.png", -250.0f);
+		InitMovingBackground(gameplayBack, -100.0f);
+		InitMovingBackground(gameplayMiddle, -150.0f);
+		InitMovingBackground(gameplayFront, -250.0f);
 
 	}
 
@@ -36,16 +45,14 @@ namespace Parallax
 		UpdateMovingBackground(gameplayBack);
 		UpdateMovingBackground(gameplayMiddle);
 		UpdateMovingBackground(gameplayFront);
-		
+
 	}
 
 	void Draw()
 	{
-		//Back
 		DrawMovingBackground(gameplayBack);
 		DrawMovingBackground(gameplayMiddle);
 		DrawMovingBackground(gameplayFront);
-
 	}
 
 	void Unload()
@@ -55,9 +62,13 @@ namespace Parallax
 		UnloadTexture(gameplayFront.texture);
 	}
 
-	void InitMovingBackground(MovingBackground::MovingBackground& background, string dir, float speed)
+	void LoadBackground(MovingBackground::MovingBackground& background, string dir)
 	{
 		background.texture = LoadTexture(dir.c_str());
+	}
+
+	void InitMovingBackground(MovingBackground::MovingBackground& background, float speed)
+	{
 		background.pos = Vector2{ 0, 0 };
 
 		background.speed = speed;

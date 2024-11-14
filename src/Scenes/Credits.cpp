@@ -41,7 +41,7 @@ namespace Credits
 	static void InitButtons();
 	static void UpdateButtons();
 
-	void Load()
+	void Init()
 	{
 		screenHeight = static_cast<float>(GetScreenHeight());
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);

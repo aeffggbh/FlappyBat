@@ -1,6 +1,7 @@
 #include "Player.h"
 
-#include "cmath"
+#include <iostream>
+#include <cmath>
 
 #include "Utils/Utils.h"
 
@@ -21,7 +22,12 @@ namespace Player
 	static bool CheckPlayerBottomCollision(Player player);
 	static bool CheckPlayerTopCollision(Player player);
 
-	void Load(Player& player, Color color, KeyboardKey jumpKey)
+	void Load(Player& player)
+	{
+		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
+	}
+
+	void Init(Player& player, Color color, KeyboardKey jumpKey)
 	{
 		player.score = 0;
 
@@ -124,11 +130,11 @@ namespace Player
 
 	void InitSprite(Player& player)
 	{
-		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
 		player.sprite.scale = 2.0f;
 
 		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
 		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
+		std::cout << "multiplied" << std::endl;
 
 		frameWidth = static_cast <float> (player.sprite.texture.width / flyFrames);
 		frameHeight = static_cast <float> (player.sprite.texture.height);

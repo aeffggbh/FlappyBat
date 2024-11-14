@@ -3,7 +3,7 @@
 
 namespace MainMenu
 {
-	void Load();
+	void Init();
 	void Draw();
 	void Unload();
 

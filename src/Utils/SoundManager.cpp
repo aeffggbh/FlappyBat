@@ -3,7 +3,7 @@
 namespace SoundManager
 {	
 
-	void Load()
+	void Init()
 	{
 		InitAudioDevice();
 	}

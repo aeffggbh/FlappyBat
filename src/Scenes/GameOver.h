@@ -6,7 +6,7 @@ namespace GameOver
 	extern Buttons::Button returnToMenu;
 	extern Buttons::Button playAgain;
 
-	void Load();
+	void Init();
 	void Draw();
 	void Unload();
 

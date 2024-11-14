@@ -33,7 +33,7 @@ namespace GameOver
 
 	static void InitTexts();
 
-	void Load()
+	void Init()
 	{
 
 		screenHeight = static_cast<float>(GetScreenHeight());

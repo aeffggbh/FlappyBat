@@ -33,16 +33,17 @@ namespace Game
 	static float gameShouldClose;
 	static float gameplayOnGoing;
 
-	static void Load();
+	static void Init();
 	static void Update();
 	static void Draw();
+	static void	Load();
 	static void Unload();
-	static void Init();
 
 	static void ResetGame();
 
 	void Run()
 	{
+		InitWindow(screenWidth, screenHeight, "Aliens");
 		Load();
 		Init();
 
@@ -57,26 +58,24 @@ namespace Game
 	}
 
 
-	void Load()
+	void Init()
 	{
-		
+
 		gameShouldClose = false;
 		gameplayOnGoing = false;
 
 		currentScene = CurrentScene::MainMenu;
 
-		InitWindow(screenWidth, screenHeight, "Aliens");
-
 		SetExitKey(0);
 
-		SoundManager::Load();
-		MainMenu::Load();
-		Gameplay::Load();
-		Tutorial::Load();
-		Credits::Load();
-		Pause::Load();
-		GameOver::Load();
-		HowToPlay::Load();
+		SoundManager::Init();
+		MainMenu::Init();
+		Gameplay::Init();
+		Tutorial::Init();
+		Credits::Init();
+		Pause::Init();
+		GameOver::Init();
+		HowToPlay::Init();
 	}
 
 
@@ -97,7 +96,7 @@ namespace Game
 			else if (IsButtonPressed(MainMenu::play2))
 			{
 				currentScene = CurrentScene::HowToPlay;
-				
+
 			}
 			else if (IsButtonPressed(MainMenu::tutorial))
 			{
@@ -274,6 +273,10 @@ namespace Game
 		EndDrawing();
 	}
 
+	void Load()
+	{
+		Gameplay::Load();
+	}
 
 	void Unload()
 	{
@@ -287,15 +290,9 @@ namespace Game
 		CloseWindow();
 	}
 
-	void Init()
-	{
-		Gameplay::Init();
-	}
-
 	void ResetGame()
 	{
 
 		Gameplay::Reset();
-		Gameplay::Init();
 	}
 }
