@@ -34,6 +34,9 @@ namespace Player
 	};
 
 	void Load(Player& player, Color color, KeyboardKey jumpKey);
+	void Update(Player& player, bool& gameOnGoing);
 	void Draw(Player player);
 	void Unload(Player& player);
+	void ResetPlayer(Player& player);
+	int GetRunScore(Player& player);
 }

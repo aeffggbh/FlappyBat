@@ -14,6 +14,12 @@ namespace Player
 	static void InitSprite(Player& player);
 
 	static void InitAnimation(Player& player);
+	static void MovePlayer(Player& player);
+	static void PlayPlayerAnimation(Player& player);
+	static void PlayerJump(Player& player);
+	static void PlayerFall(Player& player);
+	static bool CheckPlayerBottomCollision(Player player);
+	static bool CheckPlayerTopCollision(Player player);
 
 	void Load(Player& player, Color color, KeyboardKey jumpKey)
 	{
@@ -47,6 +53,26 @@ namespace Player
 		//Distinctive values (when in multiplayer)
 		player.color = color;
 		player.jumpKey = jumpKey;
+	}
+
+	void Update(Player& player, bool& gameOnGoing)
+	{
+		MovePlayer(player);
+		PlayPlayerAnimation(player);
+		PlayerFall(player);
+		PlayerJump(player);
+
+		//Collisions
+		if (CheckPlayerBottomCollision(player))
+		{
+			gameOnGoing = false;
+		}
+
+		if (CheckPlayerTopCollision(player))
+		{
+			//Hacer esto funcion
+			player.collisionShape.center.y = player.collisionShape.radius;
+		}
 	}
 
 	void Draw(Player player)
@@ -84,6 +110,18 @@ namespace Player
 		UnloadTexture(player.sprite.texture);
 	}
 
+	void ResetPlayer(Player& player)
+	{
+		player.collisionShape.center.x = static_cast<float>(GetScreenWidth()) / 4.0f;
+		player.collisionShape.center.y = static_cast<float>(GetScreenHeight()) / 2.0f;
+		player.speed = 0;
+	}
+
+	int GetRunScore(Player& player)
+	{
+		return player.score;
+	}
+
 	void InitSprite(Player& player)
 	{
 		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
@@ -111,6 +149,49 @@ namespace Player
 		player.sprite.currentFrame = 0;
 		player.sprite.frameTimer = 0.0f;
 		player.sprite.frameRate = 0.09f;
+	}
+
+	void MovePlayer(Player& player)
+	{
+		player.collisionShape.center.y += player.speed * GetFrameTime();
+		player.pos.y = player.collisionShape.center.y;
+	}
+
+	void PlayPlayerAnimation(Player& player)
+	{
+		player.sprite.frameTimer += GetFrameTime();
+		if (player.sprite.frameTimer >= player.sprite.frameRate)
+		{
+			player.sprite.frameTimer = 0.0f;
+			player.sprite.currentFrame++;
+
+			if (player.sprite.currentFrame >= flyFrames)
+			{
+				player.sprite.currentFrame = 0;
+			}
+		}
+	}
+
+	void PlayerJump(Player& player)
+	{
+		if (IsKeyPressed(player.jumpKey))
+			player.speed = player.jumpSpeed;
+
+	}
+
+	void PlayerFall(Player& player)
+	{
+		player.speed += player.fallSpeed;
+	}
+
+	bool CheckPlayerBottomCollision(Player player)
+	{
+		return player.collisionShape.center.y + player.collisionShape.radius >= GetScreenHeight();
+	}
+
+	bool CheckPlayerTopCollision(Player player)
+	{
+		return player.collisionShape.center.y - player.collisionShape.radius <= 0;
 	}
 }
 

@@ -15,8 +15,10 @@ namespace Obstacle
 
 
 	void Load(Obstacle& obstacle);
+	void Update(Obstacle& obstacle);
 	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);
 	void Unload();
+	void ResetObstacle(Obstacle& enemyToReset);
 };
 

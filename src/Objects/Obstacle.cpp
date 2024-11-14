@@ -14,6 +14,10 @@ namespace Obstacle
 	static float maxObstacleHeight;
 	static float minObstacleHeight;
 
+	static void ManageObstacle(Obstacle& obstacle);
+	static void MoveObstacle(Obstacle& enemyToMove);
+	static void KeepObstacleOnScreen(Obstacle& enemyToKeepOnScreen);
+
 	void Load(Obstacle& obstacle)
 	{
 		screenWidth = static_cast<float>(GetScreenWidth());
@@ -23,6 +27,11 @@ namespace Obstacle
 		minObstacleHeight = obstacleWidth;
 
 		SetObstacle(obstacle);
+	}
+
+	void Update(Obstacle& obstacle)
+	{
+		ManageObstacle(obstacle);
 	}
 
 	void Draw(Obstacle obstacle)
@@ -35,6 +44,11 @@ namespace Obstacle
 				static_cast<int>(obstacle.collisionShapes[i].height),
 				RED);
 		}
+	}
+
+	void ResetObstacle(Obstacle& obstacleToReset)
+	{
+		SetObstacle(obstacleToReset);
 	}
 
 	void SetObstacle(Obstacle& obstacleToSet)
@@ -71,4 +85,30 @@ namespace Obstacle
 	{
 		//Unload texture
 	}
+
+	void ManageObstacle(Obstacle& obstacle)
+	{
+		MoveObstacle(obstacle);
+		KeepObstacleOnScreen(obstacle);
+	}
+
+	void MoveObstacle(Obstacle& enemyToMove)
+	{
+		for (int i = 0; i < obstacleParts; i++)
+		{
+			enemyToMove.pos[i].x -= enemyToMove.speed * GetFrameTime();
+			enemyToMove.collisionShapes[i].x = enemyToMove.pos[i].x;
+
+		}
+	}
+
+	void KeepObstacleOnScreen(Obstacle& obstacleToKeepOnScreen)
+	{
+		if (obstacleToKeepOnScreen.pos[0].x + obstacleToKeepOnScreen.collisionShapes[0].width < 0)
+		{
+			ResetObstacle(obstacleToKeepOnScreen);
+		}
+	}
+
+	
 }
