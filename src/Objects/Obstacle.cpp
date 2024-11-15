@@ -57,11 +57,12 @@ namespace Obstacle
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			DrawRectangle(static_cast<int>(obstacle.parts[i].pos.x),
+			/*DrawRectangle(static_cast<int>(obstacle.parts[i].pos.x),
 				static_cast<int>(obstacle.parts[i].pos.y),
 				static_cast<int>(obstacle.parts[i].collisionShape.width),
 				static_cast<int>(obstacle.parts[i].collisionShape.height),
-				RED);
+				RED);*/
+
 
 			float trunkYStart = obstacle.parts[i].collisionShape.y;
 
@@ -70,15 +71,35 @@ namespace Obstacle
 				if (j == Trunk)
 				{
 					Rectangle dest = obstacle.parts[i].spriteParts[j].destination;
+
+					if (i == 0)
+					{
+						trunkYStart = obstacle.parts[i].collisionShape.y + obstacle.parts[i].collisionShape.height - obstacle.parts[i].spriteParts[j].destination.height;
+					}
+
+
 					for (int k = 0; k < obstacle.parts[i].trunkRepetitions; k++)
 					{
 						dest.y = trunkYStart;
 						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, dest, { 0,0 }, 0, WHITE);
-						dest.y += dest.height;
+
+						if (i == 0)
+							trunkYStart -= dest.height;
+						else
+							trunkYStart += dest.height;
+
 					}
 				}
 				else
-					DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, obstacle.parts[i].spriteParts[j].destination, { 0,0 }, 0, WHITE);
+				{
+					if ((i == 0 && j == TopLeaves) || i == 1 && j == BottomLeaves)
+					{
+						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, obstacle.parts[i].spriteParts[j].destination, { 0,0 }, 0, WHITE);
+
+					}
+
+				}
+
 			}
 		}
 	}
@@ -106,6 +127,7 @@ namespace Obstacle
 			for (int j = 0; j < frames; j++)
 			{
 				obstacleToSet.parts[i].spriteParts[j].destination.width = obstacleWidth;
+				obstacleToSet.parts[i].spriteParts[j].destination.height = static_cast<float>(obstacleToSet.parts[i].spriteParts[j].texture.height);
 				obstacleToSet.parts[i].spriteParts[j].destination.x = obstacleToSet.parts[i].collisionShape.x;
 			}
 
@@ -115,8 +137,7 @@ namespace Obstacle
 				obstacleToSet.parts[i].collisionShape.height = dividedObstacleHeight;
 				obstacleToSet.parts[i].collisionShape.y = 0;
 
-				obstacleToSet.parts[i].spriteParts[TopLeaves].destination.y = obstacleToSet.parts[i].collisionShape.height;
-
+				obstacleToSet.parts[i].spriteParts[TopLeaves].destination.y = obstacleToSet.parts[i].collisionShape.y + obstacleToSet.parts[i].collisionShape.height;
 			}
 			else
 			{
@@ -125,12 +146,13 @@ namespace Obstacle
 
 				obstacleToSet.parts[i].collisionShape.height = screenHeight - obstacleToSet.parts[i].collisionShape.y;
 
-				obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.y = obstacleToSet.parts[i].collisionShape.y + obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.height;
+				obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.y = obstacleToSet.parts[i].collisionShape.y - obstacleToSet.parts[i].spriteParts[BottomLeaves].destination.height;
+
 			}
 			obstacleToSet.parts[i].pos.x = obstacleToSet.parts[i].collisionShape.x;
 			obstacleToSet.parts[i].pos.y = obstacleToSet.parts[i].collisionShape.y;
 
-			obstacleToSet.parts[i].trunkRepetitions = static_cast<int>(obstacleToSet.parts[i].collisionShape.height) / trunk.texture.height;
+			obstacleToSet.parts[i].trunkRepetitions = static_cast<int>(obstacleToSet.parts[i].collisionShape.height) / trunk.texture.height + 1;
 		}
 
 		obstacleToSet.speed = 500;
@@ -149,6 +171,10 @@ namespace Obstacle
 		{
 			enemyToMove.parts[i].pos.x -= enemyToMove.speed * GetFrameTime();
 			enemyToMove.parts[i].collisionShape.x = enemyToMove.parts[i].pos.x;
+
+			for (int j = 0; j < frames; j++)
+				enemyToMove.parts[i].spriteParts[j].destination.x = enemyToMove.parts[i].pos.x;
+
 
 		}
 	}
