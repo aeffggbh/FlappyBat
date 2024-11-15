@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Parallax
+namespace ParallaxBackground
 {
 	void Load();
 	void Init();

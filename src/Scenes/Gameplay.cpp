@@ -48,12 +48,12 @@ namespace Gameplay
 		PlayerNS::Init(player1, WHITE, KEY_SPACE);
 		PlayerNS::Init(player2, RED, KEY_UP);
 		ObstacleNS::Init(obstacle);
-		Parallax::Init();
+		ParallaxBackground::Init();
 	}
 
 	void Load()
 	{
-		Parallax::Load();
+		ParallaxBackground::Load();
 		PlayerNS::Load(player1);
 		PlayerNS::Load(player2);
 		ObstacleNS::Load();
@@ -66,7 +66,7 @@ namespace Gameplay
 		else
 			SoundManager::Update(SoundManager::Song::gameplay);
 
-		Parallax::Update();
+		ParallaxBackground::Update();
 
 		ObstacleNS::Update(obstacle);
 
@@ -85,7 +85,7 @@ namespace Gameplay
 	void Draw()
 	{
 		ClearBackground(BLACK);
-		Parallax::Draw();
+		ParallaxBackground::Draw();
 
 		ObstacleNS::Draw(obstacle);
 		PlayerNS::Draw(player1);
@@ -98,7 +98,7 @@ namespace Gameplay
 		PlayerNS::Unload(player1);
 		PlayerNS::Unload(player2);
 		UnloadTexture(background);
-		Parallax::Unload();
+		ParallaxBackground::Unload();
 		ObstacleNS::Unload();
 	}
 
