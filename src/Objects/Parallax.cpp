@@ -88,12 +88,11 @@ namespace ParallaxBackground
 		InitMovingBackground(auxBackground, parallax.texture, { 0, 0 });
 
 		parallax.repetitions = static_cast<int>(static_cast<float>(GetScreenWidth()) / (static_cast<float>(parallax.texture.width) * auxBackground.scale)) + 2;
-		cout << parallax.repetitions << endl;
+		
 		for (int i = 0; i <= parallax.repetitions; i++)
 		{
 			auxBackground.pos.x = static_cast<float>(parallax.texture.width) * auxBackground.scale * i;
 			parallax.parallaxVector.push_back(auxBackground);
-			cout << parallax.parallaxVector[i].pos.x << endl;
 		}
 	}
 

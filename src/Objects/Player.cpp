@@ -1,16 +1,19 @@
 #include "Player.h"
 
 #include <iostream>
-#include <cmath>
+#include <string>
 
 #include "Utils/Utils.h"
 
+using namespace std;
 using namespace Utils;
 
 namespace Player
 {
 	static float frameWidth;
 	static float frameHeight;
+
+	static Text::Text auxScoreText;
 
 	static void InitSprite(Player& player);
 
@@ -21,15 +24,17 @@ namespace Player
 	static void PlayerFall(Player& player);
 	static bool CheckPlayerBottomCollision(Player player);
 	static bool CheckPlayerTopCollision(Player player);
+	static void UpdateScoreText(Player &player);
 
 	void Load(Player& player)
 	{
 		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
 	}
 
-	void Init(Player& player, Color color, KeyboardKey jumpKey)
+	void Init(Player& player, Color color, KeyboardKey jumpKey, int num)
 	{
 		player.score = 0;
+		player.playerNumber = num;
 
 		//Sprite
 		InitSprite(player);
@@ -49,10 +54,10 @@ namespace Player
 
 		//Collision
 		player.collisionShape.center = player.pos;
-		player.collisionShape.radius = static_cast<float>(player.sprite.texture.height)/4.0f;
+		player.collisionShape.radius = static_cast<float>(player.sprite.texture.height) / 4.0f;
 
 		//Speed
-		player.jumpSpeed = -600.0f;
+		player.jumpSpeed = 400.0f;
 		player.fallSpeed = 0.25f;
 		player.speed = 0;
 
@@ -63,6 +68,7 @@ namespace Player
 
 	void Update(Player& player, bool& gameOnGoing)
 	{
+		UpdateScoreText(player);
 		MovePlayer(player);
 		PlayPlayerAnimation(player);
 		PlayerFall(player);
@@ -84,9 +90,9 @@ namespace Player
 	void Draw(Player player)
 	{
 #ifdef _DEBUG
-		DrawCircle(static_cast <int>(player.collisionShape.center.x), 
-			static_cast <int>(player.collisionShape.center.y), 
-			player.collisionShape.radius, 
+		DrawCircle(static_cast <int>(player.collisionShape.center.x),
+			static_cast <int>(player.collisionShape.center.y),
+			player.collisionShape.radius,
 			BLUE);
 #endif // _DEBUG
 
@@ -97,18 +103,20 @@ namespace Player
 		};
 
 		//Sprite
-			DrawTextureRec(
-				player.sprite.texture,
-				player.flyAnimation[player.sprite.currentFrame],
-				drawingPos,
-				player.color
-			);
+		DrawTextureRec(
+			player.sprite.texture,
+			player.flyAnimation[player.sprite.currentFrame],
+			drawingPos,
+			player.color
+		);
 
 		//Collision
 		//Center
 #ifdef _DEBUG
 		//DrawCircle(static_cast <int>(player.pos.x), static_cast <int>(player.pos.y), 5, YELLOW);
 #endif // _DEBUG
+
+		DrawScore(player);
 	}
 
 	void Unload(Player& player)
@@ -118,14 +126,15 @@ namespace Player
 
 	void ResetPlayer(Player& player)
 	{
+		player.score = 0;
 		player.collisionShape.center.x = static_cast<float>(GetScreenWidth()) / 4.0f;
 		player.collisionShape.center.y = static_cast<float>(GetScreenHeight()) / 2.0f;
 		player.speed = 0;
 	}
 
-	int GetRunScore(Player& player)
+	void DrawScore(Player player)
 	{
-		return player.score;
+		Text::Draw(player.scoreText);
 	}
 
 	void InitSprite(Player& player)
@@ -134,7 +143,6 @@ namespace Player
 
 		player.sprite.texture.width *= static_cast <int> (player.sprite.scale);
 		player.sprite.texture.height *= static_cast <int> (player.sprite.scale);
-		std::cout << "multiplied" << std::endl;
 
 		frameWidth = static_cast <float> (player.sprite.texture.width / flyFrames);
 		frameHeight = static_cast <float> (player.sprite.texture.height);
@@ -181,7 +189,7 @@ namespace Player
 	void PlayerJump(Player& player)
 	{
 		if (IsKeyPressed(player.jumpKey))
-			player.speed = player.jumpSpeed;
+			player.speed = -player.jumpSpeed;
 
 	}
 
@@ -198,6 +206,21 @@ namespace Player
 	bool CheckPlayerTopCollision(Player player)
 	{
 		return player.collisionShape.center.y - player.collisionShape.radius <= 0;
+	}
+
+	void UpdateScoreText(Player &player)
+	{
+		string score = "SCORE: " + to_string(player.score);
+
+		auxScoreText = Text::CreateText(score, static_cast<int>(Text::FontSize::medium), { static_cast<float>(Text::Padding::small), static_cast<float>(GetScreenHeight()) - static_cast<float>(Text::FontSize::medium) - static_cast<float>(Text::Padding::small) }, player.color);
+
+		if (player.playerNumber == player2Num)
+			auxScoreText.pos.x = static_cast<float>(GetScreenWidth()) - static_cast<float>(MeasureText(auxScoreText.content.c_str(), auxScoreText.fontSize));
+		
+		Text::SetTextLength(auxScoreText);
+
+		player.scoreText = auxScoreText;
+
 	}
 }
 

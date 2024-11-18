@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Objects//Sprite.h"
+#include "Objects/Sprite.h"
 
 #include "raylib.h"
 
@@ -21,6 +21,7 @@ namespace Obstacle
 	{
 		ObstaclePart parts[obstacleParts];
 		float speed;
+		bool addedScore;
 	};
 
 

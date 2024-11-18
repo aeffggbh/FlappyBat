@@ -4,6 +4,7 @@
 
 #include "Objects/AnimatedSprite.h"
 #include "Objects/Circle.h"
+#include "Interface/Text.h"
 
 
 namespace Player
@@ -13,6 +14,9 @@ namespace Player
 	struct Player
 	{
 		int score;
+		int playerNumber;
+
+		Text::Text scoreText;
 
 		//Drawing
 		Vector2 pos;
@@ -33,12 +37,21 @@ namespace Player
 		KeyboardKey jumpKey;
 	};
 
+	enum PlayerNum
+	{
+		player1Num = 1,
+		player2Num
+	};
+
+	const Color player1Color = WHITE;
+	const Color player2Color = RED;
+
 	void Load(Player& player);
 
-	void Init(Player& player, Color color, KeyboardKey jumpKey);
+	void Init(Player& player, Color color, KeyboardKey jumpKey, int num);
 	void Update(Player& player, bool& gameOnGoing);
 	void Draw(Player player);
 	void Unload(Player& player);
 	void ResetPlayer(Player& player);
-	int GetRunScore(Player& player);
+	void DrawScore(Player player);
 }

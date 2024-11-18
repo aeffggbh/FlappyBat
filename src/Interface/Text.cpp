@@ -24,6 +24,11 @@ namespace Text
 		DrawText(text.content.c_str(), posX, static_cast<int>(text.pos.y), text.fontSize, text.color);
 	}
 
+	void Draw(Text text)
+	{
+		DrawText(text.content.c_str(), static_cast<int>(text.pos.x), static_cast<int>(text.pos.y), text.fontSize, text.color);
+	}
+
 	void DrawCentered(Text text)
 	{
 		int screenCenterX = GetScreenWidth() / 2;

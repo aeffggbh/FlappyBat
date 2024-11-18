@@ -8,6 +8,20 @@ using namespace std;
 
 namespace Text
 {
+	enum class Padding
+	{
+		small = 20,
+		medium = 40,
+		big = 70,
+	};
+
+	enum class FontSize
+	{
+		small = 20,
+		medium = 40,
+		big = 70
+	};
+
 	struct Text
 	{
 		string content;
@@ -22,6 +36,8 @@ namespace Text
 	void SetTextLength(Text& text);
 
 	void Draw(Text text, int posX);
+
+	void Draw(Text text);
 
 	void DrawCentered(Text text);
 

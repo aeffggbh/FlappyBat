@@ -34,19 +34,22 @@ namespace Gameplay
 	static bool gameStarted = false;
 	static bool isMultiplayer = false;;
 
+	static const int scoreAdd = 100;
+
 	static Texture2D background;
 
-	//Collisions
 	static bool CheckPlayerObstacleCollision(PlayerNS::Player player);
+	static void CountScore(PlayerNS::Player& player, ObstacleNS::Obstacle& obstacle);
+	//static void DrawScores(PlayerNS::Player player1, PlayerNS::Player player2);
 
 	void Init()
 	{
-		//pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
+		pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
 		ObstacleNS::Init(obstacle);
 		gameOnGoing = true;
 		gameStarted = false;
-		PlayerNS::Init(player1, WHITE, KEY_SPACE);
-		PlayerNS::Init(player2, RED, KEY_UP);
+		PlayerNS::Init(player1, Player::player1Color, KEY_SPACE, Player::player1Num);
+		PlayerNS::Init(player2, Player::player2Color, KEY_UP, Player::player2Num);
 		ObstacleNS::Init(obstacle);
 		ParallaxBackground::Init();
 	}
@@ -72,12 +75,18 @@ namespace Gameplay
 
 		PlayerNS::Update(player1, gameOnGoing);
 
+		CountScore(player1, obstacle);
+
 		if (isMultiplayer)
+		{
+			CountScore(player2, obstacle);
 			PlayerNS::Update(player2, gameOnGoing);
+
+		}
 
 		if (CheckPlayerObstacleCollision(player1) || CheckPlayerObstacleCollision(player2))
 			gameOnGoing = false;
-		
+
 
 		return gameOnGoing;
 	}
@@ -91,6 +100,8 @@ namespace Gameplay
 		PlayerNS::Draw(player1);
 		if (isMultiplayer)
 			Draw(player2);
+
+		Buttons::Draw(pause, fontSize);
 	}
 
 	void Unload()
@@ -152,6 +163,20 @@ namespace Gameplay
 		}
 
 		return false;;
+	}
+
+	void CountScore(PlayerNS::Player& player, ObstacleNS::Obstacle& obstacleToGetThrough)
+	{
+		if (static_cast<int>(player.collisionShape.center.x) == static_cast<int>(obstacleToGetThrough.parts[0].collisionShape.x + obstacleToGetThrough.parts[0].collisionShape.width / 2.0f)
+			&& !obstacleToGetThrough.addedScore)
+		{
+			player.score += scoreAdd;
+			obstacleToGetThrough.addedScore = true;
+		}
+
+		/*cout << "PLAYER X: " << player.collisionShape.center.x << endl;
+		cout << "OBSTACLE X: " << obstacleToGetThrough.parts[0].collisionShape.x + obstacleToGetThrough.parts[0].collisionShape.width / 2.0f << endl;*/
+
 	}
 
 

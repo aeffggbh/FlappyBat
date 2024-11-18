@@ -156,6 +156,7 @@ namespace Obstacle
 		}
 
 		obstacleToSet.speed = 500;
+		obstacleToSet.addedScore = false;
 	}
 
 

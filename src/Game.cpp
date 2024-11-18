@@ -88,6 +88,7 @@ namespace Game
 		{
 			if (SoundManager::IsPlaying(SoundManager::Song::gameplay))
 				SoundManager::Stop(SoundManager::Song::gameplay);
+
 			MainMenu::Update();
 
 			if (IsButtonPressed(MainMenu::play))
