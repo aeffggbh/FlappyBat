@@ -6,7 +6,7 @@ namespace Credits
 {
 	static Texture2D background;
 
-	static int regularFontSize = 20;
+	static int regularFontSize = 30;
 	static int titleFontSize = 50;
 	static int buttonFontSize = 30;
 
@@ -32,10 +32,14 @@ namespace Credits
 	static Text::Text parallaxText;
 	static Text::Text parallaxUrlText;
 
+	static Text::Text musicText;
+	static Text::Text musicUrlText;
+
 
 	//Invisible buttons
 	static Buttons::Button spritesUrlButton;
 	static Buttons::Button parallaxUrlButton;
+	static Buttons::Button musicUrlButton;
 
 	static void InitTexts();
 	static void InitButtons();
@@ -66,6 +70,7 @@ namespace Credits
 
 		Text::DrawCenteredEx(spritesText, spritesUrlText);
 		Text::DrawCenteredEx(parallaxText, parallaxUrlText);
+		Text::DrawCenteredEx(musicText, musicUrlText);
 	}
 
 
@@ -80,6 +85,7 @@ namespace Credits
 
 		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(regularFontSize));
 		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(regularFontSize));
+		musicUrlButton = Buttons::Create("", musicUrlText.pos.x, musicUrlText.pos.y, static_cast<float>(musicUrlText.width), static_cast<float>(regularFontSize));
 	}
 
 	void InitTexts()
@@ -92,17 +98,18 @@ namespace Credits
 
 		textPadding += 3;
 
-
-		spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
-
-		spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
-
+		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		spritesUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
 
 		textPadding += 2;
 
-		parallaxText = Text::CreateText("Parallax by Ansimuz", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		parallaxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		
+		textPadding += 2;
 
-		parallaxUrlText = Text::CreateText("(https://ansimuz.itch.io/gothicvania-patreon-collection)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		musicText = Text::CreateText("Music made with Suno AI ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		musicUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
 		
 		textPadding += 2;
 
@@ -112,6 +119,8 @@ namespace Credits
 	{
 		if (Buttons::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
 		if (Buttons::IsButtonPressed(parallaxUrlButton)) OpenURL("https://ansimuz.itch.io/gothicvania-patreon-collection");
+		if (Buttons::IsButtonPressed(musicUrlButton)) OpenURL("https://suno.com/");
+
 
 	}
 }
