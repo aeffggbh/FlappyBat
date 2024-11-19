@@ -10,7 +10,9 @@ namespace Text
 	void Load()
 	{
 		titleFont = LoadFont("res/Fonts/Carrington.ttf");
+		SetTextureFilter(titleFont.texture, TEXTURE_FILTER_POINT);
 		generalTextFont = LoadFont("res/Fonts/latin-modern-mono-regular.otf");
+		SetTextureFilter(generalTextFont.texture, TEXTURE_FILTER_POINT);
 	}
 
 	void Unload()
