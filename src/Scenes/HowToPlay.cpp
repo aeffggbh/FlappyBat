@@ -38,7 +38,7 @@ namespace HowToPlay
 	{
 		ClearBackground(BLACK);
 		Text::DrawCenteredEx(howToPlayTitle);
-		if (Gameplay::isMultiplayerMode())
+		if (Gameplay::IsMultiplayerMode())
 		{
 			Text::DrawCenteredEx(instructionsPlayer1);
 			Text::DrawCenteredEx(instructionsPlayer2);

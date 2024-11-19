@@ -91,9 +91,9 @@ namespace Game
 
 			if (IsButtonPressed(MainMenu::play))
 			{
+				Gameplay::SetMultiplayer(false);
 				gameplayOnGoing = true;
 				currentScene = CurrentScene::HowToPlay;
-				Gameplay::SetMultiplayer(false);
 				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::play2))
@@ -196,6 +196,7 @@ namespace Game
 			}
 			break;
 		}
+
 		case Game::CurrentScene::HowToPlay:
 		{
 			MainMenu::KeepMusic();
@@ -203,7 +204,6 @@ namespace Game
 			{
 				gameplayOnGoing = true;
 				currentScene = CurrentScene::Gameplay;
-				Gameplay::SetMultiplayer(true);
 				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(HowToPlay::returnToMenu))

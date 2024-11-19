@@ -32,7 +32,7 @@ namespace Gameplay
 
 	static bool gameOnGoing = true;
 	static bool gameStarted = false;
-	static bool isMultiplayer = false;;
+	static bool isMultiplayer;
 
 	static const int scoreAdd = 100;
 
@@ -64,6 +64,8 @@ namespace Gameplay
 
 	bool Update()
 	{
+		//cout << isMultiplayer << endl;
+
 		if (!SoundManager::IsPlaying(SoundManager::Song::gameplay))
 			SoundManager::Play(SoundManager::Song::gameplay);
 		else
@@ -126,7 +128,7 @@ namespace Gameplay
 		isMultiplayer = multiplayerMode;
 	}
 
-	bool isMultiplayerMode()
+	bool IsMultiplayerMode()
 	{
 		return isMultiplayer;
 	}
