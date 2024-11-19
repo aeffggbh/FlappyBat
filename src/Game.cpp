@@ -6,7 +6,6 @@
 
 #include "Scenes/MainMenu.h"
 #include "Scenes/Gameplay.h"
-#include "Scenes/Tutorial.h"
 #include "Scenes/Credits.h"
 #include "Scenes/Pause.h"
 #include "Scenes/GameOver.h"
@@ -25,7 +24,7 @@ namespace Game
 
 	enum class CurrentScene
 	{
-		MainMenu, Gameplay, Tutorial, Credits, Pause, GameOver, HowToPlay
+		MainMenu, Gameplay, Credits, Pause, GameOver, HowToPlay
 	};
 
 	static CurrentScene currentScene;
@@ -70,7 +69,6 @@ namespace Game
 
 		MainMenu::Init();
 		Gameplay::Init();
-		Tutorial::Init();
 		Credits::Init();
 		Pause::Init();
 		GameOver::Init();
@@ -104,11 +102,6 @@ namespace Game
 				Gameplay::SetMultiplayer(true);
 				SoundManager::Play(GetRandomSfx());
 
-			}
-			else if (IsButtonPressed(MainMenu::tutorial))
-			{
-				currentScene = CurrentScene::Tutorial;
-				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::credits))
 			{
@@ -149,20 +142,6 @@ namespace Game
 				GameOver::SetScores(maxScore, runScore);
 				*/
 				currentScene = CurrentScene::GameOver;
-			}
-
-			break;
-		}
-
-
-		case Game::CurrentScene::Tutorial:
-		{
-			MainMenu::KeepMusic();
-
-			if (IsButtonPressed(Tutorial::returnToMenu) || IsKeyReleased(KEY_ESCAPE))
-			{
-				currentScene = CurrentScene::MainMenu;
-				SoundManager::Play(GetRandomSfx());
 			}
 
 			break;
@@ -262,14 +241,6 @@ namespace Game
 			break;
 		}
 
-
-		case Game::CurrentScene::Tutorial:
-		{
-			Tutorial::Draw();
-			break;
-		}
-
-
 		case Game::CurrentScene::Credits:
 		{
 			Credits::Draw();
@@ -315,7 +286,6 @@ namespace Game
 	void Unload()
 	{
 		Gameplay::Unload();
-		Tutorial::Unload();
 		Credits::Unload();
 		GameOver::Unload();
 
