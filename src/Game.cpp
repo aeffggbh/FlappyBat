@@ -305,7 +305,9 @@ namespace Game
 
 	void Load()
 	{
+		Text::Load();
 		SoundManager::Load();
+
 		Gameplay::Load();
 	}
 
@@ -317,6 +319,7 @@ namespace Game
 		GameOver::Unload();
 
 		SoundManager::Unload();
+		Text::Unload();
 
 		CloseWindow();
 	}

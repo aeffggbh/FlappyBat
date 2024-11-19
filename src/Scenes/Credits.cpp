@@ -61,11 +61,11 @@ namespace Credits
 		DrawTexture(background, 0, 0, WHITE);
 		Buttons::Draw(returnToMenu, buttonFontSize);
 
-		Text::DrawCentered(developerText);
-		Text::DrawCentered(developer2Text);
+		Text::DrawCenteredEx(developerText);
+		Text::DrawCenteredEx(developer2Text);
 
-		Text::DrawCentered(spritesText, spritesUrlText);
-		Text::DrawCentered(parallaxText, parallaxUrlText);
+		Text::DrawCenteredEx(spritesText, spritesUrlText);
+		Text::DrawCenteredEx(parallaxText, parallaxUrlText);
 	}
 
 
@@ -78,38 +78,32 @@ namespace Credits
 	{
 		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
 
-		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.length), static_cast<float>(regularFontSize));
-		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.length), static_cast<float>(regularFontSize));
+		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(regularFontSize));
+		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(regularFontSize));
 	}
 
 	void InitTexts()
 	{
-		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN);
-		Text::SetTextLength(developerText);
+		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN, Text::Fonts::generalText);
 
 		textPadding += 2;
 
-		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-		Text::SetTextLength(developer2Text);
+		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
 
 		textPadding += 3;
 
 
-		spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-		Text::SetTextLength(spritesText);
+		spritesText = Text::CreateText("Sprites by Caz Creates Games", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
 
-		spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
-		Text::SetTextLength(spritesUrlText);
+		spritesUrlText = Text::CreateText("(caz-creates-games.itch.io/bat)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
 
 
 		textPadding += 2;
 
-		parallaxText = Text::CreateText("Parallax by Ansimuz", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN);
-		Text::SetTextLength(parallaxText);
+		parallaxText = Text::CreateText("Parallax by Ansimuz", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
 
-		parallaxUrlText = Text::CreateText("(https://ansimuz.itch.io/gothicvania-patreon-collection)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD);
-		Text::SetTextLength(parallaxUrlText);
-
+		parallaxUrlText = Text::CreateText("(https://ansimuz.itch.io/gothicvania-patreon-collection)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		
 		textPadding += 2;
 
 	}

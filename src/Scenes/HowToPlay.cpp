@@ -43,11 +43,10 @@ namespace HowToPlay
 	void InitTexts()
 	{
 		howToPlayTitle = Text::CreateText("HOW TO PLAY MULTIPLAYER MODE", fontSize, { screenCenterX, screenHeight / 6 }, YELLOW);
-		Text::SetTextLength(howToPlayTitle);
+		
 		instructionsPlayer1 = Text::CreateText("PLAYER 1: JUMP WITH THE SPACE KEY. You are the PURPLE ONE!", fontSize / 2, { screenCenterX, screenHeight / 4 }, MAGENTA);
-		Text::SetTextLength(instructionsPlayer1);
+		
 		instructionsPlayer2 = Text::CreateText("PLAYER 2: JUMP WITH THE UP KEY. You are the RED ONE!", fontSize / 2, { screenCenterX, screenHeight / 3 }, RED);
-		Text::SetTextLength(instructionsPlayer2);
 
 		returnToMenu = Buttons::Create("Go to menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
 		continuePlaying = Buttons::Create("Continue", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);

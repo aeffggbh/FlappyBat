@@ -217,7 +217,7 @@ namespace Player
 		if (player.playerNumber == player2Num)
 			auxScoreText.pos.x = static_cast<float>(GetScreenWidth()) - static_cast<float>(MeasureText(auxScoreText.content.c_str(), auxScoreText.fontSize));
 		
-		Text::SetTextLength(auxScoreText);
+		//Text::SetTextLength(auxScoreText);
 
 		player.scoreText = auxScoreText;
 

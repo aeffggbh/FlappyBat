@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 
 #include "Utils/SoundManager.h"
+#include "Interface/Text.h"
 
 #include "raylib.h"
 
@@ -11,6 +12,8 @@ namespace MainMenu
 	Buttons::Button tutorial;
 	Buttons::Button credits;
 	Buttons::Button exit;
+
+	Text::Text mainTitle;
 
 	static int fontSize = 40;
 	static float buttonWidth = 250;
@@ -26,11 +29,18 @@ namespace MainMenu
 		screenCenterX = static_cast<float>(GetScreenWidth() / 2);
 		buttonCenterX = screenCenterX - buttonWidth / 2;
 
-		play = Buttons::Create("1 Player", buttonCenterX, static_cast<float>(screenHeight * 3/8), buttonWidth, buttonHeight);
+		play = Buttons::Create("1 Player", buttonCenterX, static_cast<float>(screenHeight * 3 / 8), buttonWidth, buttonHeight);
 		play2 = Buttons::Create("2 Players", buttonCenterX, static_cast<float>(screenHeight * 4 / 8), buttonWidth, buttonHeight);
 		tutorial = Buttons::Create("Tutorial", buttonCenterX, static_cast<float>(screenHeight * 5 / 8), buttonWidth, buttonHeight);
 		credits = Buttons::Create("Credits", buttonCenterX, static_cast<float>(screenHeight * 6 / 8), buttonWidth, buttonHeight);
-		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight * 7/8), buttonWidth, buttonHeight);
+		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight * 7 / 8), buttonWidth, buttonHeight);
+
+		mainTitle = Text::CreateText 
+		("Flappy Bat",
+			fontSize * 3,
+			{ 0.0f,static_cast<float>(Text::Padding::medium)},
+			GREEN,
+			Text::Fonts::title);
 	}
 
 	void Update()
@@ -51,12 +61,7 @@ namespace MainMenu
 	{
 		ClearBackground(BLACK);
 
-		int titleFontSize = fontSize * 2;
-		const char* title = "Name";
-		int textLength = MeasureText(title, titleFontSize);
-		int textX = static_cast<int> (screenCenterX - textLength / 2);
-		int textY = static_cast<int> (screenHeight / 6 - titleFontSize / 2);
-		DrawText(title, textX, textY, titleFontSize, GREEN);
+		Text::DrawCenteredEx(mainTitle);
 
 		//Version text
 		DrawText("0.4",

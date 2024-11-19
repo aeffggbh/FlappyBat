@@ -71,7 +71,6 @@ namespace GameOver
 	void InitTexts()
 	{
 		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, GREEN);
-		Text::SetTextLength(gameOver);
 
 		//background = LoadTexture("");
 

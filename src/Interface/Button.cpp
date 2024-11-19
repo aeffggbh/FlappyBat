@@ -1,22 +1,20 @@
 #include "Button.h"
 
-#ifdef _DEBUG
-#include <iostream>
-
-using namespace std;
-#endif // _DEBUG
+#include "Interface/Text.h"
 
 
 namespace Buttons
 {
 	void DrawButton(Button button, Color color, int fontSize);
 
+	void DrawButtonEx(Button button, Color color, int fontSize);
+
 	void Draw(Button button, int fontSize)
 	{
 		if (button.isSelected)
-			DrawButton(button, RED, fontSize);
+			DrawButtonEx(button, RED, fontSize);
 		else
-			DrawButton(button, ORANGE, fontSize);
+			DrawButtonEx(button, ORANGE, fontSize);
 	}
 
 	Button Create(const char* text, float recX, float recY, float recWidth, float recHeight)
@@ -78,5 +76,22 @@ namespace Buttons
 		int textY = static_cast<int> (button.rec.y + button.rec.height / 2 - fontSize / 2);
 
 		DrawText(button.text, textX, textY, fontSize, WHITE);
+	}
+	
+	void DrawButtonEx(Button button, Color color, int fontSize)
+	{
+		int x = static_cast <int> (button.rec.x);
+		int y = static_cast <int> (button.rec.y);
+		int width = static_cast <int> (button.rec.width);
+		int height = static_cast <int> (button.rec.height);
+
+		DrawRectangle(x, y, width, height, color);
+
+		Text::Text buttonText = Text::CreateText(button.text, fontSize, { 0,0 }, WHITE, Text::Fonts::generalText);
+
+		int textX = static_cast<int> (button.rec.x + button.rec.width / 2 - buttonText.width / 2);
+		int textY = static_cast<int> (button.rec.y + button.rec.height / 2 - buttonText.height / 2);
+
+		Text::DrawEx(buttonText, textX, textY);
 	}
 }
