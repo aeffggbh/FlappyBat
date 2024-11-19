@@ -35,11 +35,14 @@ namespace Credits
 	static Text::Text musicText;
 	static Text::Text musicUrlText;
 
+	static Text::Text sfxText;
+	static Text::Text sfxUrlText;
 
 	//Invisible buttons
 	static Buttons::Button spritesUrlButton;
 	static Buttons::Button parallaxUrlButton;
 	static Buttons::Button musicUrlButton;
+	static Buttons::Button sfxUrlButton;
 
 	static void InitTexts();
 	static void InitButtons();
@@ -71,6 +74,7 @@ namespace Credits
 		Text::DrawCenteredEx(spritesText, spritesUrlText);
 		Text::DrawCenteredEx(parallaxText, parallaxUrlText);
 		Text::DrawCenteredEx(musicText, musicUrlText);
+		Text::DrawCenteredEx(sfxText, sfxUrlText);
 	}
 
 
@@ -86,6 +90,8 @@ namespace Credits
 		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(regularFontSize));
 		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(regularFontSize));
 		musicUrlButton = Buttons::Create("", musicUrlText.pos.x, musicUrlText.pos.y, static_cast<float>(musicUrlText.width), static_cast<float>(regularFontSize));
+		sfxUrlButton = Buttons::Create("", sfxUrlText.pos.x, sfxUrlText.pos.y, static_cast<float>(sfxUrlText.width), static_cast<float>(regularFontSize));
+		
 	}
 
 	void InitTexts()
@@ -112,6 +118,11 @@ namespace Credits
 		musicUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
 		
 		textPadding += 2;
+		
+		sfxText = Text::CreateText("UI Audio by Kenney ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		sfxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		
+		textPadding += 2;
 
 	}
 
@@ -120,6 +131,7 @@ namespace Credits
 		if (Buttons::IsButtonPressed(spritesUrlButton)) OpenURL("https://caz-creates-games.itch.io/bat");
 		if (Buttons::IsButtonPressed(parallaxUrlButton)) OpenURL("https://ansimuz.itch.io/gothicvania-patreon-collection");
 		if (Buttons::IsButtonPressed(musicUrlButton)) OpenURL("https://suno.com/");
+		if (Buttons::IsButtonPressed(sfxUrlButton)) OpenURL("https://kenney.nl/assets/ui-audio");
 
 
 	}
