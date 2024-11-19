@@ -18,5 +18,6 @@ namespace Gameplay
 
 	void Reset();
 	void SetMultiplayer(bool isMultiplayer);
+	bool isMultiplayerMode();
 
 }

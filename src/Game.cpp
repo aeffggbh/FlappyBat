@@ -94,13 +94,14 @@ namespace Game
 			if (IsButtonPressed(MainMenu::play))
 			{
 				gameplayOnGoing = true;
-				currentScene = CurrentScene::Gameplay;
+				currentScene = CurrentScene::HowToPlay;
 				Gameplay::SetMultiplayer(false);
 				SoundManager::Play(GetRandomSfx());
 			}
 			else if (IsButtonPressed(MainMenu::play2))
 			{
 				currentScene = CurrentScene::HowToPlay;
+				Gameplay::SetMultiplayer(true);
 				SoundManager::Play(GetRandomSfx());
 
 			}

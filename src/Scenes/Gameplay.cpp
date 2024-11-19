@@ -126,6 +126,11 @@ namespace Gameplay
 		isMultiplayer = multiplayerMode;
 	}
 
+	bool isMultiplayerMode()
+	{
+		return isMultiplayer;
+	}
+
 	bool CheckPlayerObstacleCollision(PlayerNS::Player player)
 	{
 		float cx = player.collisionShape.center.x;
