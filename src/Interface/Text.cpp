@@ -6,6 +6,7 @@ namespace Text
 
 	static Font titleFont;
 	static Font generalTextFont;
+	static Font subtitleFont;
 
 	void Load()
 	{
@@ -13,6 +14,8 @@ namespace Text
 		SetTextureFilter(titleFont.texture, TEXTURE_FILTER_POINT);
 		generalTextFont = LoadFont("res/Fonts/latin-modern-mono-regular.otf");
 		SetTextureFilter(generalTextFont.texture, TEXTURE_FILTER_POINT);
+		subtitleFont = LoadFont("res/Fonts/lobster.otf");
+		SetTextureFilter(subtitleFont.texture, TEXTURE_FILTER_POINT);
 	}
 
 	void Unload()
@@ -55,6 +58,9 @@ namespace Text
 			break;
 		case Fonts::title:
 			return titleFont;
+			break;
+		case Fonts::subtitle:
+			return subtitleFont;
 			break;
 		default:
 			return generalTextFont;

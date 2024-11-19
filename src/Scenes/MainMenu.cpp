@@ -9,7 +9,6 @@ namespace MainMenu
 {
 	Buttons::Button play;
 	Buttons::Button play2;
-	Buttons::Button tutorial;
 	Buttons::Button credits;
 	Buttons::Button exit;
 
@@ -31,9 +30,8 @@ namespace MainMenu
 
 		play = Buttons::Create("1 Player", buttonCenterX, static_cast<float>(screenHeight * 3 / 8), buttonWidth, buttonHeight);
 		play2 = Buttons::Create("2 Players", buttonCenterX, static_cast<float>(screenHeight * 4 / 8), buttonWidth, buttonHeight);
-		tutorial = Buttons::Create("Tutorial", buttonCenterX, static_cast<float>(screenHeight * 5 / 8), buttonWidth, buttonHeight);
-		credits = Buttons::Create("Credits", buttonCenterX, static_cast<float>(screenHeight * 6 / 8), buttonWidth, buttonHeight);
-		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight * 7 / 8), buttonWidth, buttonHeight);
+		credits = Buttons::Create("Credits", buttonCenterX, static_cast<float>(screenHeight * 5 / 8), buttonWidth, buttonHeight);
+		exit = Buttons::Create("Exit", buttonCenterX, static_cast<float>(screenHeight * 6 / 8), buttonWidth, buttonHeight);
 
 		mainTitle = Text::CreateText 
 		("Flappy Bat",
@@ -72,7 +70,6 @@ namespace MainMenu
 
 		Buttons::Draw(play, fontSize);
 		Buttons::Draw(play2, fontSize);
-		Buttons::Draw(tutorial, fontSize);
 		Buttons::Draw(credits, fontSize);
 		Buttons::Draw(exit, fontSize);
 	}

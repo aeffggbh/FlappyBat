@@ -25,7 +25,8 @@ namespace Text
 	enum class Fonts
 	{
 		generalText,
-		title
+		title,
+		subtitle
 	};
 
 	struct Text

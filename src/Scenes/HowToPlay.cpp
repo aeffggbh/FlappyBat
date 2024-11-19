@@ -15,6 +15,7 @@ namespace HowToPlay
 	Buttons::Button continuePlaying;
 
 	static int fontSize = 40;
+	static int fontSize2 = 30;
 	static int titleFontSize = fontSize * 2;
 	static float buttonWidth = 250;
 	static float buttonHeight = 70;
@@ -36,14 +37,14 @@ namespace HowToPlay
 	void Draw()
 	{
 		ClearBackground(BLACK);
-		Text::DrawCentered(howToPlayTitle);
+		Text::DrawCenteredEx(howToPlayTitle);
 		if (Gameplay::isMultiplayerMode())
 		{
-			Text::DrawCentered(instructionsPlayer1);
-			Text::DrawCentered(instructionsPlayer2);
+			Text::DrawCenteredEx(instructionsPlayer1);
+			Text::DrawCenteredEx(instructionsPlayer2);
 		}
 		else
-			Text::DrawCentered(instructionsSingle);
+			Text::DrawCenteredEx(instructionsSingle);
 
 		Buttons::Draw(returnToMenu, fontSize);
 		Buttons::Draw(continuePlaying, fontSize);
@@ -51,13 +52,13 @@ namespace HowToPlay
 
 	void InitTexts()
 	{
-		howToPlayTitle = Text::CreateText("HOW TO PLAY", fontSize, { screenCenterX, screenHeight / 6 }, YELLOW);
+		howToPlayTitle = Text::CreateText("HOW TO PLAY", fontSize, { screenCenterX, screenHeight / 6 }, YELLOW, Text::Fonts::subtitle);
 
-		instructionsPlayer1 = Text::CreateText("PLAYER 1: JUMP WITH THE SPACE KEY. You are the PURPLE ONE!", fontSize / 2, { screenCenterX, screenHeight / 4 }, MAGENTA);
+		instructionsPlayer1 = Text::CreateText("PLAYER 1: JUMP WITH THE SPACE KEY. You are the PURPLE ONE!", fontSize2, { screenCenterX, screenHeight / 4 }, MAGENTA, Text::Fonts::generalText);
 
-		instructionsPlayer2 = Text::CreateText("PLAYER 2: JUMP WITH THE UP KEY. You are the RED ONE!", fontSize / 2, { screenCenterX, screenHeight / 3 }, RED);
+		instructionsPlayer2 = Text::CreateText("PLAYER 2: JUMP WITH THE UP KEY. You are the RED ONE!", fontSize2, { screenCenterX, screenHeight / 3 }, RED, Text::Fonts::generalText);
 
-		instructionsSingle = Text::CreateText("JUMP WITH THE SPACE KEY!", fontSize, { screenCenterX, screenHeight / 4 }, MAGENTA);
+		instructionsSingle = Text::CreateText("JUMP WITH THE SPACE KEY!", fontSize, { screenCenterX, screenHeight / 4 }, MAGENTA, Text::Fonts::generalText);
 
 		returnToMenu = Buttons::Create("Go to menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
 		continuePlaying = Buttons::Create("Continue", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
