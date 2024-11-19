@@ -45,8 +45,8 @@ namespace ParallaxBackground
 		screenWidth = static_cast <float>(GetScreenWidth());
 
 		InitParallax(backParallax, 150.0f);
-		InitParallax(middleParallax, 150.0f);
-		InitParallax(frontParallax, 150.0f);
+		InitParallax(middleParallax, 200.0f);
+		InitParallax(frontParallax, 250.0f);
 
 	}
 
