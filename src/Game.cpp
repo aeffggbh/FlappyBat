@@ -10,7 +10,7 @@
 #include "Scenes/Pause.h"
 #include "Scenes/GameOver.h"
 #include "Scenes/HowToPlay.h"
-
+#include "Objects/Parallax.h"
 #include "Interface/Button.h"
 #include "Utils/SoundManager.h"
 
@@ -73,12 +73,15 @@ namespace Game
 		Pause::Init();
 		GameOver::Init();
 		HowToPlay::Init();
+		ParallaxBackground::Init();
 	}
 
 
 	void Update()
 	{
 		gameShouldClose = WindowShouldClose();
+
+		ParallaxBackground::Update();
 
 		switch (currentScene)
 		{
@@ -226,6 +229,8 @@ namespace Game
 	{
 		BeginDrawing();
 
+		ParallaxBackground::Draw();
+
 		switch (currentScene)
 		{
 		case Game::CurrentScene::MainMenu:
@@ -279,7 +284,7 @@ namespace Game
 	{
 		Text::Load();
 		SoundManager::Load();
-
+		ParallaxBackground::Load();
 		Gameplay::Load();
 	}
 

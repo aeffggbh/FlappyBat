@@ -51,12 +51,10 @@ namespace Gameplay
 		PlayerNS::Init(player1, Player::player1Color, KEY_SPACE, Player::player1Num);
 		PlayerNS::Init(player2, Player::player2Color, KEY_UP, Player::player2Num);
 		ObstacleNS::Init(obstacle);
-		ParallaxBackground::Init();
 	}
 
 	void Load()
 	{
-		ParallaxBackground::Load();
 		PlayerNS::Load(player1);
 		PlayerNS::Load(player2);
 		ObstacleNS::Load();
@@ -64,14 +62,10 @@ namespace Gameplay
 
 	bool Update()
 	{
-		//cout << isMultiplayer << endl;
-
 		if (!SoundManager::IsPlaying(SoundManager::Song::gameplay))
 			SoundManager::Play(SoundManager::Song::gameplay);
 		else
 			SoundManager::Update(SoundManager::Song::gameplay);
-
-		ParallaxBackground::Update();
 
 		ObstacleNS::Update(obstacle);
 
