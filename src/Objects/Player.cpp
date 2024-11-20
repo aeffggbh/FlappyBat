@@ -81,20 +81,12 @@ namespace Player
 
 		if (CheckPlayerTopCollision(player))
 		{
-			//Hacer esto funcion
 			player.collisionShape.center.y = player.collisionShape.radius;
 		}
 	}
 
 	void Draw(Player player)
 	{
-#ifdef _DEBUG
-		DrawCircle(static_cast <int>(player.collisionShape.center.x),
-			static_cast <int>(player.collisionShape.center.y),
-			player.collisionShape.radius,
-			BLUE);
-#endif // _DEBUG
-
 		Vector2 drawingPos =
 		{
 			player.pos.x - (frameWidth / 2),
@@ -112,12 +104,6 @@ namespace Player
 			drawingPos,
 			player.color
 		);
-
-		//Collision
-		//Center
-#ifdef _DEBUG
-		//DrawCircle(static_cast <int>(player.pos.x), static_cast <int>(player.pos.y), 5, YELLOW);
-#endif // _DEBUG
 
 		DrawScore(player);
 	}
@@ -224,8 +210,6 @@ namespace Player
 
 		if (player.playerNumber == player2Num)
 			auxScoreText.pos.x = static_cast<float>(GetScreenWidth()) - static_cast<float>(MeasureText(auxScoreText.content.c_str(), auxScoreText.fontSize));
-
-		//Text::SetTextLength(auxScoreText);
 
 		player.scoreText = auxScoreText;
 

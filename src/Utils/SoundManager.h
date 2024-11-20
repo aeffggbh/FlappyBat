@@ -27,15 +27,11 @@ namespace SoundManager
 
 	void Play(Song song);
 
-	//void Play(Sfx sound);
-
 	void Play(Sfx sound);
 
 	void Update(Song song);
 
 	void Stop(Song song);
-
-	/*bool IsPlaying(Sfx sfx);*/
 
 	bool IsPlaying(Sfx sfx);
 
@@ -44,8 +40,6 @@ namespace SoundManager
 	void Load();
 
 	Music GetMusic(Song song);
-
-	/*Sound GetSound(Sfx sound);*/
 
 	Sound GetSound(Sfx sound);
 
