@@ -212,7 +212,7 @@ namespace Player
 	{
 		string score = "SCORE: " + to_string(player.score);
 
-		auxScoreText = Text::CreateText(score, static_cast<int>(Text::FontSize::medium), { static_cast<float>(Text::Padding::small), static_cast<float>(GetScreenHeight()) - static_cast<float>(Text::FontSize::medium) - static_cast<float>(Text::Padding::small) }, player.color);
+		auxScoreText = Text::CreateText(score, static_cast<int>(Text::FontSize::medium), { static_cast<float>(Text::Padding::small), static_cast<float>(GetScreenHeight()) - static_cast<float>(Text::FontSize::medium) - static_cast<float>(Text::Padding::small) }, player.color, Text::Fonts::generalText);
 
 		if (player.playerNumber == player2Num)
 			auxScoreText.pos.x = static_cast<float>(GetScreenWidth()) - static_cast<float>(MeasureText(auxScoreText.content.c_str(), auxScoreText.fontSize));

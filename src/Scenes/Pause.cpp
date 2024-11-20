@@ -1,5 +1,7 @@
 #include "Pause.h"
 
+#include "Interface/ColorManager.h"
+
 namespace Pause
 {
 	Buttons::Button returnToMenu;
@@ -25,6 +27,8 @@ namespace Pause
 
 	void Draw()
 	{
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), ColorManager::GetColor(ColorManager::AlphaBlack));
+
 		const char* title = "Game Paused";
 		int textLength = MeasureText(title, titleFontSize);
 		int textX = static_cast<int> (screenCenterX - textLength / 2);

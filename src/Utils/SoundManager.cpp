@@ -97,53 +97,52 @@ namespace SoundManager
 		switch (song)
 		{
 		case Song::menu:
-			return menuMusic;
-			break;
-		case Song::gameplay:
-			return gameplayMusic;
-			break;
-		default:
+		{
 			return menuMusic;
 			break;
 		}
+		case Song::gameplay:
+		{
+			return gameplayMusic;
+			break;
+		}
+		default:
+		{
+			return menuMusic;
+			break;
+		}
+		}
 	}
-
-	//Sound GetSound(Sfx sound)
-	//{
-	//	/*switch (sound)
-	//	{
-	//	case Sfx::shoot:
-	//		return shootSfx;
-	//		break;
-	//	case Sfx::planet:
-	//		return planetSfx;
-	//		break;
-	//	default:
-	//		return shootSfx;
-	//		break;
-	//	}*/
-	//	return mySound;
-	//}
 
 	Sound GetSound(ButtonSfx sound)
 	{
 		switch (sound)
 		{
 		case ButtonSfx::sfx0:
+		{
 			return buttonSfx0;
 			break;
+		}
 		case ButtonSfx::sfx1:
+		{
 			return buttonSfx1;
 			break;
+		}
 		case ButtonSfx::sfx2:
+		{
 			return buttonSfx2;
 			break;
+		}
 		case ButtonSfx::sfx3:
+		{
 			return buttonSfx3;
 			break;
+		}
 		default:
+		{
 			return buttonSfx0;
 			break;
+		}
 		}
 	}
 

@@ -54,17 +54,25 @@ namespace Text
 		switch (font)
 		{
 		case Fonts::generalText:
+		{
 			return generalTextFont;
 			break;
+		}
 		case Fonts::title:
+		{
 			return titleFont;
 			break;
+		}
 		case Fonts::subtitle:
+		{
 			return subtitleFont;
 			break;
+		}
 		default:
+		{
 			return generalTextFont;
 			break;
+		}
 		}
 	}
 
@@ -79,67 +87,38 @@ namespace Text
 		text.height = static_cast<int>(MeasureTextEx(GetFont(text.font), text.content.c_str(), static_cast<float>(text.fontSize), textSpacing).y);
 	}
 
-
 	void Draw(Text text, int posX)
-	{
-		DrawText(text.content.c_str(), posX, static_cast<int>(text.pos.y), text.fontSize, text.color);
-	}
-
-	void Draw(Text text)
-	{
-		DrawText(text.content.c_str(), static_cast<int>(text.pos.x), static_cast<int>(text.pos.y), text.fontSize, text.color);
-	}
-
-	void DrawCentered(Text text)
-	{
-		int screenCenterX = GetScreenWidth() / 2;
-		DrawText(text.content.c_str(), screenCenterX - text.width / 2, static_cast<int>(text.pos.y), text.fontSize, text.color);
-	}
-
-	void DrawCentered(Text text1, Text text2)
-	{
-		int screenCenterX = GetScreenWidth() / 2;
-		int totalTextLength = text1.width + text2.width;
-
-		int startX = screenCenterX - (totalTextLength / 2);
-
-		Draw(text1, startX);
-		Draw(text2, startX + text1.width + 5);
-	}
-
-	void DrawEx(Text text, int posX)
 	{
 		DrawTextEx(GetFont(text.font), text.content.c_str(), {static_cast<float>(posX), text.pos.y}, static_cast<float>(text.fontSize), textSpacing, text.color);
 	}
 	
-	void DrawEx(Text text, int posX, int posY)
+	void Draw(Text text, int posX, int posY)
 	{
 		DrawTextEx(GetFont(text.font), text.content.c_str(), {static_cast<float>(posX), static_cast<float>(posY) }, static_cast<float>(text.fontSize), textSpacing, text.color);
 	}
 
-	void DrawEx(Text text)
+	void Draw(Text text)
 	{
 		DrawTextEx(GetFont(text.font), text.content.c_str(), { text.pos.x, text.pos.y }, static_cast<float>(text.fontSize), textSpacing, text.color);
 	}
 
-	void DrawCenteredEx(Text text)
+	void CenterText(Text &text)
 	{
 		int screenCenterX = GetScreenWidth() / 2;
-		DrawEx(text, screenCenterX - text.width / 2);
+		text.pos.x = static_cast<float>(screenCenterX - text.width / 2);
 		//DrawText(text.content.c_str(), screenCenterX - text.width / 2, static_cast<int>(text.pos.y), text.fontSize, text.color);
 	}
 
-	void DrawCenteredEx(Text text1, Text text2)
+	void CenterText(Text& text1, Text& text2)
 	{
 		int screenCenterX = GetScreenWidth() / 2;
 		int totalTextLength = text1.width + text2.width;
 
 		int startX = screenCenterX - (totalTextLength / 2);
 
-		DrawEx(text1, startX);
-		DrawEx(text2, startX + text1.width);
+		text1.pos.x = static_cast<float>(startX);
+		text2.pos.x = static_cast<float>(startX + text1.width);
+
 	}
-
-
 }
 

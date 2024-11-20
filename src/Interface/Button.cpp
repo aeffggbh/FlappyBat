@@ -1,6 +1,7 @@
 #include "Button.h"
 
 #include "Interface/Text.h"
+#include "Interface/ColorManager.h"
 
 
 namespace Buttons
@@ -12,9 +13,9 @@ namespace Buttons
 	void Draw(Button button, int fontSize)
 	{
 		if (button.isSelected)
-			DrawButtonEx(button, RED, fontSize);
+			DrawButtonEx(button, ColorManager::GetColor(ColorManager::Purple), fontSize);
 		else
-			DrawButtonEx(button, ORANGE, fontSize);
+			DrawButtonEx(button, ColorManager::GetColor(ColorManager::DarkGreen), fontSize);
 	}
 
 	Button Create(const char* text, float recX, float recY, float recWidth, float recHeight)
@@ -92,6 +93,6 @@ namespace Buttons
 		int textX = static_cast<int> (button.rec.x + button.rec.width / 2 - buttonText.width / 2);
 		int textY = static_cast<int> (button.rec.y + button.rec.height / 2 - buttonText.height / 2);
 
-		Text::DrawEx(buttonText, textX, textY);
+		Text::Draw(buttonText, textX, textY);
 	}
 }

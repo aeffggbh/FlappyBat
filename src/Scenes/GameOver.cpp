@@ -4,13 +4,12 @@
 #include <string>
 
 #include "Interface/Text.h"
+#include "Interface/ColorManager.h"
 
 using namespace std;
 
 namespace GameOver
 {
-	static Texture2D background;
-
 	static Text::Text gameOver;
 
 	Buttons::Button returnToMenu;
@@ -49,7 +48,7 @@ namespace GameOver
 	{
 		ClearBackground(BLACK);
 
-		DrawTexture(background, 0, 0, WHITE);
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), ColorManager::GetColor(ColorManager::AlphaBlack));
 
 		Text::DrawCentered(gameOver);
 

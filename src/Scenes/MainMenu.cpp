@@ -2,6 +2,7 @@
 
 #include "Utils/SoundManager.h"
 #include "Interface/Text.h"
+#include "Interface/ColorManager.h"
 
 #include "raylib.h"
 
@@ -37,8 +38,9 @@ namespace MainMenu
 		("Flappy Bat",
 			fontSize * 3,
 			{ 0.0f,static_cast<float>(Text::Padding::medium)},
-			GREEN,
+			WHITE,
 			Text::Fonts::title);
+		Text::CenterText(mainTitle);
 	}
 
 	void Update()
@@ -59,7 +61,9 @@ namespace MainMenu
 	{
 		ClearBackground(BLACK);
 
-		Text::DrawCenteredEx(mainTitle);
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), ColorManager::GetColor(ColorManager::AlphaBlack));
+
+		Text::Draw(mainTitle);
 
 		//Version text
 		DrawText("0.4",

@@ -12,6 +12,7 @@
 #include "Scenes/HowToPlay.h"
 #include "Objects/Parallax.h"
 #include "Interface/Button.h"
+#include "Interface/ColorManager.h"
 #include "Utils/SoundManager.h"
 
 using namespace Buttons;
@@ -67,6 +68,7 @@ namespace Game
 
 		SetExitKey(0);
 
+		ColorManager::InitColors();
 		MainMenu::Init();
 		Gameplay::Init();
 		Credits::Init();

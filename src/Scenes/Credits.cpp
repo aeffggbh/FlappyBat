@@ -1,11 +1,10 @@
 #include "Credits.h"
 
 #include "Interface/Text.h"
+#include "Interface/ColorManager.h"
 
 namespace Credits
 {
-	static Texture2D background;
-
 	static int regularFontSize = 30;
 	static int titleFontSize = 50;
 	static int buttonFontSize = 30;
@@ -65,22 +64,30 @@ namespace Credits
 	void Draw()
 	{
 		ClearBackground(BLACK);
-		DrawTexture(background, 0, 0, WHITE);
+
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), ColorManager::GetColor(ColorManager::AlphaBlack));
+
 		Buttons::Draw(returnToMenu, buttonFontSize);
 
-		Text::DrawCenteredEx(developerText);
-		Text::DrawCenteredEx(developer2Text);
+		Text::Draw(developerText);
+		Text::Draw(developer2Text);
 
-		Text::DrawCenteredEx(spritesText, spritesUrlText);
-		Text::DrawCenteredEx(parallaxText, parallaxUrlText);
-		Text::DrawCenteredEx(musicText, musicUrlText);
-		Text::DrawCenteredEx(sfxText, sfxUrlText);
+		Text::Draw(spritesText);
+		Text::Draw(spritesUrlText);
+
+		Text::Draw(parallaxText);
+		Text::Draw(parallaxUrlText);
+
+		Text::Draw(musicText);
+		Text::Draw(musicUrlText);
+
+		Text::Draw(sfxText);
+		Text::Draw(sfxUrlText);
 	}
 
 
 	void Unload()
 	{
-		UnloadTexture(background);
 	}
 
 	void InitButtons()
@@ -96,33 +103,41 @@ namespace Credits
 
 	void InitTexts()
 	{
-		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, GREEN, Text::Fonts::generalText);
+		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, WHITE, Text::Fonts::generalText);
 
 		textPadding += 2;
 
-		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
+		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
 
 		textPadding += 3;
 
-		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
-		spritesUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		spritesUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 
 		textPadding += 2;
 
-		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
-		parallaxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		parallaxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
 
-		musicText = Text::CreateText("Music made with Suno AI ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
-		musicUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		musicText = Text::CreateText("Music made with Suno AI ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		musicUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
 		
-		sfxText = Text::CreateText("UI Audio by Kenney ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GREEN, Text::Fonts::generalText);
-		sfxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, GOLD, Text::Fonts::generalText);
+		sfxText = Text::CreateText("UI Audio by Kenney ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		sfxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
+
+		Text::CenterText(developerText);
+		Text::CenterText(developer2Text);
+
+		Text::CenterText(spritesText, spritesUrlText);
+		Text::CenterText(parallaxText, parallaxUrlText);
+		Text::CenterText(musicText, musicUrlText);
+		Text::CenterText(sfxText, sfxUrlText);
 
 	}
 

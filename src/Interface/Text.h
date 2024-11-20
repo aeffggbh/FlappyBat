@@ -44,8 +44,6 @@ namespace Text
 
 	void Unload();
 
-	Text CreateText(string content, int fontSize, Vector2 pos, Color color);
-
 	Text CreateText(string content, int fontSize, Vector2 pos, Color color, Fonts font);
 
 	Font GetFont(Fonts font);
@@ -55,15 +53,8 @@ namespace Text
 	void SetTextLengthEx(Text& text);
 
 	void Draw(Text text, int posX);
-
+	void Draw(Text text, int posX, int posY);
 	void Draw(Text text);
-
-	void DrawCentered(Text text);
-
-	void DrawCentered(Text text1, Text text2);
-	void DrawEx(Text text, int posX);
-	void DrawEx(Text text, int posX, int posY);
-	void DrawEx(Text text);
-	void DrawCenteredEx(Text text);
-	void DrawCenteredEx(Text text1, Text text2);
+	void CenterText(Text& text);
+	void CenterText(Text& text1, Text& text2);
 }
