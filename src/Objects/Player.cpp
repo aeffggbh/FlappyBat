@@ -3,11 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "Utils/Utils.h"
 #include "Utils/SoundManager.h"
 
 using namespace std;
-using namespace Utils;
 
 namespace Player
 {
