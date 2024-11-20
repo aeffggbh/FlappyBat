@@ -24,12 +24,13 @@ namespace Obstacle
 		float originX;
 		float finishX;
 		bool addedScore;
+		Color color;
 	};
 
 
 	void Load();
 
-	void Init(Obstacle& obstacle, float originX, float speed);
+	void Init(Obstacle& obstacle, float originX, float speed, Color color);
 	void Update(Obstacle& obstacle);
 	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);

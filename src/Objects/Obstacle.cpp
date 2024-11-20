@@ -35,7 +35,7 @@ namespace Obstacle
 		tree = LoadTexture("res/sprites/tree.png");
 	}
 
-	void Init(Obstacle& obstacle, float originX, float speed)
+	void Init(Obstacle& obstacle, float originX, float speed, Color color)
 	{
 		InitTextures();
 
@@ -44,6 +44,8 @@ namespace Obstacle
 
 		maxObstacleHeight = screenHeight / 2;
 		minObstacleHeight = obstacleWidth;
+
+		obstacle.color = color;
 
 		obstacle.originX = originX;
 		if (static_cast<int>(originX) >= GetScreenWidth())
@@ -65,13 +67,6 @@ namespace Obstacle
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			/*DrawRectangle(static_cast<int>(obstacle.parts[i].pos.x),
-				static_cast<int>(obstacle.parts[i].pos.y),
-				static_cast<int>(obstacle.parts[i].collisionShape.width),
-				static_cast<int>(obstacle.parts[i].collisionShape.height),
-				RED);*/
-
-
 			float trunkYStart = obstacle.parts[i].collisionShape.y;
 
 			for (int j = 0; j < frames; j++)
@@ -81,30 +76,23 @@ namespace Obstacle
 					Rectangle dest = obstacle.parts[i].spriteParts[j].destination;
 
 					if (i == 0)
-					{
 						trunkYStart = obstacle.parts[i].collisionShape.y + obstacle.parts[i].collisionShape.height - obstacle.parts[i].spriteParts[j].destination.height;
-					}
-
-
+					
 					for (int k = 0; k < obstacle.parts[i].trunkRepetitions; k++)
 					{
 						dest.y = trunkYStart;
-						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, dest, { 0,0 }, 0, WHITE);
+						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, dest, { 0,0 }, 0, obstacle.color);
 
 						if (i == 0)
 							trunkYStart -= dest.height;
 						else
 							trunkYStart += dest.height;
-
 					}
 				}
 				else
 				{
 					if ((i == 0 && j == TopLeaves) || i == 1 && j == BottomLeaves)
-					{
-						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, obstacle.parts[i].spriteParts[j].destination, { 0,0 }, 0, WHITE);
-
-					}
+						DrawTexturePro(obstacle.parts[i].spriteParts[j].texture, obstacle.parts[i].spriteParts[j].source, obstacle.parts[i].spriteParts[j].destination, { 0,0 }, 0, obstacle.color);
 
 				}
 

@@ -11,8 +11,7 @@
 #include "Objects/Parallax.h"
 #include "Utils/SoundManager.h"
 #include "Scenes/GameOver.h"
-
-
+#include "Interface/ColorManager.h"
 
 namespace ObstacleNS = Obstacle;
 
@@ -52,8 +51,8 @@ namespace Gameplay
 		PlayerNS::Init(player1, Player::player1Color, KEY_SPACE, Player::player1Num, static_cast<float>(GetScreenWidth() / 4));
 		PlayerNS::Init(player2, Player::player2Color, KEY_UP, Player::player2Num, static_cast<float>(GetScreenWidth() - GetScreenWidth() /4));
 		
-		ObstacleNS::Init(obstacle, static_cast<float>(GetScreenWidth()), 500.0f);
-		ObstacleNS::Init(obstacle2, 0, -400.0f);
+		ObstacleNS::Init(obstacle, static_cast<float>(GetScreenWidth()), 500.0f, WHITE);
+		ObstacleNS::Init(obstacle2, 0, -400.0f, ColorManager::GetColor(ColorManager::Red));
 	}
 
 	void Load()
