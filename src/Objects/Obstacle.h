@@ -21,13 +21,15 @@ namespace Obstacle
 	{
 		ObstaclePart parts[obstacleParts];
 		float speed;
+		float originX;
+		float finishX;
 		bool addedScore;
 	};
 
 
 	void Load();
 
-	void Init(Obstacle& obstacle);
+	void Init(Obstacle& obstacle, float originX, float speed);
 	void Update(Obstacle& obstacle);
 	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);

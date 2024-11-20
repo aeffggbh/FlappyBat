@@ -33,6 +33,8 @@ namespace Player
 		float jumpSpeed;
 		float fallSpeed;
 
+		float initialPosX;
+
 		Color color;
 		KeyboardKey jumpKey;
 	};
@@ -48,7 +50,7 @@ namespace Player
 
 	void Load(Player& player);
 
-	void Init(Player& player, Color color, KeyboardKey jumpKey, int num);
+	void Init(Player& player, Color color, KeyboardKey jumpKey, int num, float startX);
 	void Update(Player& player, bool& gameOnGoing);
 	void Draw(Player player);
 	void Unload(Player& player);

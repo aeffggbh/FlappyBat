@@ -35,7 +35,7 @@ namespace Obstacle
 		tree = LoadTexture("res/sprites/tree.png");
 	}
 
-	void Init(Obstacle& obstacle)
+	void Init(Obstacle& obstacle, float originX, float speed)
 	{
 		InitTextures();
 
@@ -44,6 +44,14 @@ namespace Obstacle
 
 		maxObstacleHeight = screenHeight / 2;
 		minObstacleHeight = obstacleWidth;
+
+		obstacle.originX = originX;
+		if (static_cast<int>(originX) >= GetScreenWidth())
+			obstacle.finishX = 0;
+		else
+			obstacle.finishX = static_cast<float>(GetScreenWidth());
+
+		obstacle.speed = speed;
 
 		SetObstacle(obstacle);
 	}
@@ -113,8 +121,10 @@ namespace Obstacle
 	{
 		float dividedObstacleHeight = static_cast<float>(GetRandomValue(static_cast<int>(minObstacleHeight), static_cast<int>(maxObstacleHeight)));
 
-		float obstacleSpace = 150.0f;
+		float obstacleSpace = 200.0f;
 
+		cout << "Set!!" << endl;
+		
 		for (int i = 0; i < obstacleParts; i++)
 		{
 			obstacleToSet.parts[i].spriteParts[Trunk] = trunk;
@@ -122,7 +132,11 @@ namespace Obstacle
 			obstacleToSet.parts[i].spriteParts[BottomLeaves] = bottomLeaves;
 
 			obstacleToSet.parts[i].collisionShape.width = obstacleWidth;
-			obstacleToSet.parts[i].collisionShape.x = screenWidth + obstacleWidth;
+			if (static_cast<int>(obstacleToSet.originX) == GetScreenWidth())
+				obstacleToSet.parts[i].collisionShape.x = obstacleToSet.originX + obstacleWidth;
+			else
+				obstacleToSet.parts[i].collisionShape.x = obstacleToSet.originX - obstacleWidth;
+
 
 			for (int j = 0; j < frames; j++)
 			{
@@ -155,7 +169,6 @@ namespace Obstacle
 			obstacleToSet.parts[i].trunkRepetitions = static_cast<int>(obstacleToSet.parts[i].collisionShape.height) / trunk.texture.height + 1;
 		}
 
-		obstacleToSet.speed = 500;
 		obstacleToSet.addedScore = false;
 	}
 
@@ -180,12 +193,21 @@ namespace Obstacle
 		}
 	}
 
-	void KeepObstacleOnScreen(Obstacle& obstacleToKeepOnScreen)
+	void KeepObstacleOnScreen(Obstacle& obstacleToKeep)
 	{
-		if (obstacleToKeepOnScreen.parts[0].pos.x + obstacleToKeepOnScreen.parts[0].collisionShape.width < 0)
+		bool reset = false;
+
+		if (static_cast<int>(obstacleToKeep.finishX) == 0)
 		{
-			ResetObstacle(obstacleToKeepOnScreen);
+			if (obstacleToKeep.parts[0].pos.x + obstacleToKeep.parts[0].collisionShape.width < 0)
+				reset = true;
+
 		}
+		else if (static_cast<int>(obstacleToKeep.parts[0].pos.x) > GetScreenWidth())
+			reset = true;
+
+		if (reset)
+			ResetObstacle(obstacleToKeep);
 	}
 
 	void InitTextures()

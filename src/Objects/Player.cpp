@@ -31,7 +31,7 @@ namespace Player
 		player.sprite.texture = LoadTexture("res/Sprites/bat.png");
 	}
 
-	void Init(Player& player, Color color, KeyboardKey jumpKey, int num)
+	void Init(Player& player, Color color, KeyboardKey jumpKey, int num, float startX)
 	{
 		player.score = 0;
 		player.playerNumber = num;
@@ -46,9 +46,11 @@ namespace Player
 		/*float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
 		float spriteCenterY = static_cast <float> (player.sprite.texture.height / 2);*/
 
+		player.initialPosX = startX;
+
 		player.pos =
 		{
-			static_cast<float>(GetScreenWidth() / 4),
+			player.initialPosX,
 			static_cast<float>(GetScreenHeight() / 2)
 		};
 
@@ -102,6 +104,10 @@ namespace Player
 			player.pos.y - (frameHeight / 2)
 		};
 
+		if (player.playerNumber == player2Num)
+			player.flyAnimation[player.sprite.currentFrame].width *= -1;
+		
+
 		//Sprite
 		DrawTextureRec(
 			player.sprite.texture,
@@ -127,7 +133,7 @@ namespace Player
 	void ResetPlayer(Player& player)
 	{
 		player.score = 0;
-		player.collisionShape.center.x = static_cast<float>(GetScreenWidth()) / 4.0f;
+		player.collisionShape.center.x = player.initialPosX;
 		player.collisionShape.center.y = static_cast<float>(GetScreenHeight()) / 2.0f;
 		player.speed = 0;
 	}

@@ -24,6 +24,7 @@ using namespace std;
 namespace Gameplay
 {
 	ObstacleNS::Obstacle obstacle;
+	ObstacleNS::Obstacle obstacle2;
 
 	PlayerNS::Player player1;
 	PlayerNS::Player player2;
@@ -40,19 +41,19 @@ namespace Gameplay
 
 	static Texture2D background;
 
-	static bool CheckPlayerObstacleCollision(PlayerNS::Player player);
+	static bool CheckPlayerObstacleCollision(PlayerNS::Player player, ObstacleNS::Obstacle obstacle);
 	static void CountScore(PlayerNS::Player& player, ObstacleNS::Obstacle& obstacle);
-	//static void DrawScores(PlayerNS::Player player1, PlayerNS::Player player2);
 
 	void Init()
 	{
 		pause = Buttons::Create("Pause", static_cast<float>(GetScreenWidth() - 180), 20, 160, 50);
-		ObstacleNS::Init(obstacle);
 		gameOnGoing = true;
 		gameStarted = false;
-		PlayerNS::Init(player1, Player::player1Color, KEY_SPACE, Player::player1Num);
-		PlayerNS::Init(player2, Player::player2Color, KEY_UP, Player::player2Num);
-		ObstacleNS::Init(obstacle);
+		PlayerNS::Init(player1, Player::player1Color, KEY_SPACE, Player::player1Num, static_cast<float>(GetScreenWidth() / 4));
+		PlayerNS::Init(player2, Player::player2Color, KEY_UP, Player::player2Num, static_cast<float>(GetScreenWidth() - GetScreenWidth() /4));
+		
+		ObstacleNS::Init(obstacle, static_cast<float>(GetScreenWidth()), 500.0f);
+		ObstacleNS::Init(obstacle2, 0, -400.0f);
 	}
 
 	void Load()
@@ -77,12 +78,15 @@ namespace Gameplay
 
 		if (isMultiplayer)
 		{
-			CountScore(player2, obstacle);
+			ObstacleNS::Update(obstacle2);
+			
 			PlayerNS::Update(player2, gameOnGoing);
+
+			CountScore(player2, obstacle2);
 
 		}
 
-		if (CheckPlayerObstacleCollision(player1) || CheckPlayerObstacleCollision(player2))
+		if (CheckPlayerObstacleCollision(player1, obstacle) || CheckPlayerObstacleCollision(player2, obstacle2))
 			gameOnGoing = false;
 
 	
@@ -105,7 +109,10 @@ namespace Gameplay
 		ObstacleNS::Draw(obstacle);
 		PlayerNS::Draw(player1);
 		if (isMultiplayer)
+		{
 			Draw(player2);
+			ObstacleNS::Draw(obstacle2);
+		}
 
 		Buttons::Draw(pause, fontSize);
 	}
@@ -122,6 +129,7 @@ namespace Gameplay
 	void Reset()
 	{
 		ObstacleNS::ResetObstacle(obstacle);
+		ObstacleNS::ResetObstacle(obstacle2);
 		PlayerNS::ResetPlayer(player1);
 		PlayerNS::ResetPlayer(player2);
 		gameOnGoing = true;
@@ -137,7 +145,7 @@ namespace Gameplay
 		return isMultiplayer;
 	}
 
-	bool CheckPlayerObstacleCollision(PlayerNS::Player player)
+	bool CheckPlayerObstacleCollision(PlayerNS::Player player, ObstacleNS::Obstacle collisionObstacle)
 	{
 		float cx = player.collisionShape.center.x;
 		float cy = player.collisionShape.center.y;
@@ -145,10 +153,10 @@ namespace Gameplay
 
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			float rx = obstacle.parts[i].collisionShape.x;
-			float ry = obstacle.parts[i].collisionShape.y;
-			float rw = obstacle.parts[i].collisionShape.width;
-			float rh = obstacle.parts[i].collisionShape.height;
+			float rx = collisionObstacle.parts[i].collisionShape.x;
+			float ry = collisionObstacle.parts[i].collisionShape.y;
+			float rw = collisionObstacle.parts[i].collisionShape.width;
+			float rh = collisionObstacle.parts[i].collisionShape.height;
 
 			float testX = cx;
 			float testY = cy;
