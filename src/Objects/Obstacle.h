@@ -20,10 +20,13 @@ namespace Obstacle
 	struct Obstacle
 	{
 		ObstaclePart parts[obstacleParts];
-		float speed;
+		float hSpeed;
+		float vSpeed;
 		float originX;
+		float offSetY;
 		float finishX;
 		bool addedScore;
+		bool movesVertical;
 		Color color;
 	};
 

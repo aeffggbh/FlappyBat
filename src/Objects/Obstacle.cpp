@@ -24,6 +24,7 @@ namespace Obstacle
 	static float obstacleWidth = 50;
 	static float maxObstacleHeight;
 	static float minObstacleHeight;
+	static float obstacleSpace = 200.0f;
 
 	static void ManageObstacle(Obstacle& obstacle);
 	static void MoveObstacle(Obstacle& enemyToMove);
@@ -53,7 +54,7 @@ namespace Obstacle
 		else
 			obstacle.finishX = static_cast<float>(GetScreenWidth());
 
-		obstacle.speed = speed;
+		obstacle.hSpeed = speed;
 
 		SetObstacle(obstacle);
 	}
@@ -77,7 +78,7 @@ namespace Obstacle
 
 					if (i == 0)
 						trunkYStart = obstacle.parts[i].collisionShape.y + obstacle.parts[i].collisionShape.height - obstacle.parts[i].spriteParts[j].destination.height;
-					
+
 					for (int k = 0; k < obstacle.parts[i].trunkRepetitions; k++)
 					{
 						dest.y = trunkYStart;
@@ -107,12 +108,11 @@ namespace Obstacle
 
 	void SetObstacle(Obstacle& obstacleToSet)
 	{
+		obstacleToSet.movesVertical = GetRandomValue(0, 1);
+
 		float dividedObstacleHeight = static_cast<float>(GetRandomValue(static_cast<int>(minObstacleHeight), static_cast<int>(maxObstacleHeight)));
 
-		float obstacleSpace = 200.0f;
 
-		cout << "Set!!" << endl;
-		
 		for (int i = 0; i < obstacleParts; i++)
 		{
 			obstacleToSet.parts[i].spriteParts[Trunk] = trunk;
@@ -124,6 +124,7 @@ namespace Obstacle
 				obstacleToSet.parts[i].collisionShape.x = obstacleToSet.originX + obstacleWidth;
 			else
 				obstacleToSet.parts[i].collisionShape.x = obstacleToSet.originX - obstacleWidth;
+
 
 
 			for (int j = 0; j < frames; j++)
@@ -158,6 +159,13 @@ namespace Obstacle
 		}
 
 		obstacleToSet.addedScore = false;
+
+		if (obstacleToSet.movesVertical)
+		{
+			obstacleToSet.vSpeed = obstacleToSet.hSpeed / 2;
+			obstacleToSet.offSetY = obstacleToSet.parts[0].collisionShape.y + obstacleToSet.parts[0].collisionShape.height;
+
+		}
 	}
 
 
@@ -171,14 +179,50 @@ namespace Obstacle
 	{
 		for (int i = 0; i < obstacleParts; i++)
 		{
-			enemyToMove.parts[i].pos.x -= enemyToMove.speed * GetFrameTime();
+			enemyToMove.parts[i].pos.x -= enemyToMove.hSpeed * GetFrameTime();
 			enemyToMove.parts[i].collisionShape.x = enemyToMove.parts[i].pos.x;
 
 			for (int j = 0; j < frames; j++)
 				enemyToMove.parts[i].spriteParts[j].destination.x = enemyToMove.parts[i].pos.x;
 
-
 		}
+
+		if (enemyToMove.movesVertical)
+		{
+			if (enemyToMove.offSetY <= minObstacleHeight)
+			{
+				if (enemyToMove.vSpeed < 0)
+				{
+					enemyToMove.vSpeed *= -1;
+
+				}
+
+			}
+			else if (enemyToMove.offSetY + obstacleSpace + minObstacleHeight >= GetScreenHeight() - minObstacleHeight)
+			{
+				if (enemyToMove.vSpeed > 0)
+				{
+					enemyToMove.vSpeed *= -1;
+
+				}
+			}
+
+			cout << enemyToMove.vSpeed << endl;
+
+			enemyToMove.offSetY += enemyToMove.vSpeed * GetFrameTime();
+
+			enemyToMove.parts[0].spriteParts[TopLeaves].destination.y = enemyToMove.parts[0].collisionShape.y + enemyToMove.parts[0].collisionShape.height;
+			enemyToMove.parts[1].spriteParts[BottomLeaves].destination.y = enemyToMove.parts[1].collisionShape.y - enemyToMove.parts[1].spriteParts[BottomLeaves].destination.height;
+
+
+			enemyToMove.parts[0].collisionShape.height = enemyToMove.offSetY;
+			enemyToMove.parts[1].collisionShape.y = enemyToMove.offSetY + obstacleSpace;
+			enemyToMove.parts[1].collisionShape.height = GetScreenHeight() - enemyToMove.parts[1].collisionShape.y;
+			
+			enemyToMove.parts[0].trunkRepetitions = static_cast<int>(enemyToMove.parts[0].collisionShape.height) / trunk.texture.height + 1;
+			enemyToMove.parts[1].trunkRepetitions = static_cast<int>(enemyToMove.parts[1].collisionShape.height) / trunk.texture.height + 1;
+		}
+
 	}
 
 	void KeepObstacleOnScreen(Obstacle& obstacleToKeep)
