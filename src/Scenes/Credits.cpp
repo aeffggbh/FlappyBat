@@ -36,13 +36,31 @@ namespace Credits
 	static Text::Text sfxText;
 	static Text::Text sfxUrlText;
 
+	static Text::Text treeText;
+	static Text::Text treeUrlText;
+
+	static Text::Text titleFontText;
+	static Text::Text titleFontUrlText;
+
+	static Text::Text subtitleFontText;
+	static Text::Text subtitleFontUrlText;
+
+	static Text::Text generalFontText;
+	static Text::Text generalFontUrlText;
+
 	//Invisible buttons
 	static Buttons::Button spritesUrlButton;
 	static Buttons::Button parallaxUrlButton;
 	static Buttons::Button musicUrlButton;
 	static Buttons::Button sfxUrlButton;
+	static Buttons::Button treeUrlButton;
+	static Buttons::Button titleFontUrlButton;
+	static Buttons::Button subtitleFontUrlButton;
+	static Buttons::Button generalFontUrlButton;
 
+	static void InitCreditText(Text::Text &text, Text::Text& urlText, string content);
 	static void InitTexts();
+	static void InitCreditButton(Buttons::Button& button, Text::Text url);
 	static void InitButtons();
 	static void UpdateButtons();
 
@@ -82,6 +100,19 @@ namespace Credits
 
 		Text::Draw(sfxText);
 		Text::Draw(sfxUrlText);
+
+		Text::Draw(treeText);
+		Text::Draw(treeUrlText);
+
+		Text::Draw(titleFontText);
+		Text::Draw(titleFontUrlText);
+
+		Text::Draw(subtitleFontText);
+		Text::Draw(subtitleFontUrlText);
+
+		Text::Draw(generalFontText);
+		Text::Draw(generalFontUrlText);
+
 	}
 
 
@@ -93,50 +124,61 @@ namespace Credits
 	{
 		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
 
-		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(Text::FontSize::medium));
-		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(Text::FontSize::medium));
-		musicUrlButton = Buttons::Create("", musicUrlText.pos.x, musicUrlText.pos.y, static_cast<float>(musicUrlText.width), static_cast<float>(Text::FontSize::medium));
-		sfxUrlButton = Buttons::Create("", sfxUrlText.pos.x, sfxUrlText.pos.y, static_cast<float>(sfxUrlText.width), static_cast<float>(Text::FontSize::medium));
-		
+		InitCreditButton(spritesUrlButton, spritesUrlText);
+		InitCreditButton(parallaxUrlButton, parallaxUrlText);
+		InitCreditButton(musicUrlButton, musicUrlText);
+		InitCreditButton(sfxUrlButton, sfxUrlText);
+		InitCreditButton(treeUrlButton, treeUrlText);
+		InitCreditButton(titleFontUrlButton, titleFontUrlText);
+		InitCreditButton(subtitleFontUrlButton, subtitleFontUrlText);
+		InitCreditButton(generalFontUrlButton, generalFontUrlText);
+
+	}
+
+	void InitCreditText(Text::Text& text, Text::Text& urlText, string content)
+	{
+		text = Text::CreateText(content, static_cast<int>(Text::FontSize::small), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		urlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::small), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+
+		Text::CenterText(text, urlText);
+
+		textPadding += 1;
 	}
 
 	void InitTexts()
 	{
 		developerText = Text::CreateText("Original by: Nicolas Leon", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding - 10 }, WHITE, Text::Fonts::generalText);
 
+		Text::CenterText(developerText);
+
 		textPadding += 2;
 
 		developer2Text = Text::CreateText("Forked by: Sofia Alvarez", titleFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		Text::CenterText(developer2Text);
 
 		textPadding += 3;
 
-		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		spritesUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		InitCreditText(spritesText, spritesUrlText, "Bat by Caz Creates Games on Itch.io ");
 
-		textPadding += 2;
+		InitCreditText(parallaxText, parallaxUrlText, "Gothicvania by Ansimuz on Itch.io ");
 
-		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		parallaxUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		InitCreditText(musicText, musicUrlText, "Music made with Suno AI ");
 		
-		textPadding += 2;
+		InitCreditText(sfxText, sfxUrlText, "UI Audio by Kenney ");
 
-		musicText = Text::CreateText("Music made with Suno AI ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		musicUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
-		
-		textPadding += 2;
-		
-		sfxText = Text::CreateText("UI Audio by Kenney ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		sfxUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
-		
-		textPadding += 2;
+		InitCreditText(treeText, treeUrlText, "Tree sprite by Alexa Laborero ");
 
-		Text::CenterText(developerText);
-		Text::CenterText(developer2Text);
+		InitCreditText(titleFontText, titleFontUrlText, "Carrington font by Bright Ideas ");
 
-		Text::CenterText(spritesText, spritesUrlText);
-		Text::CenterText(parallaxText, parallaxUrlText);
-		Text::CenterText(musicText, musicUrlText);
-		Text::CenterText(sfxText, sfxUrlText);
+		InitCreditText(subtitleFontText, subtitleFontUrlText, "Lobster font by Impallari Type ");
+
+		InitCreditText(generalFontText, generalFontUrlText, "Latin Modern Mono Regular font by GUST e-foundry ");
+
+	}
+
+	void InitCreditButton(Buttons::Button &button, Text::Text url)
+	{
+		button = Buttons::Create("", url.pos.x, url.pos.y, static_cast<float>(url.width), static_cast<float>(Text::FontSize::small));
 
 	}
 
@@ -146,7 +188,9 @@ namespace Credits
 		if (Buttons::IsButtonPressed(parallaxUrlButton)) OpenURL("https://ansimuz.itch.io/gothicvania-patreon-collection");
 		if (Buttons::IsButtonPressed(musicUrlButton)) OpenURL("https://suno.com/");
 		if (Buttons::IsButtonPressed(sfxUrlButton)) OpenURL("https://kenney.nl/assets/ui-audio");
-
-
+		if (Buttons::IsButtonPressed(treeUrlButton)) OpenURL("https://xertun.itch.io/");
+		if (Buttons::IsButtonPressed(titleFontUrlButton)) OpenURL("https://fontsquirrel.com/fonts/carrington");
+		if (Buttons::IsButtonPressed(subtitleFontUrlButton)) OpenURL("https://www.fontsquirrel.com/fonts/lobster");
+		if (Buttons::IsButtonPressed(generalFontUrlButton)) OpenURL("https://www.fontsquirrel.com/fonts/latin-modern-mono");
 	}
 }
