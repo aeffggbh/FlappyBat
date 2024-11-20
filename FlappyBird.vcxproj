@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Interface\Button.cpp" />
+    <ClCompile Include="src\Interface\ColorManager.cpp" />
     <ClCompile Include="src\Interface\Text.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Objects\Obstacle.cpp" />
@@ -171,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Interface\Button.h" />
+    <ClInclude Include="src\Interface\ColorManager.h" />
     <ClInclude Include="src\Interface\MovingBackground.h" />
     <ClInclude Include="src\Interface\Text.h" />
     <ClInclude Include="src\Objects\AnimatedSprite.h" />
