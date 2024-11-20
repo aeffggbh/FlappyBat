@@ -27,9 +27,6 @@
     <ClCompile Include="src\Interface\Text.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\Utils.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -74,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="src\Interface\Text.h">
       <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utils\Utils.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Circle.h">
       <Filter>Objects</Filter>
