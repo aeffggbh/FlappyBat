@@ -106,7 +106,8 @@ namespace Text
 	{
 		int screenCenterX = GetScreenWidth() / 2;
 		text.pos.x = static_cast<float>(screenCenterX - text.width / 2);
-		//DrawText(text.content.c_str(), screenCenterX - text.width / 2, static_cast<int>(text.pos.y), text.fontSize, text.color);
+		//DrawText(text.content.c_str(), screenCenterX - text.width / 2, static_cast<int>(text.pos.y), text.
+		// , text.color);
 	}
 
 	void CenterText(Text& text1, Text& text2)

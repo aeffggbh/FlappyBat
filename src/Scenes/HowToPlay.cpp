@@ -15,9 +15,6 @@ namespace HowToPlay
 	Buttons::Button returnToMenu;
 	Buttons::Button continuePlaying;
 
-	static int fontSize = 40;
-	static int fontSize2 = 25;
-	static int titleFontSize = fontSize * 2;
 	static float buttonWidth = 250;
 	static float buttonHeight = 70;
 	static float screenHeight;
@@ -50,19 +47,19 @@ namespace HowToPlay
 		else
 			Text::Draw(instructionsSingle);
 
-		Buttons::Draw(returnToMenu, fontSize);
-		Buttons::Draw(continuePlaying, fontSize);
+		Buttons::Draw(returnToMenu, static_cast<int>(Text::FontSize::medium));
+		Buttons::Draw(continuePlaying, static_cast<int>(Text::FontSize::medium));
 	}
 
 	void InitTexts()
 	{
-		howToPlayTitle = Text::CreateText("HOW TO PLAY", fontSize, { screenCenterX, screenHeight / 6 }, WHITE, Text::Fonts::subtitle);
+		howToPlayTitle = Text::CreateText("HOW TO PLAY", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / 6 }, WHITE, Text::Fonts::subtitle);
 
-		instructionsPlayer1 = Text::CreateText("PLAYER 1: JUMP WITH THE SPACE KEY. You dodge the NORMAL obstacle!", fontSize2, { screenCenterX, screenHeight / 4 }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		instructionsPlayer1 = Text::CreateText("PLAYER 1: JUMP WITH THE SPACE KEY. You dodge the NORMAL obstacle!", static_cast<int>(Text::FontSize::small), { screenCenterX, screenHeight / 4 }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 
-		instructionsPlayer2 = Text::CreateText("PLAYER 2: JUMP WITH THE UP KEY. You dodge the RED obstacle!", fontSize2, { screenCenterX, screenHeight / 3 }, ColorManager::GetColor(ColorManager::Red), Text::Fonts::generalText);
+		instructionsPlayer2 = Text::CreateText("PLAYER 2: JUMP WITH THE UP KEY. You dodge the RED obstacle!", static_cast<int>(Text::FontSize::small), { screenCenterX, screenHeight / 3 }, ColorManager::GetColor(ColorManager::Red), Text::Fonts::generalText);
 
-		instructionsSingle = Text::CreateText("JUMP WITH THE SPACE KEY!", fontSize, { screenCenterX, screenHeight / 4 }, MAGENTA, Text::Fonts::generalText);
+		instructionsSingle = Text::CreateText("JUMP WITH THE SPACE KEY!", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / 4 }, MAGENTA, Text::Fonts::generalText);
 
 		returnToMenu = Buttons::Create("Go to menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);
 		continuePlaying = Buttons::Create("Continue", buttonCenterX + buttonWidth, static_cast<float>(screenHeight / 2), buttonWidth, buttonHeight);

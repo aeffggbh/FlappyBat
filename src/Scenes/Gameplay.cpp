@@ -30,8 +30,6 @@ namespace Gameplay
 
 	Buttons::Button pause;
 
-	static const int fontSize = 40;
-
 	static bool gameOnGoing = true;
 	static bool gameStarted = false;
 	static bool isMultiplayer;
@@ -113,7 +111,7 @@ namespace Gameplay
 			ObstacleNS::Draw(obstacle2);
 		}
 
-		Buttons::Draw(pause, fontSize);
+		Buttons::Draw(pause, static_cast<int>(Text::FontSize::medium));
 	}
 
 	void Unload()

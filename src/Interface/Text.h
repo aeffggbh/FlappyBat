@@ -17,9 +17,11 @@ namespace Text
 
 	enum class FontSize
 	{
-		small = 20,
+		tiny = 20,
+		small = 25,
 		medium = 40,
-		big = 70
+		big = 70,
+		giant = 120
 	};
 
 	enum class Fonts

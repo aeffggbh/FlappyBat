@@ -5,7 +5,6 @@
 
 namespace Credits
 {
-	static int regularFontSize = 30;
 	static int titleFontSize = 50;
 	static int buttonFontSize = 30;
 
@@ -94,10 +93,10 @@ namespace Credits
 	{
 		returnToMenu = Buttons::Create("Return", buttonCenterX, screenHeight / 6 * 5, buttonWidth, buttonHeight);
 
-		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(regularFontSize));
-		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(regularFontSize));
-		musicUrlButton = Buttons::Create("", musicUrlText.pos.x, musicUrlText.pos.y, static_cast<float>(musicUrlText.width), static_cast<float>(regularFontSize));
-		sfxUrlButton = Buttons::Create("", sfxUrlText.pos.x, sfxUrlText.pos.y, static_cast<float>(sfxUrlText.width), static_cast<float>(regularFontSize));
+		spritesUrlButton = Buttons::Create("", spritesUrlText.pos.x, spritesUrlText.pos.y, static_cast<float>(spritesUrlText.width), static_cast<float>(Text::FontSize::medium));
+		parallaxUrlButton = Buttons::Create("", parallaxUrlText.pos.x, parallaxUrlText.pos.y, static_cast<float>(parallaxUrlText.width), static_cast<float>(Text::FontSize::medium));
+		musicUrlButton = Buttons::Create("", musicUrlText.pos.x, musicUrlText.pos.y, static_cast<float>(musicUrlText.width), static_cast<float>(Text::FontSize::medium));
+		sfxUrlButton = Buttons::Create("", sfxUrlText.pos.x, sfxUrlText.pos.y, static_cast<float>(sfxUrlText.width), static_cast<float>(Text::FontSize::medium));
 		
 	}
 
@@ -111,23 +110,23 @@ namespace Credits
 
 		textPadding += 3;
 
-		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		spritesUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		spritesText = Text::CreateText("Bat by Caz Creates Games on Itch.io ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		spritesUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 
 		textPadding += 2;
 
-		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		parallaxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		parallaxText = Text::CreateText("Gothicvania by Ansimuz on Itch.io ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		parallaxUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
 
-		musicText = Text::CreateText("Music made with Suno AI ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		musicUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		musicText = Text::CreateText("Music made with Suno AI ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		musicUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
 		
-		sfxText = Text::CreateText("UI Audio by Kenney ", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
-		sfxUrlText = Text::CreateText("(Click here!)", regularFontSize, { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
+		sfxText = Text::CreateText("UI Audio by Kenney ", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, WHITE, Text::Fonts::generalText);
+		sfxUrlText = Text::CreateText("(Click here!)", static_cast<int>(Text::FontSize::medium), { screenCenterX, screenHeight / screenDivision * textPadding }, ColorManager::GetColor(ColorManager::Purple), Text::Fonts::generalText);
 		
 		textPadding += 2;
 

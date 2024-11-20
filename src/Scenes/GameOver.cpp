@@ -19,10 +19,6 @@ namespace GameOver
 	Text::Text player1ScoreText;
 	Text::Text player2ScoreText;
 
-	static int regularFontSize = 40;
-	static int titleFontSize = 70;
-	static int buttonFontSize = 40;
-
 	static float buttonWidth = 250;
 	static float buttonHeight = 60;
 
@@ -59,8 +55,8 @@ namespace GameOver
 		if (Gameplay::IsMultiplayerMode())
 			Text::Draw(player2ScoreText);
 
-		Buttons::Draw(returnToMenu, buttonFontSize);
-		Buttons::Draw(playAgain, buttonFontSize);
+		Buttons::Draw(returnToMenu, static_cast<int>(Text::FontSize::medium));
+		Buttons::Draw(playAgain, static_cast<int>(Text::FontSize::medium));
 	}
 
 	void Unload()
@@ -90,7 +86,7 @@ namespace GameOver
 
 	void InitTexts()
 	{
-		gameOver = Text::CreateText("Game Over", titleFontSize, { screenCenterX, screenHeight / screenDivision * heightMultiplyer }, WHITE, Text::Fonts::subtitle);
+		gameOver = Text::CreateText("Game Over", static_cast<int>(Text::FontSize::big), {screenCenterX, screenHeight / screenDivision * heightMultiplyer}, WHITE, Text::Fonts::subtitle);
 		Text::CenterText(gameOver);
 
 		returnToMenu = Buttons::Create("Menu", buttonCenterX - buttonWidth, static_cast<float>(screenHeight / 6 * 5), buttonWidth, buttonHeight);

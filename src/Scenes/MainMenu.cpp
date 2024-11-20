@@ -15,7 +15,6 @@ namespace MainMenu
 
 	Text::Text mainTitle;
 
-	static int fontSize = 40;
 	static float buttonWidth = 250;
 	static float buttonHeight = 40;
 	static float screenHeight;
@@ -36,7 +35,7 @@ namespace MainMenu
 
 		mainTitle = Text::CreateText 
 		("Flappy Bat",
-			fontSize * 3,
+			static_cast<int>(Text::FontSize::giant),
 			{ 0.0f,static_cast<float>(Text::Padding::medium)},
 			WHITE,
 			Text::Fonts::title);
@@ -69,13 +68,13 @@ namespace MainMenu
 		DrawText("0.4",
 			GetScreenWidth() / 20 * 18,
 			GetScreenHeight() / 20 * 18,
-			fontSize,
+			static_cast<int>(Text::Padding::medium),
 			MAGENTA);
 
-		Buttons::Draw(play, fontSize);
-		Buttons::Draw(play2, fontSize);
-		Buttons::Draw(credits, fontSize);
-		Buttons::Draw(exit, fontSize);
+		Buttons::Draw(play, static_cast<int>(Text::Padding::medium));
+		Buttons::Draw(play2, static_cast<int>(Text::Padding::medium));
+		Buttons::Draw(credits, static_cast<int>(Text::Padding::medium));
+		Buttons::Draw(exit, static_cast<int>(Text::Padding::medium));
 	}
 
 	void Unload()
