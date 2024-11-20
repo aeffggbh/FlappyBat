@@ -10,5 +10,6 @@ namespace GameOver
 	void Draw();
 	void Unload();
 
-	void SetScores(int maxScore, int runScore);
+	void SaveScores(int runScore);
+	void SaveScores(int player1Score, int player2Score);
 }

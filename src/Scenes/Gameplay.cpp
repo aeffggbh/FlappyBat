@@ -10,6 +10,8 @@
 #include "Objects/Obstacle.h"
 #include "Objects/Parallax.h"
 #include "Utils/SoundManager.h"
+#include "Scenes/GameOver.h"
+
 
 
 namespace ObstacleNS = Obstacle;
@@ -83,6 +85,14 @@ namespace Gameplay
 		if (CheckPlayerObstacleCollision(player1) || CheckPlayerObstacleCollision(player2))
 			gameOnGoing = false;
 
+	
+		if (!gameOnGoing)
+		{
+			if (isMultiplayer)
+				GameOver::SaveScores(player1.score, player2.score);
+			else
+				GameOver::SaveScores(player1.score);
+		}
 
 		return gameOnGoing;
 	}
