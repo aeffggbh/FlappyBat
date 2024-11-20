@@ -25,6 +25,7 @@ namespace Obstacle
 		float originX;
 		float offSetY;
 		float finishX;
+		int dir;
 		bool addedScore;
 		bool movesVertical;
 		Color color;
@@ -33,7 +34,7 @@ namespace Obstacle
 
 	void Load();
 
-	void Init(Obstacle& obstacle, float originX, float speed, Color color);
+	void Init(Obstacle& obstacle, float originX, int dir, Color color);
 	void Update(Obstacle& obstacle);
 	void Draw(Obstacle obstacle);
 	void SetObstacle(Obstacle& obstacle);

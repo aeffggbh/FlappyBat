@@ -13,6 +13,12 @@ namespace Obstacle
 		BottomLeaves
 	};
 
+	enum Parts
+	{
+		Top,
+		Bottom
+	};
+
 	Texture2D tree;
 	Sprite::Sprite trunk;
 	Sprite::Sprite topLeaves;
@@ -26,6 +32,9 @@ namespace Obstacle
 	static float minObstacleHeight;
 	static float obstacleSpace = 200.0f;
 
+	static int minSpeed = 200;
+	static int maxSpeed = 600;
+
 	static void ManageObstacle(Obstacle& obstacle);
 	static void MoveObstacle(Obstacle& enemyToMove);
 	static void KeepObstacleOnScreen(Obstacle& enemyToKeepOnScreen);
@@ -36,7 +45,7 @@ namespace Obstacle
 		tree = LoadTexture("res/sprites/tree.png");
 	}
 
-	void Init(Obstacle& obstacle, float originX, float speed, Color color)
+	void Init(Obstacle& obstacle, float originX, int dir, Color color)
 	{
 		InitTextures();
 
@@ -54,8 +63,8 @@ namespace Obstacle
 		else
 			obstacle.finishX = static_cast<float>(GetScreenWidth());
 
-		obstacle.hSpeed = speed;
-
+		obstacle.dir = dir;
+		
 		SetObstacle(obstacle);
 	}
 
@@ -108,6 +117,7 @@ namespace Obstacle
 
 	void SetObstacle(Obstacle& obstacleToSet)
 	{
+		obstacleToSet.hSpeed = static_cast<float>(GetRandomValue(minSpeed, maxSpeed) * obstacleToSet.dir);
 		obstacleToSet.movesVertical = GetRandomValue(0, 1);
 
 		float dividedObstacleHeight = static_cast<float>(GetRandomValue(static_cast<int>(minObstacleHeight), static_cast<int>(maxObstacleHeight)));
@@ -134,7 +144,7 @@ namespace Obstacle
 				obstacleToSet.parts[i].spriteParts[j].destination.x = obstacleToSet.parts[i].collisionShape.x;
 			}
 
-			if (i == 0)
+			if (i == Top)
 			{
 				//top
 				obstacleToSet.parts[i].collisionShape.height = dividedObstacleHeight;
@@ -211,16 +221,16 @@ namespace Obstacle
 
 			enemyToMove.offSetY += enemyToMove.vSpeed * GetFrameTime();
 
-			enemyToMove.parts[0].spriteParts[TopLeaves].destination.y = enemyToMove.parts[0].collisionShape.y + enemyToMove.parts[0].collisionShape.height;
-			enemyToMove.parts[1].spriteParts[BottomLeaves].destination.y = enemyToMove.parts[1].collisionShape.y - enemyToMove.parts[1].spriteParts[BottomLeaves].destination.height;
+			enemyToMove.parts[Top].spriteParts[TopLeaves].destination.y = enemyToMove.parts[Top].collisionShape.y + enemyToMove.parts[Top].collisionShape.height;
+			enemyToMove.parts[Bottom].spriteParts[BottomLeaves].destination.y = enemyToMove.parts[Bottom].collisionShape.y - enemyToMove.parts[Bottom].spriteParts[BottomLeaves].destination.height;
 
 
-			enemyToMove.parts[0].collisionShape.height = enemyToMove.offSetY;
-			enemyToMove.parts[1].collisionShape.y = enemyToMove.offSetY + obstacleSpace;
-			enemyToMove.parts[1].collisionShape.height = GetScreenHeight() - enemyToMove.parts[1].collisionShape.y;
+			enemyToMove.parts[Top].collisionShape.height = enemyToMove.offSetY;
+			enemyToMove.parts[Bottom].collisionShape.y = enemyToMove.offSetY + obstacleSpace;
+			enemyToMove.parts[Bottom].collisionShape.height = GetScreenHeight() - enemyToMove.parts[1].collisionShape.y;
 			
-			enemyToMove.parts[0].trunkRepetitions = static_cast<int>(enemyToMove.parts[0].collisionShape.height) / trunk.texture.height + 1;
-			enemyToMove.parts[1].trunkRepetitions = static_cast<int>(enemyToMove.parts[1].collisionShape.height) / trunk.texture.height + 1;
+			enemyToMove.parts[Top].trunkRepetitions = static_cast<int>(enemyToMove.parts[Top].collisionShape.height) / trunk.texture.height + 1;
+			enemyToMove.parts[Bottom].trunkRepetitions = static_cast<int>(enemyToMove.parts[1].collisionShape.height) / trunk.texture.height + 1;
 		}
 
 	}
