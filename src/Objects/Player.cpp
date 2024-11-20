@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Utils/Utils.h"
+#include "Utils/SoundManager.h"
 
 using namespace std;
 using namespace Utils;
@@ -24,7 +25,7 @@ namespace Player
 	static void PlayerFall(Player& player);
 	static bool CheckPlayerBottomCollision(Player player);
 	static bool CheckPlayerTopCollision(Player player);
-	static void UpdateScoreText(Player &player);
+	static void UpdateScoreText(Player& player);
 
 	void Load(Player& player)
 	{
@@ -41,10 +42,6 @@ namespace Player
 
 		//Define fly frames
 		InitAnimation(player);
-
-		//Sprite Center
-		/*float spriteCenterX = static_cast <float>  (player.sprite.texture.width / flyFrames / 2);
-		float spriteCenterY = static_cast <float> (player.sprite.texture.height / 2);*/
 
 		player.initialPosX = startX;
 
@@ -106,7 +103,7 @@ namespace Player
 
 		if (player.playerNumber == player2Num)
 			player.flyAnimation[player.sprite.currentFrame].width *= -1;
-		
+
 
 		//Sprite
 		DrawTextureRec(
@@ -195,7 +192,12 @@ namespace Player
 	void PlayerJump(Player& player)
 	{
 		if (IsKeyPressed(player.jumpKey))
+		{
+			if (!SoundManager::IsPlaying(SoundManager::Sfx::jumpSfx))
+				SoundManager::Play(SoundManager::Sfx::jumpSfx);
+
 			player.speed = -player.jumpSpeed;
+		}
 
 	}
 
@@ -214,7 +216,7 @@ namespace Player
 		return player.collisionShape.center.y - player.collisionShape.radius <= 0;
 	}
 
-	void UpdateScoreText(Player &player)
+	void UpdateScoreText(Player& player)
 	{
 		string score = "SCORE: " + to_string(player.score);
 
@@ -222,7 +224,7 @@ namespace Player
 
 		if (player.playerNumber == player2Num)
 			auxScoreText.pos.x = static_cast<float>(GetScreenWidth()) - static_cast<float>(MeasureText(auxScoreText.content.c_str(), auxScoreText.fontSize));
-		
+
 		//Text::SetTextLength(auxScoreText);
 
 		player.scoreText = auxScoreText;

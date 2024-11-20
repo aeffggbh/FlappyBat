@@ -65,7 +65,7 @@ namespace MainMenu
 		Text::Draw(mainTitle);
 
 		//Version text
-		DrawText("0.4",
+		DrawText("1.0",
 			GetScreenWidth() / 20 * 18,
 			GetScreenHeight() / 20 * 18,
 			static_cast<int>(Text::Padding::medium),

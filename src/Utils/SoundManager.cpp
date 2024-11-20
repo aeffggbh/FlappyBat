@@ -14,6 +14,9 @@ namespace SoundManager
 	static string buttonSfx3Dir = "res/Audio/Sfx/click4.ogg";
 	static string buttonSfx4Dir = "res/Audio/Sfx/click5.ogg";
 
+	static string jumpSfxDir = "res/Audio/Sfx/rollover3.ogg";
+
+
 #pragma endregion
 
 	//music
@@ -27,10 +30,11 @@ namespace SoundManager
 	static Sound buttonSfx3;
 	static Sound buttonSfx4;
 
+	static Sound jumpSfx;
 
-	ButtonSfx GetRandomSfx()
+	Sfx GetRandomSfx()
 	{
-		ButtonSfx sfx = static_cast<ButtonSfx>(GetRandomValue(static_cast<int>(ButtonSfx::sfx0), static_cast<int>(ButtonSfx::sfx4)));
+		Sfx sfx = static_cast<Sfx>(GetRandomValue(static_cast<int>(Sfx::buttonSfx0), static_cast<int>(Sfx::buttonSfx4)));
 
 		return sfx;
 	}
@@ -45,7 +49,7 @@ namespace SoundManager
 		PlaySound(GetSound(sound));
 	}*/
 
-	void Play(ButtonSfx sound)
+	void Play(Sfx sound)
 	{
 		PlaySound(GetSound(sound));
 	}
@@ -65,7 +69,7 @@ namespace SoundManager
 		return IsSoundPlaying(GetSound(sfx));
 	}*/
 
-	bool IsPlaying(ButtonSfx sfx)
+	bool IsPlaying(Sfx sfx)
 	{
 		return IsSoundPlaying(GetSound(sfx));
 	}
@@ -88,8 +92,7 @@ namespace SoundManager
 		buttonSfx3 = LoadSound(buttonSfx3Dir.c_str());
 		buttonSfx4 = LoadSound(buttonSfx4Dir.c_str());
 
-		/*shootSfx = LoadSound(shootSfxDir.c_str());
-		planetSfx = LoadSound(planetSfxDir.c_str());*/
+		jumpSfx = LoadSound(jumpSfxDir.c_str());
 	}
 
 	Music GetMusic(Song song)
@@ -114,28 +117,33 @@ namespace SoundManager
 		}
 	}
 
-	Sound GetSound(ButtonSfx sound)
+	Sound GetSound(Sfx sound)
 	{
 		switch (sound)
 		{
-		case ButtonSfx::sfx0:
+		case Sfx::buttonSfx0:
 		{
 			return buttonSfx0;
 			break;
 		}
-		case ButtonSfx::sfx1:
+		case Sfx::buttonSfx1:
 		{
 			return buttonSfx1;
 			break;
 		}
-		case ButtonSfx::sfx2:
+		case Sfx::buttonSfx2:
 		{
 			return buttonSfx2;
 			break;
 		}
-		case ButtonSfx::sfx3:
+		case Sfx::buttonSfx3:
 		{
 			return buttonSfx3;
+			break;
+		}
+		case Sfx::jumpSfx:
+		{
+			return jumpSfx;
 			break;
 		}
 		default:
@@ -157,8 +165,7 @@ namespace SoundManager
 		UnloadSound(buttonSfx3);
 		UnloadSound(buttonSfx4);
 
-		//UnloadSound(shootSfx);
-		//UnloadSound(planetSfx);
+		UnloadSound(jumpSfx);
 
 		CloseAudioDevice();
 	}

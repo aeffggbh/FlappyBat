@@ -12,28 +12,24 @@ namespace SoundManager
 		gameplay
 	};
 
-	enum class ButtonSfx
-	{
-		sfx0,
-		sfx1,
-		sfx2,
-		sfx3,
-		sfx4
-	};
-
 	enum class Sfx
 	{
-		shoot,
-		planet
+		buttonSfx0,
+		buttonSfx1,
+		buttonSfx2,
+		buttonSfx3,
+		buttonSfx4,
+
+		jumpSfx
 	};
 
-	ButtonSfx GetRandomSfx();
+	Sfx GetRandomSfx();
 
 	void Play(Song song);
 
 	//void Play(Sfx sound);
 
-	void Play(ButtonSfx sound);
+	void Play(Sfx sound);
 
 	void Update(Song song);
 
@@ -41,7 +37,7 @@ namespace SoundManager
 
 	/*bool IsPlaying(Sfx sfx);*/
 
-	bool IsPlaying(ButtonSfx sfx);
+	bool IsPlaying(Sfx sfx);
 
 	bool IsPlaying(Song song);
 
@@ -51,7 +47,7 @@ namespace SoundManager
 
 	/*Sound GetSound(Sfx sound);*/
 
-	Sound GetSound(ButtonSfx sound);
+	Sound GetSound(Sfx sound);
 
 	void Unload();
 }
