@@ -44,10 +44,6 @@ namespace SoundManager
 		PlayMusicStream(GetMusic(song));
 	}
 
-	/*void Play(Sfx sound)
-	{
-		PlaySound(GetSound(sound));
-	}*/
 
 	void Play(Sfx sound)
 	{
@@ -63,11 +59,6 @@ namespace SoundManager
 	{
 		StopMusicStream(GetMusic(song));
 	}
-
-	/*bool IsPlaying(Sfx sfx)
-	{
-		return IsSoundPlaying(GetSound(sfx));
-	}*/
 
 	bool IsPlaying(Sfx sfx)
 	{

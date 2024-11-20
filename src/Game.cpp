@@ -43,7 +43,7 @@ namespace Game
 
 	void Run()
 	{
-		InitWindow(screenWidth, screenHeight, "Aliens");
+		InitWindow(screenWidth, screenHeight, "Flappy Bat");
 		Load();
 		Init();
 
